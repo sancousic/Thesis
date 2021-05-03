@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vaniuhan\\source\\repos\\ThesisProject\\ThesisProject.csproj": {}
+    "C:\\Users\\vaniuhan\\source\\repos\\Thesis\\ThesisProject\\ThesisProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vaniuhan\\source\\repos\\ThesisProject\\ThesisProject.csproj": {
+    "C:\\Users\\vaniuhan\\source\\repos\\Thesis\\ThesisProject\\ThesisProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vaniuhan\\source\\repos\\ThesisProject\\ThesisProject.csproj",
+        "projectUniqueName": "C:\\Users\\vaniuhan\\source\\repos\\Thesis\\ThesisProject\\ThesisProject.csproj",
         "projectName": "ThesisProject",
-        "projectPath": "C:\\Users\\vaniuhan\\source\\repos\\ThesisProject\\ThesisProject.csproj",
+        "projectPath": "C:\\Users\\vaniuhan\\source\\repos\\Thesis\\ThesisProject\\ThesisProject.csproj",
         "packagesPath": "C:\\Users\\vaniuhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vaniuhan\\source\\repos\\ThesisProject\\obj\\",
+        "outputPath": "C:\\Users\\vaniuhan\\source\\repos\\Thesis\\ThesisProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -46,27 +46,35 @@
           "dependencies": {
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.5, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.5, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.5, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.5, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.5, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.5, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[5.0.0-beta.1, )"
             }
           },
           "imports": [

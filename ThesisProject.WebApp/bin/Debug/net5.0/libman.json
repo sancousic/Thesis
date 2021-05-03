@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "datatables@1.10.21",
+      "destination": "wwwroot/datatables/",
+      "files": [
+        "js/jquery.dataTables.min.js",
+        "css/jquery.dataTables.min.css",
+        "images/sort_asc.png",
+        "images/sort_asc_disabled.png",
+        "images/sort_both.png",
+        "images/sort_desc.png",
+        "images/sort_desc_disabled.png",
+        "css/dataTables.bootstrap.min.css"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "bootstrap-icons@1.4.1",
+      "destination": "wwwroot/lib/bootstrap-icons/"
+    }
+  ,
+{
+  "library": "bootbox.js@5.5.2",
+  "destination": "wwwroot/lib/bootbox.js/",
+  "files": [
+    "bootbox.min.js"
+  ]
+}
+]
+}

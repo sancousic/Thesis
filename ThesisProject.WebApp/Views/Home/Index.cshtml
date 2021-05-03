@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+@if(User.IsInRole("Doctor"))
+{
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Карточки пациентов</h5>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Расписание</h5>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Статистика</h5>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Отчеты</h5>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@if(User.IsInRole("Pacient"))
+{
+
+}
