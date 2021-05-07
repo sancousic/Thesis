@@ -25,7 +25,9 @@ namespace ThesisProject.Data.Services
                 .Where(HasName(name))
                 .Select(x => x)
                 .Include(x => x.Branch)
-                .Include(x => x.Speciality);
+                .Where(x => string.IsNullOrEmpty(branch) || x.Branch.Name.Contains(branch))
+                .Include(x => x.Speciality)
+                .Where(x => string.IsNullOrEmpty(spec) || x.Speciality.Name.Contains(spec));
         }
 
         public IQueryable<Doctor> GetDoctorsBySpec(Speciality speciality)

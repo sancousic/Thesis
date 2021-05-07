@@ -651,3 +651,27 @@
 2021-05-07 12:29:27.0961 Info Adding target FileTarget(Name=ownFile-web)
 2021-05-07 12:29:27.0961 Info Closing old configuration.
 2021-05-07 12:29:27.1362 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=45, FilePath=C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\nlog.config
+2021-05-07 13:14:57.5008 Info Message Template Auto Format enabled
+2021-05-07 13:14:57.5187 Info Loading assembly: NLog.Web.AspNetCore
+2021-05-07 13:14:57.5817 Info Adding target FileTarget(Name=allfile)
+2021-05-07 13:14:57.5932 Info Adding target FileTarget(Name=ownFile-web)
+2021-05-07 13:14:57.6350 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=45, FilePath=C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\nlog.config
+2021-05-07 13:14:58.6779 Info Configuring from an XML element in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\nlog.config...
+2021-05-07 13:14:58.6857 Info Message Template Auto Format enabled
+2021-05-07 13:14:58.6857 Info Loading assembly: NLog.Web.AspNetCore
+2021-05-07 13:14:58.6857 Info Adding target FileTarget(Name=allfile)
+2021-05-07 13:14:58.6857 Info Adding target FileTarget(Name=ownFile-web)
+2021-05-07 13:14:58.6857 Info Closing old configuration.
+2021-05-07 13:14:58.7142 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=45, FilePath=C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\nlog.config
+2021-05-07 13:16:13.4569 Info Message Template Auto Format enabled
+2021-05-07 13:16:13.4843 Info Loading assembly: NLog.Web.AspNetCore
+2021-05-07 13:16:13.5415 Info Adding target FileTarget(Name=allfile)
+2021-05-07 13:16:13.5517 Info Adding target FileTarget(Name=ownFile-web)
+2021-05-07 13:16:13.6023 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=45, FilePath=C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\nlog.config
+2021-05-07 13:16:14.9381 Info Configuring from an XML element in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\nlog.config...
+2021-05-07 13:16:14.9381 Info Message Template Auto Format enabled
+2021-05-07 13:16:14.9381 Info Loading assembly: NLog.Web.AspNetCore
+2021-05-07 13:16:14.9381 Info Adding target FileTarget(Name=allfile)
+2021-05-07 13:16:14.9381 Info Adding target FileTarget(Name=ownFile-web)
+2021-05-07 13:16:14.9381 Info Closing old configuration.
+2021-05-07 13:16:14.9784 Info Validating config: TargetNames=allfile, ownFile-web, ConfigItems=45, FilePath=C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\nlog.config
