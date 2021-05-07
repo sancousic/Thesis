@@ -526,12 +526,22 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int?>("CardId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PacientId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int?>("ScheduleId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("TicketDate")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CardId");
+
+                    b.HasIndex("PacientId");
+
+                    b.HasIndex("ScheduleId");
 
                     b.ToTable("Tickets");
                 });
@@ -719,6 +729,18 @@ namespace ThesisProject.Data.Migrations
                     b.HasOne("ThesisProject.Data.Domain.Card", null)
                         .WithMany("Tickets")
                         .HasForeignKey("CardId");
+
+                    b.HasOne("ThesisProject.Data.Domain.Pacient", "Pacient")
+                        .WithMany()
+                        .HasForeignKey("PacientId");
+
+                    b.HasOne("ThesisProject.Data.Domain.Schedule", "Schedule")
+                        .WithMany()
+                        .HasForeignKey("ScheduleId");
+
+                    b.Navigation("Pacient");
+
+                    b.Navigation("Schedule");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Doctor", b =>

@@ -33,8 +33,15 @@ using ThesisProject.WebApp.Models.User;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Views\_ViewImports.cshtml"
+using ThesisProject.WebApp.Models.Doctors;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f8976ee806691153d5a29335ac66e0618bea694c", @"/Views/Users/CreateDoctor.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7b095bc5ea333d4f0355d00931ee33c463e3c192", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3e55aaf5369a190514d1ceb36dc57f72bb8c0d31", @"/Views/_ViewImports.cshtml")]
     public class Views_Users_CreateDoctor : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

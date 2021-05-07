@@ -1,14 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-@if(User.IsInRole("Doctor"))
-{
+@if(User.IsInRole("Doctor") || User.IsInRole("Admin"))
+    {
 <div class="row">
     <div class="col-sm-6">
-        <div class="card">
+        <div class="card mb-1">
             <div class="card-body">
                 <h5 class="card-title">Карточки пациентов</h5>
-                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards">Перейти</a>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Расписание</h5>
-                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards">Перейти</a>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Статистика</h5>
-                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards">Перейти</a>
             </div>
         </div>
     </div>
@@ -32,13 +32,38 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Отчеты</h5>
-                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards"></a>
+                <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards">Перейти</a>
             </div>
         </div>
     </div>
 </div>
 }
-@if(User.IsInRole("Pacient"))
+@if (User.IsInRole("Pacient") || User.IsInRole("Admin"))
 {
-
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <h5 class="card-title">Запись на прием</h5>
+                    <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Личная карта</h5>
+                    <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Рекоммендации</h5>
+                    <a class="btn btn-primary" asp-controller="Doctor" asp-action="Cards">Перейти</a>
+                </div>
+            </div>
+        </div>
+    </div>
 }
