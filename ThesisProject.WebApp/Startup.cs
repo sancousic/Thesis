@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using ThesisProject.Data;
 using ThesisProject.Data.Domain;
 using ThesisProject.Data.Services;
-using ThesisProject.WebApp.Data;
 
 namespace ThesisProject.WebApp
 {

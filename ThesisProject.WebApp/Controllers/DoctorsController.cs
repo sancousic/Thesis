@@ -37,5 +37,25 @@ namespace ThesisProject.WebApp.Controllers
             viewModel.Doctors = await _doctorService.GetDoctors(viewModel.Name, viewModel.Speciality, viewModel.Branch).ToListAsync();
             return View(viewModel);
         }
+        public async Task<IActionResult> Details(string id)
+        {
+            var doc = await _doctorService.GetDoctorByIdAsync(id);
+            return View(doc);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var a = await _doctorService.DeleteAsync(Id);
+            return Ok();
+        }
+        public async Task<IActionResult> Edit(string Id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(DoctorEditViewModel viewModel)
+        {
+            return View();
+        }
     }
 }

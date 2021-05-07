@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,25 @@ namespace ThesisProject.Data.Services
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _dbContext;
+        private ILogger<IdentityService> _logger;
 
-        public IdentityService(UserManager<AppUser> userManager, AppDbContext dbContext)
+        public IdentityService(UserManager<AppUser> userManager, AppDbContext dbContext, ILogger<IdentityService> logger)
         {
             _userManager = userManager;
             _dbContext = dbContext;
+            _logger = logger;
+        }
+
+        public async Task<IdentityResult> CreateUser<T>(string mail, string password, string role) where T : AppUser, new()
+        {
+            var user = new T() { UserName = mail, Email = mail };
+            var res = await _userManager.CreateAsync(user, password);
+            if(res.Succeeded)
+            {
+                var a = await _userManager.AddToRoleAsync(user, role);
+                _logger.LogInformation("User created a new account with password.");
+            }
+            return res;
         }
 
         public IQueryable<GetUserResult> GetUsers()
@@ -36,5 +51,6 @@ namespace ThesisProject.Data.Services
 
             return users;
         }
+
     }
 }

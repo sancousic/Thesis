@@ -14,5 +14,6 @@ namespace ThesisProject.Data.Domain
         public DayOfWeek DayOfWeek { get; set; }
         public DateTime Time { get; set; }
         public TimeSpan Duration { get; set; }
+        public Doctor Doctor { get; set; }
     }
 }

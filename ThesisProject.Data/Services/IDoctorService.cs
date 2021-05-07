@@ -16,5 +16,8 @@ namespace ThesisProject.Data.Services
         IQueryable<Vaccination> GetVaccinations();
         Branch GetBranch(string name);
         Speciality GetSpeciality(string name);
+        Task<Doctor> GetDoctorByIdAsync(string Id);
+        Task<bool> DeleteAsync(string Id);
+        Task<bool> UpdateAsync(Doctor doctor);
     }
 }

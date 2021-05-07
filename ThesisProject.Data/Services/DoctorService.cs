@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,14 @@ namespace ThesisProject.Data.Services
     public class DoctorService : IDoctorService
     {
         private readonly AppDbContext _dbContext;
+        private readonly UserManager<AppUser> _userManager;
 
-        public DoctorService(AppDbContext dbContext)
+        public DoctorService(AppDbContext dbContext, Microsoft.AspNetCore.Identity.UserManager<AppUser> userManager)
         {
             _dbContext = dbContext;
+            _userManager = userManager;
         }
+
         public IQueryable<Doctor> GetDoctors(string name = null, string spec = null, string branch = null)
         {
             return _dbContext.Doctors
@@ -64,5 +68,23 @@ namespace ThesisProject.Data.Services
         public Branch GetBranch(string name) => _dbContext.Branches.FirstOrDefault(x => x.Name == name);
 
         public Speciality GetSpeciality(string name) => _dbContext.Specialities.FirstOrDefault(x => x.Name == name);
+
+        public async Task<Doctor> GetDoctorByIdAsync(string Id)
+        {
+            var doc = await _dbContext.Doctors.Include(x => x.Branch)
+                .Include(x => x.Speciality)
+                .FirstOrDefaultAsync(x => x.Id == Id);
+            return doc;
+        }
+
+        public Task<bool> DeleteAsync(string Id)
+        {
+            throw new NotImplementedException(); //TODO delete
+        }
+
+        public Task<bool> UpdateAsync(Doctor doctor)
+        {
+            throw new NotImplementedException(); //TODO update
+        }
     }
 }

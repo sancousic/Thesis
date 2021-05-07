@@ -16,6 +16,7 @@ using System.Threading;
 using ThesisProject.WebApp.Models.User;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ThesisProject.WebApp.Controllers
 {
@@ -95,39 +96,37 @@ namespace ThesisProject.WebApp.Controllers
                 throw;
             }
         }
-        public async Task<IActionResult> CreateDoctor()
-        {
-            return View();
-        }
-        public async Task<IActionResult> CreatePacient()
-        {
-            return View();
-        }
         public async Task<IActionResult> Create(string returnUrl = null)
         {
-            return View(new CreateUserModel { ReturnUrl = returnUrl });
+            var vm = new CreateUserModel { ReturnUrl = returnUrl };
+            vm.Roles = await GetRoles();
+
+            return View(vm);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserModel createUserModel)
+        public async Task<IActionResult> Create(CreateUserModel viewModel)
         {
-            createUserModel.ReturnUrl ??= Url.Content("~/");
+            viewModel.ReturnUrl ??= Url.Content("~/");
             if(ModelState.IsValid)
             {
-                var user = new AppUser { UserName = createUserModel.Email, Email = createUserModel.Email };
-                var result = await _userManager.CreateAsync(user, createUserModel.Password);
-                if (result.Succeeded)
+                IdentityResult identityResult = null;
+                if (viewModel.Role == "Admin")
+                    identityResult = await _identityService.CreateUser<AppUser>(viewModel.Email, viewModel.Password, viewModel.Role);
+                else if (viewModel.Role == "Doctor")
+                    identityResult = await _identityService.CreateUser<Doctor>(viewModel.Email, viewModel.Password, viewModel.Role);
+                else if (viewModel.Role == "Pacient")
+                    identityResult = await _identityService.CreateUser<Pacient>(viewModel.Email, viewModel.Password, viewModel.Role);
+                if (identityResult.Succeeded)
                 {
-                    var a = await _userManager.AddToRoleAsync(user, "Pacient");
-                    _logger.LogInformation("User created a new account with password.");
-
-                    return LocalRedirect(createUserModel.ReturnUrl);
+                    return LocalRedirect(viewModel.ReturnUrl);
                 }
-                foreach (var error in result.Errors)
+                viewModel.Roles = await GetRoles();
+                foreach (var error in identityResult.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            return View(createUserModel);
+            return View(viewModel);
         }
         public async Task<IActionResult> ChangeRole()
         {
@@ -153,5 +152,7 @@ namespace ThesisProject.WebApp.Controllers
 
             return Ok();
         }
+        private async Task<List<SelectListItem>> GetRoles() => await _roleManager.Roles.Select(x => new SelectListItem { Text = x.Name, Value = x.Name }).ToListAsync();
+        
     }
 }
