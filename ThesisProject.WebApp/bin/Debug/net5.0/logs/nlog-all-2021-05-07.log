@@ -1,0 +1,141 @@
+2021-05-07 11:50:48.0741||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 11:50:48.1069||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 11:50:48.1069||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 11:50:52.1525||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. 
+2021-05-07 11:50:53.5389|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. System.InvalidOperationException: The LINQ expression 'DbSet<Doctor>()
+    .Where(d => DoctorService.HasName(
+        name: __name_0, 
+        doctor: d))' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.<VisitMethodCall>g__CheckTranslated|15_0(ShapedQueryExpression translated, <>c__DisplayClass15_0& )
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at ThesisProject.WebApp.Controllers.DoctorsController.Index() in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Controllers\DoctorsController.cs:line 29
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-05-07 11:56:32.6037||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 11:56:32.6308||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 11:56:32.6383||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 11:58:39.6278||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 11:58:39.6550||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 11:58:39.6550||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 11:58:42.1134|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. Expression of type 'Boolean' expected (at index 0)
+2021-05-07 12:00:43.0302||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:00:43.0622||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:00:43.0622||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:00:44.9091|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. Syntax error (at index 6)
+2021-05-07 12:01:43.7465||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:01:43.7746||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:01:43.7814||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:01:51.4409|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. Syntax error (at index 6)
+2021-05-07 12:02:51.2912||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:02:51.3219||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:02:51.3307||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:02:59.3344|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. Syntax error (at index 6)
+2021-05-07 12:06:35.2177||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:06:35.2445||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:06:35.2523||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:06:38.5234|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. No applicable method 'Contains' exists in type 'String' (at index 6)
+2021-05-07 12:07:35.6878||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:07:35.7168||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:07:35.7168||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:07:42.2613|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at System.String.get_Chars(Int32 index)
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseStringLiteral()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParsePrimaryStart()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParsePrimary()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseUnary()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseMultiplicative()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseAdditive()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseShiftOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseComparisonOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseLogicalAndOrOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseIn()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseAndOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseOrOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseLambdaOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseNullCoalescingOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseConditionalOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseArguments()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseArgumentList()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseMemberAccess(Type type, Expression expression)
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParsePrimary()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseUnary()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseMultiplicative()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseAdditive()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseShiftOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseComparisonOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseLogicalAndOrOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseIn()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseAndOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseOrOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseLambdaOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseNullCoalescingOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.ParseConditionalOperator()
+   at System.Linq.Dynamic.Core.Parser.ExpressionParser.Parse(Type resultType, Boolean createParameterCtor)
+   at System.Linq.Dynamic.Core.DynamicExpressionParser.ParseLambda(Type delegateType, ParsingConfig parsingConfig, Boolean createParameterCtor, ParameterExpression[] parameters, Type resultType, String expression, Object[] values)
+   at System.Linq.Dynamic.Core.DynamicExpressionParser.ParseLambda(ParsingConfig parsingConfig, Boolean createParameterCtor, ParameterExpression[] parameters, Type resultType, String expression, Object[] values)
+   at System.Linq.Dynamic.Core.DynamicExpressionParser.ParseLambda(ParsingConfig parsingConfig, Boolean createParameterCtor, Type itType, Type resultType, String expression, Object[] values)
+   at System.Linq.Dynamic.Core.DynamicQueryableExtensions.Where(IQueryable source, ParsingConfig config, String predicate, Object[] args)
+   at System.Linq.Dynamic.Core.DynamicQueryableExtensions.Where[TSource](IQueryable`1 source, ParsingConfig config, String predicate, Object[] args)
+   at System.Linq.Dynamic.Core.DynamicQueryableExtensions.Where[TSource](IQueryable`1 source, String predicate, Object[] args)
+   at ThesisProject.Data.Services.DoctorService.GetDoctors(String name, String spec, String branch) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\Services\DoctorService.cs:line 22
+   at ThesisProject.WebApp.Controllers.DoctorsController.Index() in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Controllers\DoctorsController.cs:line 29
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-05-07 12:16:26.2892||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:16:26.3201||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:16:26.3285||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:17:43.1439||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:17:43.1717||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:17:43.1717||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:18:48.3328||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:18:48.3599||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:18:48.3599||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:26:47.0647||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:26:47.0912||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:26:47.0912||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-07 12:29:29.8377||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-07 12:29:29.8670||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-07 12:29:29.8755||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 

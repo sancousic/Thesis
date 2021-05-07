@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using ThesisProject.Data.Domain;
@@ -19,11 +22,10 @@ namespace ThesisProject.Data.Services
         public IQueryable<Doctor> GetDoctors(string name = null, string spec = null, string branch = null)
         {
             return _dbContext.Doctors
-                .Where(x => HasName(name, x))
+                .Where(HasName(name))
+                .Select(x => x)
                 .Include(x => x.Branch)
-                .Where(x => x.Branch.Name.Equals(branch))
-                .Include(x => x.Speciality)
-                .Where(x => x.Speciality.Equals(spec));
+                .Include(x => x.Speciality);
         }
 
         public IQueryable<Doctor> GetDoctorsBySpec(Speciality speciality)
@@ -38,15 +40,23 @@ namespace ThesisProject.Data.Services
         {
             return _dbContext.Vaccinations.AsQueryable<Vaccination>();
         }
-        private bool HasName(string name, Doctor doctor)
+        private Expression<Func<Doctor, bool>> HasName(string name)
         {
-            var names = name.Trim().ToLower().Split(' ');
-            foreach(var n in names)
+            var predicate = PredicateBuilder.New<Doctor>(true);
+
+            if (!string.IsNullOrEmpty(name))
             {
-                if (!doctor.Name1.Contains(n) && !doctor.Name2.Contains(n) && !doctor.Name3.Contains(n))
-                    return false;
+                var names = name.Trim().ToLower().Split(' ');
+
+                foreach (var n in names)
+                {
+                    predicate.Or(c => c.Name1.ToLower().Contains(n.ToLower()));
+                    predicate.Or(c => c.Name2.ToLower().Contains(n.ToLower()));
+                    predicate.Or(c => c.Name3.ToLower().Contains(n.ToLower()));
+                }
             }
-            return true;
+            
+            return predicate;
         }
 
         public Branch GetBranch(string name) => _dbContext.Branches.FirstOrDefault(x => x.Name == name);
