@@ -26,6 +26,7 @@ namespace ThesisProject.Data.Services
         public async Task<IdentityResult> CreateUser<T>(string mail, string password, string role) where T : AppUser, new()
         {
             var user = new T() { UserName = mail, Email = mail };
+            
             var res = await _userManager.CreateAsync(user, password);
             if(res.Succeeded)
             {

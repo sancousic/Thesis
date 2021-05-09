@@ -12,6 +12,7 @@ namespace ThesisProject.Data.Domain
     {
         public Branch Branch { get; set; }
         public Speciality Speciality { get; set; }
+        public Cabinet Cabinet { get; set; }
         public IEnumerable<Schedule> Schedule { get; set; }
     }
 }

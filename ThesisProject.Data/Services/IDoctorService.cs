@@ -9,7 +9,7 @@ namespace ThesisProject.Data.Services
 {
     public interface IDoctorService
     {
-        IQueryable<Doctor> GetDoctorsBySpec(Speciality speciality);
+        IQueryable<Doctor> GetDoctorsBySpec(int specId);
         IQueryable<Speciality> GetSpecialities();
         IQueryable<Doctor> GetDoctors(string name = null, string spec = null, string branch = null);
         IQueryable<Branch> GetBranches();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace ThesisProject.Data.Domain
         public int Id { get; set; }
         public int Number { get; set; }
         public DateTime DateOfIssue { get; set; }
+        public string PacientId { get; set; }
+        [ForeignKey(nameof(PacientId))]
         public Pacient Pacient { get; set; }
         public ICollection<PacientVaccination> Vaccinations { get; set; }
         public ICollection<Examination> Examinations { get; set; }

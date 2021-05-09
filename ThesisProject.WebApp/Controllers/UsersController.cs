@@ -30,10 +30,11 @@ namespace ThesisProject.WebApp.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IDoctorService _doctorService;
 
         public UsersController(IIdentityService identityService, IUserStore<AppUser> userStore,
             AppDbContext dbContext, ILogger<UsersController> logger, SignInManager<AppUser> signInManager,
-            UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+            UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IDoctorService doctorService)
         {
             _identityService = identityService;
             _userStore = userStore;
@@ -42,6 +43,7 @@ namespace ThesisProject.WebApp.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _doctorService = doctorService;
         }
 
         public IActionResult Index()
@@ -128,11 +130,34 @@ namespace ThesisProject.WebApp.Controllers
             }
             return View(viewModel);
         }
-        public async Task<IActionResult> ChangeRole()
+        public async Task<IActionResult> Edit(string Id)
         {
-            return View();
+            var user = await _userManager.FindByIdAsync(Id);
+            var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            if(role == "Admin")
+            {
+                var vm = new EditUserViewModel(user, role);
+                return View("EditAdmin", vm);
+            }
+            if(role == "Doctor")
+            {
+                var doc = await _doctorService.GetDoctorByIdAsync(Id);
+                var specs = await _doctorService.GetSpecialities()
+                    .Select(x => x.Name).ToListAsync();
+                var branches = await _doctorService.GetBranches()
+                    .Select(x => x.Name).ToListAsync();
+                var vm = new EditUserViewModel(doc, role, branches, specs);
+                return View("EditDoctor", vm);
+            }
+            //if(role == "Pacient")
+            //{
+            //    var vm = new EditUserViewModel();
+            //    return View("EditPacient", vm);
+            //}
+            return NotFound();
         }
-        public async Task<IActionResult> Edit()
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserViewModel viewModel)
         {
             return View();
         }

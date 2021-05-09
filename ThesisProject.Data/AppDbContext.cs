@@ -44,11 +44,6 @@ namespace ThesisProject.Data
         public DbSet<Vaccination> Vaccinations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Card>()
-                .HasOne(b => b.Pacient)
-                .WithOne(p => p.Card)
-                .HasForeignKey<Pacient>(b => b.CardId);
-
             base.OnModelCreating(builder);
         }
     }

@@ -25,18 +25,20 @@ namespace ThesisProject.Data.Services
 
         public IQueryable<Doctor> GetDoctors(string name = null, string spec = null, string branch = null)
         {
-            return _dbContext.Doctors
+            var query = _dbContext.Doctors
                 .Where(HasName(name))
-                .Select(x => x)
                 .Include(x => x.Branch)
                 .Where(x => string.IsNullOrEmpty(branch) || x.Branch.Name.Contains(branch))
                 .Include(x => x.Speciality)
-                .Where(x => string.IsNullOrEmpty(spec) || x.Speciality.Name.Contains(spec));
+                .Where(x => string.IsNullOrEmpty(spec) || x.Speciality.Name.Contains(spec))
+                .Select(x => x);
+            return query;
         }
 
-        public IQueryable<Doctor> GetDoctorsBySpec(Speciality speciality)
+        public IQueryable<Doctor> GetDoctorsBySpec(int id)
         {
-            var query = _dbContext.Doctors.Where(x => x.Speciality.Equals(speciality));
+            var query = _dbContext.Doctors.Include(x => x.Speciality).Where(x => x.Speciality.Id == id)
+                .Include(x => x.Cabinet).Select(x => x);
             return query;
         }
         public IQueryable<Speciality> GetSpecialities() => _dbContext.Specialities;
@@ -71,9 +73,13 @@ namespace ThesisProject.Data.Services
 
         public async Task<Doctor> GetDoctorByIdAsync(string Id)
         {
-            var doc = await _dbContext.Doctors.Include(x => x.Branch)
+            var doc = await _dbContext.Doctors
+                .Where(x => x.Id == Id)
+                .Include(x => x.Branch)
                 .Include(x => x.Speciality)
-                .FirstOrDefaultAsync(x => x.Id == Id);
+                .Include(x => x.Cabinet)
+                .Include(x => x.Contacts)
+                .FirstOrDefaultAsync();
             return doc;
         }
 

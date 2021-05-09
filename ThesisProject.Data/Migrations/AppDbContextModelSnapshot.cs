@@ -315,7 +315,13 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
+                    b.Property<string>("PacientId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PacientId")
+                        .IsUnique();
 
                     b.ToTable("Cards");
                 });
@@ -575,10 +581,15 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int?>("BranchId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CabinetId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SpecialityId")
                         .HasColumnType("int");
 
                     b.HasIndex("BranchId");
+
+                    b.HasIndex("CabinetId");
 
                     b.HasIndex("SpecialityId");
 
@@ -589,14 +600,8 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasBaseType("ThesisProject.Data.Domain.AppUser");
 
-                    b.Property<int>("CardId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SomeData")
                         .HasColumnType("longtext");
-
-                    b.HasIndex("CardId")
-                        .IsUnique();
 
                     b.ToTable("Pacients");
                 });
@@ -668,6 +673,15 @@ namespace ThesisProject.Data.Migrations
                         .HasForeignKey("ContactsId");
 
                     b.Navigation("Contacts");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Card", b =>
+                {
+                    b.HasOne("ThesisProject.Data.Domain.Pacient", "Pacient")
+                        .WithOne("Card")
+                        .HasForeignKey("ThesisProject.Data.Domain.Card", "PacientId");
+
+                    b.Navigation("Pacient");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Diagnose", b =>
@@ -745,7 +759,7 @@ namespace ThesisProject.Data.Migrations
                         .HasForeignKey("CardId");
 
                     b.HasOne("ThesisProject.Data.Domain.Pacient", "Pacient")
-                        .WithMany()
+                        .WithMany("Tickets")
                         .HasForeignKey("PacientId");
 
                     b.HasOne("ThesisProject.Data.Domain.Schedule", "Schedule")
@@ -763,6 +777,10 @@ namespace ThesisProject.Data.Migrations
                         .WithMany()
                         .HasForeignKey("BranchId");
 
+                    b.HasOne("ThesisProject.Data.Domain.Cabinet", "Cabinet")
+                        .WithMany()
+                        .HasForeignKey("CabinetId");
+
                     b.HasOne("ThesisProject.Data.Domain.AppUser", null)
                         .WithOne()
                         .HasForeignKey("ThesisProject.Data.Domain.Doctor", "Id")
@@ -775,24 +793,18 @@ namespace ThesisProject.Data.Migrations
 
                     b.Navigation("Branch");
 
+                    b.Navigation("Cabinet");
+
                     b.Navigation("Speciality");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Pacient", b =>
                 {
-                    b.HasOne("ThesisProject.Data.Domain.Card", "Card")
-                        .WithOne("Pacient")
-                        .HasForeignKey("ThesisProject.Data.Domain.Pacient", "CardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ThesisProject.Data.Domain.AppUser", null)
                         .WithOne()
                         .HasForeignKey("ThesisProject.Data.Domain.Pacient", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Card");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Card", b =>
@@ -800,8 +812,6 @@ namespace ThesisProject.Data.Migrations
                     b.Navigation("Allergies");
 
                     b.Navigation("Examinations");
-
-                    b.Navigation("Pacient");
 
                     b.Navigation("Tickets");
 
@@ -816,6 +826,13 @@ namespace ThesisProject.Data.Migrations
             modelBuilder.Entity("ThesisProject.Data.Domain.Doctor", b =>
                 {
                     b.Navigation("Schedule");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Pacient", b =>
+                {
+                    b.Navigation("Card");
+
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

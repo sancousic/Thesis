@@ -11,7 +11,7 @@ namespace ThesisProject.Data.Domain
     public class Pacient : AppUser
     {
         public string SomeData { get; set; }
-        public int CardId { get; set; }
         public Card Card { get; set; }
+        public IEnumerable<Ticket> Tickets { get; set; }
     }
 }
