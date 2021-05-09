@@ -134,10 +134,10 @@ namespace ThesisProject.WebApp.Controllers
         {
             var user = await _userManager.FindByIdAsync(Id);
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            EditUserViewModel vm = null;
             if(role == "Admin")
             {
-                var vm = new EditUserViewModel(user, role);
-                return View("EditAdmin", vm);
+                vm = new EditUserViewModel(user, role);
             }
             if(role == "Doctor")
             {
@@ -146,20 +146,47 @@ namespace ThesisProject.WebApp.Controllers
                     .Select(x => x.Name).ToListAsync();
                 var branches = await _doctorService.GetBranches()
                     .Select(x => x.Name).ToListAsync();
-                var vm = new EditUserViewModel(doc, role, branches, specs);
-                return View("EditDoctor", vm);
+                vm = new EditUserViewModel(doc, role, branches, specs);
             }
             //if(role == "Pacient")
             //{
             //    var vm = new EditUserViewModel();
             //    return View("EditPacient", vm);
             //}
-            return NotFound();
+            return View(vm);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel viewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+                return View(viewModel);
+            
+            if (viewModel.Role == "Admin")
+            {
+                var user = await _userManager.FindByIdAsync(viewModel.Id);
+
+                user.Name1 = viewModel.Name1;
+                user.Name2 = viewModel.Name2;
+                user.Name3 = viewModel.Name3;
+
+                var result = await _userStore.UpdateAsync(user, CancellationToken.None);
+                if (!result.Succeeded)
+                {
+                    foreach(var e in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, e.Description);
+                    }
+                    return View(viewModel);
+                }
+            }
+            if(viewModel.Role == "Doctor")
+            {
+                await _doctorService.UpdateAsync(viewModel.Id, viewModel.Name1, viewModel.Name2,
+                    viewModel.Name3, viewModel.Branch, viewModel.Speciality, viewModel.ContactEmail,
+                    viewModel.ContactPhoneNumber, viewModel.CabinetNumber);
+            }
+            
+            return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Remove(string Id)
         {

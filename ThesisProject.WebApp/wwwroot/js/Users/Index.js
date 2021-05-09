@@ -20,25 +20,21 @@
                 "render": (data, type, full, meta) => {
                     let group = document.createElement('div');
                     group.classList.add('btn-group');
-                    let ref;
-                    if (full.role == 'Admin')
-                        ref = '/' + 'Users';
-                    else ref = '/' + full.role + 's';
 
                     var infoBtn = document.createElement('a');
                     infoBtn.classList.add('btn', 'btn-outline-primary', 'mx-1');
                     infoBtn.innerHTML = `<i class="fa fa-info"></i>`;
-                    infoBtn.href = ref + '/Details/' + full.id;
+                    infoBtn.href = '/Users/Details/' + full.id;
 
                     var updateBtn = document.createElement('a');
                     updateBtn.classList.add('btn', 'btn-primary', 'mx-1', 'usr-update');
                     updateBtn.innerHTML = `<i class="fa fa-pencil"></i>`;
-                    updateBtn.href = ref + '/Update/' + full.id;
+                    updateBtn.href = '/Users/Edit/' + full.id;
 
                     var removeBtn = document.createElement('a');
                     removeBtn.classList.add('btn', 'btn-outline-danger', 'mx-1', 'usr-del');
                     removeBtn.innerHTML = `<i class="fa fa-trash"></i>`;
-                    removeBtn.href = ref + "/Remove/" + full.id;
+                    removeBtn.href = '/Users/Remove/' + full.id;
 
                     group.appendChild(infoBtn);
                     group.appendChild(updateBtn);
@@ -58,7 +54,7 @@
     $("#users-table").on('click', 'a.usr-del', function (e) {
         e.preventDefault();
         href = $(this).attr("href");
-        bootbox.confirm("Remove user.<br/>Are you sure?", function (result) {
+        bootbox.confirm("Удалить пользователя. Вы уверены?", function (result) {
             if (result) {
                 $.get(href).done(function (data) {
                     if (data.status == "success") {

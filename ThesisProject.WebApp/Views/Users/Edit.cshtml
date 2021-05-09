@@ -1,5 +1,70 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model EditUserViewModel
+
 @{
+    ViewData["Title"] = "Edit";
 }
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.Id" />
+            <input type="hidden" asp-for="@Model.Role" />
+            <div class="form-group">
+                <label asp-for="@Model.Name1"></label>
+                <input asp-for="@Model.Name1" class="form-control" />
+                <span asp-validation-for="@Model.Name1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Name2"></label>
+                <input asp-for="@Model.Name2" class="form-control" />
+                <span asp-validation-for="@Model.Name2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Name3"></label>
+                <input asp-for="@Model.Name3" class="form-control" />
+                <span asp-validation-for="@Model.Name3" class="text-danger"></span>
+            </div>
+            @if (Model.Role == "Doctor")
+            {
+                <div class="form-group">
+                    <label asp-for="@Model.Branch"></label>
+                    <input list="branchlist" asp-for="@Model.Branch" class="form-control" />
+                    <datalist id="branchlist">
+                        @foreach (var branch in Model.Branches)
+                        {
+                            <option value="@branch"></option>
+                        }
+                    </datalist>
+                    <span asp-validation-for="@Model.Branch" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Speciality"></label>
+                    <input list="speclist" asp-for="@Model.Speciality" class="form-control" />
+                    <datalist id="speclist">
+                        @foreach (var spec in Model.Specialities)
+                        {
+                            <option value="@spec"></option>
+                        }
+                    </datalist>
+                    <span asp-validation-for="@Model.Branch" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ContactEmail"></label>
+                    <input asp-for="@Model.ContactEmail" class="form-control" />
+                    <span asp-validation-for="@Model.ContactEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ContactPhoneNumber"></label>
+                    <input asp-for="@Model.ContactPhoneNumber" class="form-control" />
+                    <span asp-validation-for="@Model.ContactPhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.CabinetNumber"></label>
+                    <input asp-for="@Model.CabinetNumber" class="form-control" />
+                    <span asp-validation-for="@Model.CabinetNumber" class="text-danger"></span>
+                </div>
+            }
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</div>

@@ -18,6 +18,7 @@ namespace ThesisProject.Data.Services
         Speciality GetSpeciality(string name);
         Task<Doctor> GetDoctorByIdAsync(string Id);
         Task<bool> DeleteAsync(string Id);
-        Task<bool> UpdateAsync(Doctor doctor);
+        Task<bool> UpdateAsync(string Id, string name1, string name2, string name3,
+            string branch, string spec, string mail, string phone, int? cabinetNumber);
     }
 }

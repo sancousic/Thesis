@@ -88,9 +88,66 @@ namespace ThesisProject.Data.Services
             throw new NotImplementedException(); //TODO delete
         }
 
-        public Task<bool> UpdateAsync(Doctor doctor)
+        public async Task<bool> UpdateAsync(string Id, string name1, string name2, string name3,
+            string branch, string spec, string mail, string phone, int? cabinetNumber)
         {
-            throw new NotImplementedException(); //TODO update
+            var doctor = await _dbContext.Doctors.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            doctor.Name1 = name1;
+            doctor.Name2 = name2;
+            doctor.Name3 = name3;
+            if(!string.IsNullOrEmpty(branch))
+            {
+                var Branch = await AddBranchAsync(branch);
+                doctor.Branch = Branch;
+            }
+            if(!string.IsNullOrEmpty(spec))
+            {
+                var Spec = await AddSpecAsync(spec);
+                doctor.Speciality = Spec;
+            }
+            var contacts = new Contacts
+            {
+                Mail = mail,
+                Phone = phone
+            };
+            doctor.Contacts = contacts;
+            var cabinet = new Cabinet
+            {
+                Number = cabinetNumber
+            };
+            doctor.Cabinet = cabinet;
+            _dbContext.Doctors.Update(doctor);
+            return (await _dbContext.SaveChangesAsync()) > 0;
+        }
+
+        private async Task<Speciality> AddSpecAsync(string name, string descr = null)
+        {
+            var speciality = await _dbContext.Specialities.FirstOrDefaultAsync(x => x.Name == name);
+            if (speciality is null)
+            {
+                speciality = new Speciality
+                {
+                    Name = name,
+                    Description = descr
+                };
+                await _dbContext.Specialities.AddAsync(speciality);
+            }
+            return speciality;
+        }
+
+        public async Task<Branch> AddBranchAsync(string name, string descr = null)
+        {
+            var branch = await _dbContext.Branches.FirstOrDefaultAsync(x => x.Name == name);
+            if(branch is null)
+            {
+                branch = new Branch
+                {
+                    Name = name,
+                    Description = descr
+                };
+                await _dbContext.Branches.AddAsync(branch);
+            }
+            return branch;
         }
     }
 }
