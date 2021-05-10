@@ -4,6 +4,7 @@ using ThesisProject.Data.Domain;
 using Microsoft.Extensions.Configuration;
 using Pomelo.EntityFrameworkCore.MySql.Extensions;
 using System;
+using ThesisProject.Data.Domain.Address;
 
 namespace ThesisProject.Data
 {
@@ -42,6 +43,12 @@ namespace ThesisProject.Data
         public DbSet<Speciality> Specialities { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Vaccination> Vaccinations { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<Street> Streets { get; set; }
+        public DbSet<Town> Towns { get; set; }
+        public DbSet<Addresses> Addresses { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

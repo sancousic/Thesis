@@ -5,6 +5,12 @@
 }
 <div class="row">
     <div class="col-md-4">
+        <div class="row">
+            @* TODO returnUrl if need *@
+            <a asp-action="ChangeSchedule" asp-route-id="@Model.Id" class="btn btn-primary float-end">
+                Изменить график работы
+            </a> 
+        </div>
         <form asp-action="Edit" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.Id" />
@@ -64,7 +70,9 @@
                     <span asp-validation-for="@Model.CabinetNumber" class="text-danger"></span>
                 </div>
             }
+            
             <button type="submit" class="btn btn-primary">Сохранить</button>
+            
         </form>
     </div>
 </div>

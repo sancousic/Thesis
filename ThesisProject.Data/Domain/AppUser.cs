@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThesisProject.Data.Domain.Address;
 
 namespace ThesisProject.Data.Domain
 {
@@ -14,6 +15,7 @@ namespace ThesisProject.Data.Domain
         public string Name1 { get; set; }
         public string Name2 { get; set; }
         public string Name3 { get; set; }
+        public Addresses Address { get; set; }
         public Contacts Contacts { get; set; }
     }
 }

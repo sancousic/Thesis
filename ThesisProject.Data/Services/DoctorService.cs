@@ -149,5 +149,20 @@ namespace ThesisProject.Data.Services
             }
             return branch;
         }
+
+        public IQueryable<Schedule> GetScheduleById(string Id)
+        {
+            return _dbContext.Schedules.Where(x => x.Doctor.Id == Id).Select(x => x);
+        }
+        public async Task AddToSchedules(Schedule schedule)
+        {
+            _dbContext.Add(schedule);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task RemoveFromSchedule(Schedule schedule)
+        {
+            _dbContext.Schedules.Remove(schedule);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

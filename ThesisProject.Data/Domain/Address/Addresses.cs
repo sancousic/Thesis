@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ThesisProject.Data.Domain.Address
 {
-    public class Address
+    public class Addresses
     {
         [Key]
         public int Id { get; set; }
