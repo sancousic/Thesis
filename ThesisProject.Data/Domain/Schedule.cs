@@ -12,7 +12,7 @@ namespace ThesisProject.Data.Domain
         [Key]
         public int Id { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
         public TimeSpan Duration { get; set; }
         public Doctor Doctor { get; set; }
     }

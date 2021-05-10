@@ -188,6 +188,22 @@ namespace ThesisProject.WebApp.Controllers
             
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> ChangeSchedule(string id, string returnUrl)
+        {
+            var viewModel = new ChangeScheduleViewModel
+            {
+                ReturnUrl = returnUrl,
+                DoctorId = id
+            };
+            viewModel.Schedules = await _doctorService.GetScheduleById(id).ToArrayAsync();
+            viewModel.Doctor = await _doctorService.GetDoctorByIdAsync(id);
+            return View(viewModel);
+        }
+        public async Task<IActionResult> AddSchedule(string docId, Schedule schedule)
+        {
+            await _doctorService.AddToSchedules(docId, schedule);
+            return RedirectToAction(nameof(ChangeSchedule), new { id = docId });
+        }
         public async Task<IActionResult> Remove(string Id)
         {
             var user = await _userStore.FindByIdAsync(Id, CancellationToken.None);

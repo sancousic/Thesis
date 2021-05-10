@@ -12,9 +12,11 @@ namespace ThesisProject.WebApp.Models.User
         public string ReturnUrl { get; set; }
         public IEnumerable<Schedule> Schedules { get; set; }
         public string DoctorId { get; set; }
-        [DataType(DataType.Date)]
-        public DayOfWeek Day { get; set; }
-        public DateTime Time { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
+        [DataType(DataType.Time)]
+        public TimeSpan Time { get; set; }
+        [DataType(DataType.Time)]
         public TimeSpan Duration { get; set; }
+        public Doctor Doctor { get; set; }
     }
 }

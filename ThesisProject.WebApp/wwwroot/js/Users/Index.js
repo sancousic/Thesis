@@ -1,4 +1,6 @@
-﻿$(document).ready(() => {
+﻿let returnUrl;
+
+$(document).ready(() => {
     var table = $('#users-table').DataTable({
         "processing": true,
         "serverSide": true,
@@ -29,7 +31,7 @@
                     var updateBtn = document.createElement('a');
                     updateBtn.classList.add('btn', 'btn-primary', 'mx-1', 'usr-update');
                     updateBtn.innerHTML = `<i class="fa fa-pencil"></i>`;
-                    updateBtn.href = '/Users/Edit/' + full.id;
+                    updateBtn.href = '/Users/Edit/' + full.id + '?returnUrl=' + returnUrl;
 
                     var removeBtn = document.createElement('a');
                     removeBtn.classList.add('btn', 'btn-outline-danger', 'mx-1', 'usr-del');

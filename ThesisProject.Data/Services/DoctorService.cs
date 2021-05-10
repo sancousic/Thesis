@@ -154,9 +154,11 @@ namespace ThesisProject.Data.Services
         {
             return _dbContext.Schedules.Where(x => x.Doctor.Id == Id).Select(x => x);
         }
-        public async Task AddToSchedules(Schedule schedule)
+        public async Task AddToSchedules(string docId, Schedule schedule)
         {
-            _dbContext.Add(schedule);
+            var doc = await GetDoctorByIdAsync(docId);
+            schedule.Doctor = doc;
+            _dbContext.Schedules.Add(schedule);
             await _dbContext.SaveChangesAsync();
         }
         public async Task RemoveFromSchedule(Schedule schedule)

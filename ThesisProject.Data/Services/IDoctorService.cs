@@ -21,5 +21,6 @@ namespace ThesisProject.Data.Services
         Task<bool> UpdateAsync(string Id, string name1, string name2, string name3,
             string branch, string spec, string mail, string phone, int? cabinetNumber);
         IQueryable<Schedule> GetScheduleById(string Id);
+        Task AddToSchedules(string docId, Schedule schedule);
     }
 }
