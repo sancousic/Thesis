@@ -20,7 +20,10 @@ namespace ThesisProject.Data.Services
         Task<bool> DeleteAsync(string Id);
         Task<bool> UpdateAsync(string Id, string name1, string name2, string name3,
             string branch, string spec, string mail, string phone, int? cabinetNumber);
-        IQueryable<Schedule> GetScheduleById(string Id);
+        IQueryable<Schedule> GetScheduleByDocId(string Id);
+        Task<Schedule> GetScheduleById(int id);
         Task AddToSchedules(string docId, Schedule schedule);
+        Task<bool> UpdateSchedule(Schedule schedule);
+        Task<bool> DeleteScheduleAsync(int id);
     }
 }

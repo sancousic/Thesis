@@ -150,7 +150,7 @@ namespace ThesisProject.Data.Services
             return branch;
         }
 
-        public IQueryable<Schedule> GetScheduleById(string Id)
+        public IQueryable<Schedule> GetScheduleByDocId(string Id)
         {
             return _dbContext.Schedules.Where(x => x.Doctor.Id == Id).Select(x => x);
         }
@@ -165,6 +165,24 @@ namespace ThesisProject.Data.Services
         {
             _dbContext.Schedules.Remove(schedule);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Schedule> GetScheduleById(int id)
+        {
+            return await _dbContext.Schedules.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<bool> UpdateSchedule(Schedule schedule)
+        {
+            _dbContext.Update(schedule);
+            return (await _dbContext.SaveChangesAsync()) > 0;
+        }
+
+        public async Task<bool> DeleteScheduleAsync(int id)
+        {
+            var sch = await GetScheduleById(id);
+            _dbContext.Remove(sch);
+            return (await _dbContext.SaveChangesAsync()) > 0;
         }
     }
 }

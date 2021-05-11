@@ -136,6 +136,11 @@
         "package.json",
         "LICENSE"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "bootstrap@4.6.0",
+      "destination": "wwwroot/lib/bootstrap/"
     }
   ]
 }

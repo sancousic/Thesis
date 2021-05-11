@@ -11,8 +11,13 @@ namespace ThesisProject.Data.Domain
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "День недели")]
         public DayOfWeek DayOfWeek { get; set; }
+        [Display(Name = "Время")]
+        [DataType(DataType.Time)]
         public TimeSpan Time { get; set; }
+        [Display(Name = "Продолжительность")]
+        [DataType(DataType.Time)]
         public TimeSpan Duration { get; set; }
         public Doctor Doctor { get; set; }
     }

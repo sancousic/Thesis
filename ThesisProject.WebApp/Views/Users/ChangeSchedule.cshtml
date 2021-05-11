@@ -34,8 +34,10 @@
                     <td>@sch.Duration</td>
                     <td>
                         <div class="btn-group">
-                            <button class="bth btn-primary" asp-action="EditSchedule" asp-route-id="@sch.Id">Редактировать</button>
-                            <button class="bth btn-danger" asp-action="DeleteSchedule" asp-route-id="@sch.Id">Удалить</button>
+                            <a class="bth btn-primary btn-sm m-0 me-1" asp-action="EditSchedule" asp-route-id="@sch.Id"
+                                asp-route-docId="@Model.DoctorId" asp-route-returnUrl="@Model.ReturnUrl">Изменить</a>
+                            <a class="bth btn-danger btn-sm m-0" asp-action="DeleteSchedule" asp-route-id="@sch.Id"
+                               asp-route-docId="@Model.DoctorId" asp-route-returnUrl="@Model.ReturnUrl">Удалить</a>
                         </div>
                     </td>
                 </tr>

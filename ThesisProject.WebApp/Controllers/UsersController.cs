@@ -195,7 +195,7 @@ namespace ThesisProject.WebApp.Controllers
                 ReturnUrl = returnUrl,
                 DoctorId = id
             };
-            viewModel.Schedules = await _doctorService.GetScheduleById(id).ToArrayAsync();
+            viewModel.Schedules = await _doctorService.GetScheduleByDocId(id).ToArrayAsync();
             viewModel.Doctor = await _doctorService.GetDoctorByIdAsync(id);
             return View(viewModel);
         }
@@ -203,6 +203,27 @@ namespace ThesisProject.WebApp.Controllers
         {
             await _doctorService.AddToSchedules(docId, schedule);
             return RedirectToAction(nameof(ChangeSchedule), new { id = docId });
+        }
+        public async Task<IActionResult> EditSchedule(int id, string docId, string returnUrl)
+        {
+            ViewBag.Id = docId;
+            ViewBag.returnUrl = returnUrl;
+            var schedule = await _doctorService.GetScheduleById(id);
+            return View(schedule);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditSchedule(Schedule schedule, string docId, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+                return View(schedule);
+
+            await _doctorService.UpdateSchedule(schedule);
+            return RedirectToAction(nameof(ChangeSchedule), new { id = docId, returnUrl = returnUrl });
+        }
+        public async Task<IActionResult> DeleteSchedule(int id, string docId, string returnUrl)
+        {
+            await _doctorService.DeleteScheduleAsync(id);
+            return RedirectToAction(nameof(ChangeSchedule), new { id = docId, returnUrl = returnUrl });
         }
         public async Task<IActionResult> Remove(string Id)
         {
