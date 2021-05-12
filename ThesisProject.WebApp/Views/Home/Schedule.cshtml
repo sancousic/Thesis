@@ -1,4 +1,93 @@
-﻿
-@{
-    ViewBag["Title"] = "Schedule";
+﻿@{
+    ViewData["Title"] = "Schedule";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Выберите день</h2>
+
+        <div id="calendar"></div>
+
+    </div>
+    <div class="col-md-4">
+        <h2>Выберите время</h2>
+        <div class="container">
+            <div id="times" class="row"></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    <script src="~/lib/fullcalendar/main.js"></script>
+    <script src="~/js/Components/CardComponent.js"></script>
+    <script>
+        $(document).ready(() => {
+            var calendarEl = document.getElementById('calendar');
+            let declOfNum = function(n, text_forms) {
+                n = Math.abs(n) % 100; var n1 = n % 10;
+                if (n > 10 && n < 20) { return text_forms[2]; }
+                if (n1 > 1 && n1 < 5) { return text_forms[1]; }
+                if (n1 == 1) { return text_forms[0]; }
+                return text_forms[2];
+            }
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                height: "auto",
+                dateClick: function (info) {
+                    $.ajax({
+                        url: '@Url.Action("Tickets", new { id = ViewBag.ID})',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            date: info.dateStr
+                        },
+                        success: function (result) {
+                            let times = $('#times');
+                            times.empty();
+                            $.each(result, function (i, data) {
+                                times.append(Card.render(data.time, '@Url.Action("SignTicket", new { userName = User.Identity.Name, docId = ViewBag.ID })' +
+                                    '&scheduleId=' + Number(data.id) + '&date=' + data.time));
+                            });
+                        }
+                    })
+                },
+                events: function (info, callback, _) {
+                    $.ajax({
+                        url: '@Url.Action("GetEvents", new { id = ViewBag.ID})',
+                        type: "GET",
+                        dataType: "JSON",
+                        data: {
+                            start: info.start.toUTCString(),
+                            end: info.end.toUTCString()
+                        },
+                        success: function (result) {
+                            var events = [];
+
+                            $.each(result, function (i, data)
+                            {
+                                events.push(
+                                    {
+                                        id: '',
+                                        title: data.title + declOfNum(Number(data.title), [' талон', ' талона', ' талонов']),
+                                        description: 'свободно ' + data.title,
+                                        start: data.start,
+                                        allDay: true,
+                                        backgroundColor: "#9501fc",
+                                        borderColor: "#fc0101"
+                                });
+                            });
+
+                            callback(events);
+                        }
+                    });
+                }
+
+            });
+            calendar.render();
+        })
+
+    </script>
 }

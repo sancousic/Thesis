@@ -16,11 +16,13 @@ namespace ThesisProject.WebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDoctorService _doctorService;
+        private readonly IScheduleService _scheduleService;
 
-        public HomeController(ILogger<HomeController> logger, IDoctorService doctorService)
+        public HomeController(ILogger<HomeController> logger, IDoctorService doctorService, IScheduleService scheduleService)
         {
             _logger = logger;
             _doctorService = doctorService;
+            _scheduleService = scheduleService;
         }
 
         public IActionResult Index()
@@ -41,15 +43,24 @@ namespace ThesisProject.WebApp.Controllers
 
             return View(new HomeDoctorsViewModel { Doctors = docs });
         }
+        public async Task<IActionResult> GetEvents(string id, DateTime start, DateTime end)
+        {
+            var events = await _scheduleService.GetFreeTicketsCount(id, start, end);
+            var json = Json(events);
+            return json;
+        }
         public async Task<IActionResult> Schedule(string Id)
         {
+            ViewBag.ID = Id;
             return View();
         }
-        public async Task<IActionResult> Tickets(string Id)
+        public async Task<IActionResult> Tickets(string Id, DateTime date)
         {
-            return View();
+            var tickets = (await _scheduleService.GetFreeTickets(Id, date))
+                .Select(x => new { Time = x.Time.ToString(@"hh\:mm"), id = x.Id});
+            return Json(tickets);
         }
-        public async Task<IActionResult> SignTicket()
+        public async Task<IActionResult> SignTicket(string userName, string docId, int scheduleId, TimeSpan date)
         {
             return Ok();
         }

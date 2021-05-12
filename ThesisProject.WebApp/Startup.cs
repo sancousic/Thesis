@@ -60,6 +60,7 @@ namespace ThesisProject.WebApp
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IPacientService, PacientService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
