@@ -36,10 +36,17 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Предстоящие приемы</h5>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="DoctorTickets">Перейти</a>
+            </div>
+        </div>
+    </div>
 </div>
 }
-@if (User.IsInRole("Pacient") || User.IsInRole("Admin") || !User.Identity.IsAuthenticated)
-{
+
 <div class="row">
     <div class="col-sm-6">
         <div class="card mb-1">
@@ -67,7 +74,14 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Талоны</h5>
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="PacientTickets">Перейти</a>
+                </div>
+            </div>
+        </div>
     }
-
 </div>
-}
+

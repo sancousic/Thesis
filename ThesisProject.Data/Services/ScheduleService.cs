@@ -17,15 +17,26 @@ namespace ThesisProject.Data.Services
             _dbContext = dbContext;
         }
 
+        public async Task<bool> DeleteTicket(int id)
+        {
+            var ticket = new Ticket { Id = id };
+            _dbContext.Attach(ticket);
+            _dbContext.Remove(ticket);
+            return  (await _dbContext.SaveChangesAsync()) > 0;
+        }
+
         public async Task<IEnumerable<Schedule>> GetFreeTickets(string doctorId, DateTime date)
         {
-            var tikets = _dbContext.Tickets.Where(x => x.TicketDate == date)
+            var tikets = _dbContext.Tickets
+                .Where(x => x.TicketDate.Date == date.Date)
                 .Where(x => x.Schedule.Doctor.Id == doctorId)
                 .Select(x => x.Schedule).ToList();
 
             var schedules = _dbContext.Schedules
+                .Where(x => x.Doctor.Id == doctorId)
                 .Where(x => x.DayOfWeek == date.DayOfWeek)
-                .AsEnumerable()
+                .AsEnumerable();
+            schedules = schedules
                 .Except(tikets).Select(x => x)
                 .ToList();
 
@@ -54,7 +65,7 @@ namespace ThesisProject.Data.Services
                 {
                     var daycount = schCount[i.DayOfWeek];
                     var talons1 = query.ToList();
-                    var talons = list.Where(x => x.Start.Date == i.Date).Select(x => x.Title).FirstOrDefault();
+                    var talons = query.Where(x => x.Start.Date == i.Date).Select(x => x.Title).FirstOrDefault();
                     res.Add(new FreeTicketsCountResult
                     {
                         Start = i - (i - i.Date),
@@ -65,6 +76,36 @@ namespace ThesisProject.Data.Services
 
             }
             return res;
+        }
+
+        public IQueryable<Ticket> GetUserTickets(bool isFuture, string userId = null, string docId = null)
+        {
+            var query = _dbContext.Tickets.AsQueryable();
+            if(userId != null)
+            {
+                query = query.Where(x => x.Pacient.Id == userId);
+            }
+            if(docId != null)
+            {
+                query = query.Where(x => x.Schedule.Doctor.Id == docId);
+            }
+            if(isFuture)
+            {
+                query = query.Where(x => x.TicketDate.Date >= DateTime.Now);
+            }
+            return query;
+        }
+
+        public async Task<bool> SignTicket(Pacient pacient, int schedule, DateTime date)
+        {
+            var sch = _dbContext.Schedules.FirstOrDefault(x => x.Id == schedule);
+            _dbContext.Tickets.Add(new Ticket
+            {
+                Pacient = pacient,
+                Schedule = sch,
+                TicketDate = date
+            });
+            return (await _dbContext.SaveChangesAsync()) > 0;
         }
     }
 }

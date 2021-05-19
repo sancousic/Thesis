@@ -63,9 +63,5 @@ namespace ThesisProject.WebApp
                     webBuilder.UseStartup<Startup>();
                 })
                 .UseNLog();
-               
-            
-        
-            
     }
 }

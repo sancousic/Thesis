@@ -35,7 +35,10 @@ namespace ThesisProject.WebApp
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseMySql(
-                    Configuration.GetConnectionString("DefaultConnection"), serverVersion));
+                    Configuration.GetConnectionString("DefaultConnection"), serverVersion, options =>
+                    {
+                        options.MigrationsAssembly("ThesisProject.Data");
+                    }));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<AppUser>(options =>
@@ -61,6 +64,7 @@ namespace ThesisProject.WebApp
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IPacientService, PacientService>();
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

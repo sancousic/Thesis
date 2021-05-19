@@ -9,8 +9,8 @@ using ThesisProject.Data;
 namespace ThesisProject.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210507134719_Schedule")]
-    partial class Schedule
+    [Migration("20210518085204_pushdata")]
+    partial class pushdata
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,6 +151,68 @@ namespace ThesisProject.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ThesisProject.Data.Domain.Address.Addresses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApartmentIndex")
+                        .IsRequired()
+                        .HasColumnType("varchar(1)");
+
+                    b.Property<int>("ApartmentNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Corpus")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DistrictId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HomeIndex")
+                        .IsRequired()
+                        .HasColumnType("varchar(1)");
+
+                    b.Property<int>("HomeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StreetId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StreetType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TownId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TownType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("DistrictId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("StreetId");
+
+                    b.HasIndex("TownId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("ThesisProject.Data.Domain.Address.Country", b =>
                 {
                     b.Property<int>("Id")
@@ -165,7 +227,63 @@ namespace ThesisProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Address.District", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Districts");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Address.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Regions");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Address.Street", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Streets");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Address.Town", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Towns");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Allergy", b =>
@@ -195,6 +313,9 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
@@ -209,13 +330,13 @@ namespace ThesisProject.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTimeOffset>("LastLoginDate")
+                    b.Property<DateTime>("LastLoginDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd")
+                    b.Property<DateTime?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name1")
@@ -244,7 +365,7 @@ namespace ThesisProject.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTimeOffset>("RegistrationDate")
+                    b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("SecurityStamp")
@@ -258,6 +379,8 @@ namespace ThesisProject.Data.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("ContactsId");
 
@@ -297,7 +420,7 @@ namespace ThesisProject.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Number")
+                    b.Property<int?>("Number")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -317,7 +440,13 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
+                    b.Property<string>("PacientId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PacientId")
+                        .IsUnique();
 
                     b.ToTable("Cards");
                 });
@@ -497,8 +626,8 @@ namespace ThesisProject.Data.Migrations
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time(6)");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime(6)");
+                    b.Property<TimeSpan>("Time")
+                        .HasColumnType("time(6)");
 
                     b.HasKey("Id");
 
@@ -577,10 +706,15 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int?>("BranchId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CabinetId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SpecialityId")
                         .HasColumnType("int");
 
                     b.HasIndex("BranchId");
+
+                    b.HasIndex("CabinetId");
 
                     b.HasIndex("SpecialityId");
 
@@ -591,14 +725,8 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasBaseType("ThesisProject.Data.Domain.AppUser");
 
-                    b.Property<int>("CardId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SomeData")
                         .HasColumnType("longtext");
-
-                    b.HasIndex("CardId")
-                        .IsUnique();
 
                     b.ToTable("Pacients");
                 });
@@ -654,6 +782,39 @@ namespace ThesisProject.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ThesisProject.Data.Domain.Address.Addresses", b =>
+                {
+                    b.HasOne("ThesisProject.Data.Domain.Address.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("ThesisProject.Data.Domain.Address.District", "District")
+                        .WithMany()
+                        .HasForeignKey("DistrictId");
+
+                    b.HasOne("ThesisProject.Data.Domain.Address.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("ThesisProject.Data.Domain.Address.Street", "Street")
+                        .WithMany()
+                        .HasForeignKey("StreetId");
+
+                    b.HasOne("ThesisProject.Data.Domain.Address.Town", "Town")
+                        .WithMany()
+                        .HasForeignKey("TownId");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("District");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("Street");
+
+                    b.Navigation("Town");
+                });
+
             modelBuilder.Entity("ThesisProject.Data.Domain.Allergy", b =>
                 {
                     b.HasOne("ThesisProject.Data.Domain.Card", "Card")
@@ -665,11 +826,26 @@ namespace ThesisProject.Data.Migrations
 
             modelBuilder.Entity("ThesisProject.Data.Domain.AppUser", b =>
                 {
+                    b.HasOne("ThesisProject.Data.Domain.Address.Addresses", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
                     b.HasOne("ThesisProject.Data.Domain.Contacts", "Contacts")
                         .WithMany()
                         .HasForeignKey("ContactsId");
 
+                    b.Navigation("Address");
+
                     b.Navigation("Contacts");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Card", b =>
+                {
+                    b.HasOne("ThesisProject.Data.Domain.Pacient", "Pacient")
+                        .WithOne("Card")
+                        .HasForeignKey("ThesisProject.Data.Domain.Card", "PacientId");
+
+                    b.Navigation("Pacient");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Diagnose", b =>
@@ -747,7 +923,7 @@ namespace ThesisProject.Data.Migrations
                         .HasForeignKey("CardId");
 
                     b.HasOne("ThesisProject.Data.Domain.Pacient", "Pacient")
-                        .WithMany()
+                        .WithMany("Tickets")
                         .HasForeignKey("PacientId");
 
                     b.HasOne("ThesisProject.Data.Domain.Schedule", "Schedule")
@@ -765,6 +941,10 @@ namespace ThesisProject.Data.Migrations
                         .WithMany()
                         .HasForeignKey("BranchId");
 
+                    b.HasOne("ThesisProject.Data.Domain.Cabinet", "Cabinet")
+                        .WithMany()
+                        .HasForeignKey("CabinetId");
+
                     b.HasOne("ThesisProject.Data.Domain.AppUser", null)
                         .WithOne()
                         .HasForeignKey("ThesisProject.Data.Domain.Doctor", "Id")
@@ -777,24 +957,18 @@ namespace ThesisProject.Data.Migrations
 
                     b.Navigation("Branch");
 
+                    b.Navigation("Cabinet");
+
                     b.Navigation("Speciality");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Pacient", b =>
                 {
-                    b.HasOne("ThesisProject.Data.Domain.Card", "Card")
-                        .WithOne("Pacient")
-                        .HasForeignKey("ThesisProject.Data.Domain.Pacient", "CardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ThesisProject.Data.Domain.AppUser", null)
                         .WithOne()
                         .HasForeignKey("ThesisProject.Data.Domain.Pacient", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Card");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Card", b =>
@@ -802,8 +976,6 @@ namespace ThesisProject.Data.Migrations
                     b.Navigation("Allergies");
 
                     b.Navigation("Examinations");
-
-                    b.Navigation("Pacient");
 
                     b.Navigation("Tickets");
 
@@ -818,6 +990,13 @@ namespace ThesisProject.Data.Migrations
             modelBuilder.Entity("ThesisProject.Data.Domain.Doctor", b =>
                 {
                     b.Navigation("Schedule");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Pacient", b =>
+                {
+                    b.Navigation("Card");
+
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,8 +10,8 @@ namespace ThesisProject.Data.Domain
 {
     public class AppUser : IdentityUser
     {
-        public DateTimeOffset RegistrationDate { get; set; }
-        public DateTimeOffset LastLoginDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
+        public DateTime LastLoginDate { get; set; }
         public string Name1 { get; set; }
         public string Name2 { get; set; }
         public string Name3 { get; set; }

@@ -24,6 +24,7 @@ namespace ThesisProject.Data.Domain.Address
         public int ApartmentNumber { get; set; }
         public char ApartmentIndex { get; set; }
         public int PostalCode { get; set; }
+        public AppUser User { get; set; } 
     }
     public enum TownType
     {

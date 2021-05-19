@@ -37,19 +37,21 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 height: "auto",
                 dateClick: function (info) {
+                    console.log(info.date);
                     $.ajax({
                         url: '@Url.Action("Tickets", new { id = ViewBag.ID})',
                         type: "GET",
                         dataType: "JSON",
                         data: {
-                            date: info.dateStr
+                            date: info.dateStr,
+                            userName:"@User.Identity.Name"
                         },
                         success: function (result) {
                             let times = $('#times');
                             times.empty();
                             $.each(result, function (i, data) {
                                 times.append(Card.render(data.time, '@Url.Action("SignTicket", new { userName = User.Identity.Name, docId = ViewBag.ID })' +
-                                    '&scheduleId=' + Number(data.id) + '&date=' + data.time));
+                                    '&scheduleId=' + Number(data.id) + '&date=' + info.dateStr));
                             });
                         }
                     })
@@ -60,8 +62,8 @@
                         type: "GET",
                         dataType: "JSON",
                         data: {
-                            start: info.start.toUTCString(),
-                            end: info.end.toUTCString()
+                            start: info.startStr,
+                            end: info.endStr
                         },
                         success: function (result) {
                             var events = [];

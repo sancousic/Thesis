@@ -43,7 +43,7 @@
     </div>
 </div>
 
-@if(Model.Doctors.Count() > 0)
+@if (Model.Doctors.Count() > 0)
 {
     <table class="table table-hover">
         <thead>
@@ -75,10 +75,17 @@
                     <td colspan="8">
                         <div class="btn-group">
                             <a class="btn btn-primary" asp-action="Info" asp-route-id="@doctor.Id">Детальная информация</a>
-                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@doctor.Id">Изменить</a>
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@doctor.Id">Удалить</a>
-                            <a class="btn btn-primary" asp-action="Schedule" asp-route-id="@doctor.Id">График работы</a>
-                            <a class="btn btn-primary" asp-action="Stats" asp-route-id="@doctor.Id">Статистика</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary" asp-action="Schedule" asp-route-id="@doctor.Id">График работы</a>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@doctor.Id">Изменить</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@doctor.Id">Удалить</a>
+                                <a class="btn btn-primary" asp-action="Stats" asp-route-id="@doctor.Id">Статистика</a>
+                            }
+                            @if (User.IsInRole("Pacient"))
+                            {
+                                <a class="btn btn-primary" asp-action="Stats" asp-route-id="@doctor.Id">Запись на прием</a> @*TODO make real*@
+                            }
                         </div>
                     </td>
                 </tr>

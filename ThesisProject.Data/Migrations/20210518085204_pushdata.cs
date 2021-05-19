@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ThesisProject.Data.Migrations
 {
-    public partial class SecondMigration : Migration
+    public partial class pushdata : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,26 +45,12 @@ namespace ThesisProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Number = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cabinets", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cards",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Number = table.Column<int>(type: "int", nullable: false),
-                    DateOfIssue = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,7 +68,7 @@ namespace ThesisProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -92,22 +78,33 @@ namespace ThesisProject.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Schedules",
+                name: "Districts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    Time = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time(6)", nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Schedules", x => x.Id);
+                    table.PrimaryKey("PK_Districts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Regions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Regions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,6 +119,32 @@ namespace ThesisProject.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Specialities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Streets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Streets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Towns",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Towns", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,83 +183,6 @@ namespace ThesisProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Allergies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DateOfIssue = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    CardId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Allergies", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Allergies_Cards_CardId",
-                        column: x => x.CardId,
-                        principalTable: "Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tickets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TicketDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    CardId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Cards_CardId",
-                        column: x => x.CardId,
-                        principalTable: "Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
-                    RegistrationDate = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
-                    LastLoginDate = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
-                    Name1 = table.Column<string>(type: "longtext", nullable: true),
-                    Name2 = table.Column<string>(type: "longtext", nullable: true),
-                    Name3 = table.Column<string>(type: "longtext", nullable: true),
-                    ContactsId = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "longtext", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "longtext", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Contacts_ContactsId",
-                        column: x => x.ContactsId,
-                        principalTable: "Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Passports",
                 columns: table => new
                 {
@@ -255,36 +201,108 @@ namespace ThesisProject.Data.Migrations
                 {
                     table.PrimaryKey("PK_Passports", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Passports_Country_CountryId",
+                        name: "FK_Passports_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PacientVaccinations",
+                name: "Addresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CardId = table.Column<int>(type: "int", nullable: true),
-                    VaccinationId = table.Column<int>(type: "int", nullable: true),
-                    Result = table.Column<string>(type: "longtext", nullable: true)
+                    CountryId = table.Column<int>(type: "int", nullable: true),
+                    RegionId = table.Column<int>(type: "int", nullable: true),
+                    DistrictId = table.Column<int>(type: "int", nullable: true),
+                    TownId = table.Column<int>(type: "int", nullable: true),
+                    TownType = table.Column<int>(type: "int", nullable: false),
+                    StreetId = table.Column<int>(type: "int", nullable: true),
+                    StreetType = table.Column<int>(type: "int", nullable: false),
+                    HomeNumber = table.Column<int>(type: "int", nullable: false),
+                    HomeIndex = table.Column<string>(type: "varchar(1)", nullable: false),
+                    Corpus = table.Column<int>(type: "int", nullable: false),
+                    ApartmentNumber = table.Column<int>(type: "int", nullable: false),
+                    ApartmentIndex = table.Column<string>(type: "varchar(1)", nullable: false),
+                    PostalCode = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PacientVaccinations", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PacientVaccinations_Cards_CardId",
-                        column: x => x.CardId,
-                        principalTable: "Cards",
+                        name: "FK_Addresses_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PacientVaccinations_Vaccinations_VaccinationId",
-                        column: x => x.VaccinationId,
-                        principalTable: "Vaccinations",
+                        name: "FK_Addresses_Districts_DistrictId",
+                        column: x => x.DistrictId,
+                        principalTable: "Districts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Streets_StreetId",
+                        column: x => x.StreetId,
+                        principalTable: "Streets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Towns_TownId",
+                        column: x => x.TownId,
+                        principalTable: "Towns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    LastLoginDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Name1 = table.Column<string>(type: "longtext", nullable: true),
+                    Name2 = table.Column<string>(type: "longtext", nullable: true),
+                    Name3 = table.Column<string>(type: "longtext", nullable: true),
+                    AddressId = table.Column<int>(type: "int", nullable: true),
+                    ContactsId = table.Column<int>(type: "int", nullable: true),
+                    UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "longtext", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "longtext", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    LockoutEnd = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Contacts_ContactsId",
+                        column: x => x.ContactsId,
+                        principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -380,7 +398,8 @@ namespace ThesisProject.Data.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: true),
-                    SpecialityId = table.Column<int>(type: "int", nullable: true)
+                    SpecialityId = table.Column<int>(type: "int", nullable: true),
+                    CabinetId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -398,6 +417,12 @@ namespace ThesisProject.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Doctors_Cabinets_CabinetId",
+                        column: x => x.CabinetId,
+                        principalTable: "Cabinets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Doctors_Specialities_SpecialityId",
                         column: x => x.SpecialityId,
                         principalTable: "Specialities",
@@ -410,8 +435,7 @@ namespace ThesisProject.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
-                    SomeData = table.Column<string>(type: "longtext", nullable: true),
-                    CardId = table.Column<int>(type: "int", nullable: false)
+                    SomeData = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -420,12 +444,6 @@ namespace ThesisProject.Data.Migrations
                         name: "FK_Pacients_AspNetUsers_Id",
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Pacients_Cards_CardId",
-                        column: x => x.CardId,
-                        principalTable: "Cards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -460,6 +478,90 @@ namespace ThesisProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Schedules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    Time = table.Column<TimeSpan>(type: "time(6)", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "time(6)", nullable: false),
+                    DoctorId = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Schedules_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    DateOfIssue = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    PacientId = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cards_Pacients_PacientId",
+                        column: x => x.PacientId,
+                        principalTable: "Pacients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DiagnoseHistories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Conclusion = table.Column<string>(type: "longtext", nullable: true),
+                    ConclusionDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DiagnoseId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiagnoseHistories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DiagnoseHistories_Diagnoses_DiagnoseId",
+                        column: x => x.DiagnoseId,
+                        principalTable: "Diagnoses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Allergies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    DateOfIssue = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CardId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Allergies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Allergies_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Examinations",
                 columns: table => new
                 {
@@ -489,25 +591,90 @@ namespace ThesisProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DiagnoseHistories",
+                name: "PacientVaccinations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Conclusion = table.Column<string>(type: "longtext", nullable: true),
-                    ConclusionDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DiagnoseId = table.Column<int>(type: "int", nullable: true)
+                    CardId = table.Column<int>(type: "int", nullable: true),
+                    VaccinationId = table.Column<int>(type: "int", nullable: true),
+                    Result = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DiagnoseHistories", x => x.Id);
+                    table.PrimaryKey("PK_PacientVaccinations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DiagnoseHistories_Diagnoses_DiagnoseId",
-                        column: x => x.DiagnoseId,
-                        principalTable: "Diagnoses",
+                        name: "FK_PacientVaccinations_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PacientVaccinations_Vaccinations_VaccinationId",
+                        column: x => x.VaccinationId,
+                        principalTable: "Vaccinations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PacientId = table.Column<string>(type: "varchar(255)", nullable: true),
+                    ScheduleId = table.Column<int>(type: "int", nullable: true),
+                    TicketDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CardId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Pacients_PacientId",
+                        column: x => x.PacientId,
+                        principalTable: "Pacients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Schedules_ScheduleId",
+                        column: x => x.ScheduleId,
+                        principalTable: "Schedules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_CountryId",
+                table: "Addresses",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_DistrictId",
+                table: "Addresses",
+                column: "DistrictId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_RegionId",
+                table: "Addresses",
+                column: "RegionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_StreetId",
+                table: "Addresses",
+                column: "StreetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_TownId",
+                table: "Addresses",
+                column: "TownId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Allergies_CardId",
@@ -546,6 +713,11 @@ namespace ThesisProject.Data.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_AddressId",
+                table: "AspNetUsers",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ContactsId",
                 table: "AspNetUsers",
                 column: "ContactsId");
@@ -554,6 +726,12 @@ namespace ThesisProject.Data.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cards_PacientId",
+                table: "Cards",
+                column: "PacientId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -577,6 +755,11 @@ namespace ThesisProject.Data.Migrations
                 column: "BranchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctors_CabinetId",
+                table: "Doctors",
+                column: "CabinetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_SpecialityId",
                 table: "Doctors",
                 column: "SpecialityId");
@@ -590,12 +773,6 @@ namespace ThesisProject.Data.Migrations
                 name: "IX_Examinations_DoctorId",
                 table: "Examinations",
                 column: "DoctorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pacients_CardId",
-                table: "Pacients",
-                column: "CardId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PacientVaccinations_CardId",
@@ -613,9 +790,24 @@ namespace ThesisProject.Data.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Schedules_DoctorId",
+                table: "Schedules",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_CardId",
                 table: "Tickets",
                 column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_PacientId",
+                table: "Tickets",
+                column: "PacientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_ScheduleId",
+                table: "Tickets",
+                column: "ScheduleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -639,25 +831,16 @@ namespace ThesisProject.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Cabinets");
-
-            migrationBuilder.DropTable(
                 name: "DiagnoseHistories");
 
             migrationBuilder.DropTable(
                 name: "Examinations");
 
             migrationBuilder.DropTable(
-                name: "Pacients");
-
-            migrationBuilder.DropTable(
                 name: "PacientVaccinations");
 
             migrationBuilder.DropTable(
                 name: "Passports");
-
-            migrationBuilder.DropTable(
-                name: "Schedules");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
@@ -672,10 +855,13 @@ namespace ThesisProject.Data.Migrations
                 name: "Vaccinations");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Cards");
 
             migrationBuilder.DropTable(
-                name: "Cards");
+                name: "Schedules");
+
+            migrationBuilder.DropTable(
+                name: "Pacients");
 
             migrationBuilder.DropTable(
                 name: "Doctors");
@@ -687,10 +873,31 @@ namespace ThesisProject.Data.Migrations
                 name: "Branches");
 
             migrationBuilder.DropTable(
+                name: "Cabinets");
+
+            migrationBuilder.DropTable(
                 name: "Specialities");
 
             migrationBuilder.DropTable(
+                name: "Addresses");
+
+            migrationBuilder.DropTable(
                 name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
+
+            migrationBuilder.DropTable(
+                name: "Districts");
+
+            migrationBuilder.DropTable(
+                name: "Regions");
+
+            migrationBuilder.DropTable(
+                name: "Streets");
+
+            migrationBuilder.DropTable(
+                name: "Towns");
         }
     }
 }

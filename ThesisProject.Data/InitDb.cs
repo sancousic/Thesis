@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace ThesisProject.Data
             await SeedSpecs(context);
             await SeedAdmin(userManager);
             await SeedDoctor(context, userManager);
+            await SeedPacient(userManager);
         }
         private static async Task SeedDoctor(AppDbContext context, UserManager<AppUser> userManager)
         {
@@ -39,7 +41,7 @@ namespace ThesisProject.Data
                     Name3 = "Bolit",
                     UserName = doctorEmail,
                     EmailConfirmed = true,
-                    RegistrationDate = DateTimeOffset.UtcNow
+                    RegistrationDate = DateTime.UtcNow
                 };
                 await userManager.CreateAsync(docUser, doctorPassword);
                 await userManager.AddToRoleAsync(docUser, "Doctor");
@@ -68,6 +70,31 @@ namespace ThesisProject.Data
                 };
                 await userManager.CreateAsync(adminUser, adminUserPassword);
                 await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
+        }
+        private static async Task SeedPacient(UserManager<AppUser> userManager)
+        {
+            var pacientEmail = "pacient@account.by";
+            var pacientPassword = "12345";
+            var user = (await userManager.FindByEmailAsync(pacientEmail)) as Pacient;
+            if (user == null)
+            {
+                user = new Pacient
+                {
+                    Email = pacientEmail,
+                    Name1 = "Pacient",
+                    Name2 = "Account",
+                    UserName = pacientEmail,
+                    EmailConfirmed = true,
+                    Card = new Card()
+                    {
+                        Number = 123,
+                        DateOfIssue = DateTime.Now
+                    },
+                    SomeData = "data"
+                };
+                await userManager.CreateAsync(user, pacientPassword);
+                await userManager.AddToRoleAsync(user, "Pacient");
             }
         }
         private static async Task SeedBranches(AppDbContext context)
@@ -116,5 +143,11 @@ namespace ThesisProject.Data
                 await roleManager.CreateAsync(new IdentityRole(adminRoleName));
             }
         }
+        
+        
+    }
+    public class A<T> where T: System.IComparable
+    {
+        
     }
 }
