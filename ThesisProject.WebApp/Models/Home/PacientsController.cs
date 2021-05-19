@@ -12,5 +12,13 @@ namespace ThesisProject.WebApp.Models.Home
         {
             return View();
         }
+        public async Task<IActionResult> Details(string Id)
+        {
+            return View();
+        }
+        public async Task<IActionResult> Edit(string Id)
+        {
+            return View();
+        }
     }
 }

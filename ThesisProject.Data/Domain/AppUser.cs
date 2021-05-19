@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace ThesisProject.Data.Domain
         public string Name1 { get; set; }
         public string Name2 { get; set; }
         public string Name3 { get; set; }
+        public int? AddressId { get; set; }
+        [ForeignKey(nameof(AddressId))]
         public Addresses Address { get; set; }
         public Contacts Contacts { get; set; }
     }

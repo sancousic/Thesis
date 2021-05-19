@@ -334,7 +334,7 @@ namespace ThesisProject.Data.Migrations
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("LockoutEnd")
+                    b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name1")
@@ -378,7 +378,8 @@ namespace ThesisProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.HasIndex("ContactsId");
 
@@ -825,8 +826,8 @@ namespace ThesisProject.Data.Migrations
             modelBuilder.Entity("ThesisProject.Data.Domain.AppUser", b =>
                 {
                     b.HasOne("ThesisProject.Data.Domain.Address.Addresses", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
+                        .WithOne("User")
+                        .HasForeignKey("ThesisProject.Data.Domain.AppUser", "AddressId");
 
                     b.HasOne("ThesisProject.Data.Domain.Contacts", "Contacts")
                         .WithMany()
@@ -967,6 +968,11 @@ namespace ThesisProject.Data.Migrations
                         .HasForeignKey("ThesisProject.Data.Domain.Pacient", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Address.Addresses", b =>
+                {
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Card", b =>

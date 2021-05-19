@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ThesisProject.Data.Domain;
+using ThesisProject.Data.Domain.Address;
 
 namespace ThesisProject.Data
 {
@@ -48,6 +49,7 @@ namespace ThesisProject.Data
 
                 docUser.Speciality = context.Specialities.FirstOrDefault();
                 docUser.Branch = context.Branches.FirstOrDefault();
+                docUser.Address = new Addresses();
                 context.Update(docUser);
                 await context.SaveChangesAsync();
             } 
@@ -91,7 +93,8 @@ namespace ThesisProject.Data
                         Number = 123,
                         DateOfIssue = DateTime.Now
                     },
-                    SomeData = "data"
+                    SomeData = "data",
+                    Address = new Addresses()
                 };
                 await userManager.CreateAsync(user, pacientPassword);
                 await userManager.AddToRoleAsync(user, "Pacient");
