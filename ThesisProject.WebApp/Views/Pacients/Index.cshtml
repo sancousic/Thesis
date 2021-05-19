@@ -1,0 +1,86 @@
+﻿@using ThesisProject.WebApp.Models.Pacients
+@model PacientIndexViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<form asp-action="Index" method="post">
+    <div class="form-group row">
+        <div class="col-6">
+            <label asp-for="@Model.Search.Name"></label>
+            <input asp-for="@Model.Search.Name." class="form-control mr-sm-2" type="text" placeholder="Имя" aria-label="Имя" />
+        </div>
+        <div class="col-6">
+            <label asp-for="@Model.Search.Address"></label>
+            <input asp-for="@Model.Search.Address." class="form-control mr-sm-2" type="text" placeholder="Имя" aria-label="Имя" />
+        </div>
+        <div class="col-6">
+            <label asp-for="@Model.Search.CardNumber"></label>
+            <input asp-for="@Model.Search.CardNumber." class="form-control mr-sm-2" type="text" placeholder="Имя" aria-label="Имя" />
+        </div>
+        <div class="col d-flex align-self-end justify-content-end">
+            <input type="submit" class="btn btn-outline-primary" value="Search" />
+        </div>
+    </div>
+</form>
+
+
+@if (Model.Pacients.Count() > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Отчество</th>
+                <th>Телефон</th>
+                <th>Почта</th>
+                <th>Номер карты</th>
+                <th>Адресс</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pacient in Model.Pacients)
+            {
+                <tr>
+                    <td>@pacient.Name1</td>
+                    <td>@pacient.Name2</td>
+                    <td>@pacient.Name3</td>
+                    <td>@pacient.PhoneNumber</td>
+                    <td>@pacient.Email</td>
+                    <td>@pacient?.Card?.Number</td>
+                    <td>@pacient?.Address?.Street @pacient?.Address?.HomeNumber@pacient?.Address?.HomeIndex</td>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <div class="btn-group">
+                            <a class="btn btn-primary" asp-action="Info" asp-route-id="@pacient.Id">Детальная информация</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary" asp-action="Schedule" asp-route-id="@pacient.Id">График работы</a>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@pacient.Id">Изменить</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@pacient.Id">Удалить</a>
+                                <a class="btn btn-primary" asp-action="Stats" asp-route-id="@pacient.Id">Статистика</a>
+                            }
+                            @if (User.IsInRole("Pacient"))
+                            {
+                                <a class="btn btn-primary" asp-action="Stats" asp-route-id="@pacient.Id">Запись на прием</a> @*TODO make real*@
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center">
+        <br />
+        <h4>Пациенты с такими параметрами не найдены</h4>
+    </div>
+}
+
+
+
+<page-link-tag-halper page-view-model="Model.PageViewModel" page-action="Index" page-pacient-search="Model.Searh"></page-link-tag-halper>

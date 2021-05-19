@@ -12,7 +12,7 @@ namespace ThesisProject.Data.Domain
     {
         [Key]
         public int Id { get; set; }
-        public int Number { get; set; }
+        public int? Number { get; set; }
         public DateTime DateOfIssue { get; set; }
         public string PacientId { get; set; }
         [ForeignKey(nameof(PacientId))]

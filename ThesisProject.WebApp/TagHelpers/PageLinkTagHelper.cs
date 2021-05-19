@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ThesisProject.WebApp.Models;
+using ThesisProject.WebApp.Models.Pacients;
 
 namespace ThesisProject.WebApp.TagHelpers
 {
@@ -23,6 +24,7 @@ namespace ThesisProject.WebApp.TagHelpers
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
         public PageViewModel PageViewModel { get; set; }
+        public PacientSearchViewModel PacientSearch { get; set; }
         public string PageAction { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -57,7 +59,7 @@ namespace ThesisProject.WebApp.TagHelpers
             }
             else
             {
-                link.Attributes["href"] = urlHelper.Action(PageAction, new { page = pageNumber });
+                link.Attributes["href"] = urlHelper.Action(PageAction, new { page = pageNumber, pacientSearch = PacientSearch });
             }
             item.AddCssClass("page-item");
             link.AddCssClass("page-link");

@@ -11,7 +11,8 @@ namespace ThesisProject.Data.Services
     public interface IPacientService
     {
         Task<Pacient> GetPacientByIdAsync(string Id);
-        IQueryable<Pacient> GetPacients(bool includeCard);
+        IQueryable<Pacient> GetPacients(int skip = -1, int take = -1);
         Task<Addresses> GetPacientAddress(string pacientId);
+        IQueryable<Pacient> SearchPacient(string name, string cardNumber, string address, int skip = -1, int take = -1);
     }
 }

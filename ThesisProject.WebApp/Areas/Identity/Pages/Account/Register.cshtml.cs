@@ -84,7 +84,7 @@ namespace ThesisProject.WebApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser
+                var user = new Pacient
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
@@ -92,7 +92,8 @@ namespace ThesisProject.WebApp.Areas.Identity.Pages.Account
                     RegistrationDate = DateTime.Now,
                     Name1 = Input.Name1,
                     Name2 = Input.Name2,
-                    Name3 = Input.Name3
+                    Name3 = Input.Name3,
+                    Card = new Card()
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
