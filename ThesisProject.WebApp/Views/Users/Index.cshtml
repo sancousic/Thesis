@@ -1,5 +1,8 @@
 ﻿@{ 
     ViewData["Title"] = "Users";
+    var path = Context.Request.Path;
+    var query = Context.Request.QueryString;
+    var currentUrl = path + query;
 }
 <div id="modal-placeholder"></div>
 
@@ -8,7 +11,7 @@
         Users
     </div>
     <div class="col d-flex align-items-center justify-content-end">
-        <a type="button" class="btn btn-primary" asp-action="Create" asp-route-returnUrl="@Context.Request.Path">Create user</a>
+        <a type="button" class="btn btn-primary" asp-action="Create" asp-route-returnUrl="@currentUrl">Create user</a>
         <button id="backBtn" type="button" class="btn btn-primary">Back</button>
     </div>
 </div>
@@ -33,6 +36,6 @@
 @section Scripts {
     <script src="~/js/Users/Index.js"></script>
     <script type="text/javascript">
-        returnUrl = "@Context.Request.Path";
+        returnUrl = "@currentUrl"
     </script>
 }

@@ -11,7 +11,9 @@ namespace ThesisProject.Data.Domain
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Почта")]
         public string Mail { get; set; }
+        [Display(Name = "Телефон")]
         public string Phone { get; set; }
     }
 }

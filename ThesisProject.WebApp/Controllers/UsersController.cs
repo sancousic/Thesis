@@ -17,6 +17,7 @@ using ThesisProject.WebApp.Models.User;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ThesisProject.WebApp.Models.AddressModels;
 
 namespace ThesisProject.WebApp.Controllers
 {
@@ -31,10 +32,12 @@ namespace ThesisProject.WebApp.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IDoctorService _doctorService;
+        private readonly IUserService _userService;
 
         public UsersController(IIdentityService identityService, IUserStore<AppUser> userStore,
-            AppDbContext dbContext, ILogger<UsersController> logger, SignInManager<AppUser> signInManager,
-            UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IDoctorService doctorService)
+            AppDbContext dbContext, ILogger<UsersController> logger, UserManager<AppUser> userManager,
+            RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager,
+            IDoctorService doctorService, IUserService userService)
         {
             _identityService = identityService;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace ThesisProject.WebApp.Controllers
             _roleManager = roleManager;
             _signInManager = signInManager;
             _doctorService = doctorService;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -130,7 +134,7 @@ namespace ThesisProject.WebApp.Controllers
             }
             return View(viewModel);
         }
-        public async Task<IActionResult> Edit(string Id)
+        public async Task<IActionResult> Edit(string Id, string returnUrl)
         {
             var user = await _userManager.FindByIdAsync(Id);
             var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
@@ -147,6 +151,7 @@ namespace ThesisProject.WebApp.Controllers
                 var branches = await _doctorService.GetBranches()
                     .Select(x => x.Name).ToListAsync();
                 vm = new EditUserViewModel(doc, role, branches, specs);
+                vm.returnUrl = returnUrl;
             }
             //if(role == "Pacient")
             //{
@@ -185,7 +190,8 @@ namespace ThesisProject.WebApp.Controllers
                     viewModel.Name3, viewModel.Branch, viewModel.Speciality, viewModel.ContactEmail,
                     viewModel.ContactPhoneNumber, viewModel.CabinetNumber);
             }
-            
+            if (!string.IsNullOrEmpty(viewModel.returnUrl))
+                return LocalRedirect(viewModel.returnUrl);
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> ChangeSchedule(string id, string returnUrl)
@@ -225,7 +231,7 @@ namespace ThesisProject.WebApp.Controllers
             await _doctorService.DeleteScheduleAsync(id);
             return RedirectToAction(nameof(ChangeSchedule), new { id = docId, returnUrl = returnUrl });
         }
-        public async Task<IActionResult> Remove(string Id)
+        public async Task<IActionResult> Remove(string Id, string returnUrl)
         {
             var user = await _userStore.FindByIdAsync(Id, CancellationToken.None);
             if(user != null && user.Email != "admin@account.by")
@@ -238,8 +244,38 @@ namespace ThesisProject.WebApp.Controllers
                 if (!result.Succeeded)
                     return Json(new { status = "error", errors = result.Errors, message = "Cannot delete user" });
             }
-
+            if (!string.IsNullOrEmpty(returnUrl))
+                return LocalRedirect(returnUrl);
             return Ok();
+        }
+        [HttpGet]
+        public async Task<IActionResult> ChangeAddress(string Id, string returnUrl)
+        {
+            var address = await _userService.GetUserAddress(Id);
+            var vm = new AddressViewModel
+            {
+                UserId = Id,
+                returnUrl = returnUrl,
+                Country = address.Country?.FullName,
+                ApartmentNumber = address?.ApartmentNumber,
+                District = address?.District?.Name,
+                HomeNumber = address?.HomeNumber,
+                PostalCode = address?.PostalCode,
+                Region = address?.Region?.Name,
+                Street = address?.Street?.Name,
+                Town = address?.Street?.Name
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangeAddress(AddressViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+            await _userService.EditUserAddress(viewModel.UserId, viewModel.ApartmentNumber, viewModel.Country,
+                viewModel.District, viewModel.HomeNumber, viewModel.PostalCode, viewModel.Region,
+                viewModel.Street, viewModel.Town);
+            return LocalRedirect(viewModel.returnUrl);
         }
         private async Task<List<SelectListItem>> GetRoles() => await _roleManager.Roles.Select(x => new SelectListItem { Text = x.Name, Value = x.Name }).ToListAsync();
         

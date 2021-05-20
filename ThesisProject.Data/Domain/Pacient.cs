@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,9 @@ namespace ThesisProject.Data.Domain
     public class Pacient : AppUser
     {
         public string SomeData { get; set; }
+        [Display(Name = "Карта")]
         public Card Card { get; set; }
+        [Display(Name = "Талоны")]
         public IEnumerable<Ticket> Tickets { get; set; }
     }
 }

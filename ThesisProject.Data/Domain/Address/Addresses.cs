@@ -11,18 +11,23 @@ namespace ThesisProject.Data.Domain.Address
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Страна")]
         public Country Country { get; set; }
+        [Display(Name = "Область")]
         public Region Region { get; set; }
+        [Display(Name = "Район")]
         public District District { get; set; }
+        [Display(Name = "Город")]
         public Town Town { get; set; }
         public TownType TownType { get; set; }
+        [Display(Name = "Улица")]
         public Street Street { get; set; }
         public StreetType StreetType { get; set; }
-        public int? HomeNumber { get; set; }
-        public char HomeIndex { get; set; }
-        public int? Corpus { get; set; }
-        public int? ApartmentNumber { get; set; }
-        public char ApartmentIndex { get; set; }
+        [Display(Name = "Номер дома")]
+        public string HomeNumber { get; set; }
+        [Display(Name = "Номер квартиры")]
+        public string ApartmentNumber { get; set; }
+        [Display(Name = "Почтовый индекс")]
         public int? PostalCode { get; set; }
         public AppUser User { get; set; } 
     }

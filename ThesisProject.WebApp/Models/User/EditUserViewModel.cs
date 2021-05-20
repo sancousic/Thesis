@@ -53,5 +53,6 @@ namespace ThesisProject.WebApp.Models.User
         public string Speciality { get; set; }
         public IEnumerable<string> Specialities { get; set; }
         public int? CabinetNumber { get; set; }
+        public string returnUrl { get; set; }
     }
 }

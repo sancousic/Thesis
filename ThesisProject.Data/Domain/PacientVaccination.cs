@@ -13,6 +13,7 @@ namespace ThesisProject.Data.Domain
         public int Id { get; set; }
         public Card Card { get; set; }
         public Vaccination Vaccination { get; set; }
+        [Display(Name = "Результат")]
         public string Result { get; set; }
     }
 }

@@ -155,15 +155,8 @@ namespace ThesisProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ApartmentIndex")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
-
-                    b.Property<int?>("ApartmentNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Corpus")
-                        .HasColumnType("int");
+                    b.Property<string>("ApartmentNumber")
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
@@ -171,12 +164,8 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int?>("DistrictId")
                         .HasColumnType("int");
 
-                    b.Property<string>("HomeIndex")
-                        .IsRequired()
-                        .HasColumnType("varchar(1)");
-
-                    b.Property<int?>("HomeNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("HomeNumber")
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("PostalCode")
                         .HasColumnType("int");
@@ -336,6 +325,9 @@ namespace ThesisProject.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Male")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name1")
                         .HasColumnType("longtext");

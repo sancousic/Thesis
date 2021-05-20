@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DetailsDoctorViewModel
 @{
+    ViewData["Title"] = "Details";
+    var path = Context.Request.Path;
+    var query = Context.Request.QueryString;
+    var currentUrl = path + query;
 }
+
+<h2>@Model.Doctor.Name1 @Model.Doctor @Model?.Doctor?.Name3 </h2><br/>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(x => x.Doctor.Speciality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(x => x.Doctor.Speciality.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(x => x.Doctor.Branch)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(x => x.Doctor.Branch.Name)
+        </dd>
+    </dl>
+    <h6>Контактные данные</h6>
+    <br />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(x => x.Doctor.Contacts.Mail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.Contacts.Mail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.Contacts.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.Contacts.Phone)
+        </dd>
+    </dl>
+</div>
+
+<div class="btn-group">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Назад</a>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Schedule" 
+       asp-route-id="@Model.Doctor.Id">Запись на прием</a>
+
+    @if(User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary" asp-controller="Users" asp-action="ChangeSchedule"
+            asp-route-id="@Model.Doctor.Id" asp-route-returnUrl="@currentUrl">График работы</a>
+        <a class="btn btn-danger deleteBtn" asp-controller="Users" asp-action="Remove"
+           asp-route-returnUrl="@Model.ReturnUrl" asp-route-id="@Model.Doctor.Id">Удалить</a>
+
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Doctor.Id"
+           asp-route-returnUrl="@currentUrl">Изменить</a>
+        <a class="btn btn-primary" asp-action="Stats" asp-route-id="@Model.Doctor.Id">Статистика</a> //TODO STATS HERE
+    }
+</div>
+

@@ -50,8 +50,8 @@
                             let times = $('#times');
                             times.empty();
                             $.each(result, function (i, data) {
-                                times.append(Card.render(data.time, '@Url.Action("SignTicket", new { userName = User.Identity.Name, docId = ViewBag.ID })' +
-                                    '&scheduleId=' + Number(data.id) + '&date=' + info.dateStr));
+                                times.append(Card.render(data.time, '@Url.Action("SignTicket", new { userName = User.Identity.Name,
+                                    docId = ViewBag.ID })' + '&scheduleId=' + Number(data.id) + '&date=' + info.dateStr));
                             });
                         }
                     })

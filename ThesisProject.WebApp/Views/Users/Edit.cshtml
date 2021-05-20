@@ -15,6 +15,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.Id" />
             <input type="hidden" asp-for="@Model.Role" />
+            <input type="hidden" asp-for="@Model.returnUrl" />
             <div class="form-group">
                 <label asp-for="@Model.Name1"></label>
                 <input asp-for="@Model.Name1" class="form-control" />

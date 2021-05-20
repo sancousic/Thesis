@@ -12,14 +12,20 @@ namespace ThesisProject.Data.Domain
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Номер")]
         public int? Number { get; set; }
+        [Display(Name = "Дата выдачи")]
         public DateTime DateOfIssue { get; set; }
         public string PacientId { get; set; }
         [ForeignKey(nameof(PacientId))]
         public Pacient Pacient { get; set; }
+        [Display(Name = "Вакцинации")]
         public ICollection<PacientVaccination> Vaccinations { get; set; }
+        [Display(Name = "Осмотры")]
         public ICollection<Examination> Examinations { get; set; }
+        [Display(Name = "Аллергии")]
         public ICollection<Allergy> Allergies { get; set; }
+        [Display(Name = "Талоны")]
         public ICollection<Ticket> Tickets { get; set; }
     }
 }

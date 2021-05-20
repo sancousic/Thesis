@@ -71,7 +71,9 @@ namespace ThesisProject.WebApp.Controllers
             var pacient = await _userManager.FindByNameAsync(userName) as Pacient;
             var res = await _scheduleService.SignTicket(pacient, scheduleId, date);
             if (res)
+            {
                 return RedirectToAction(nameof(Index));
+            }
             else
                 return BadRequest();
         }
@@ -94,7 +96,7 @@ namespace ThesisProject.WebApp.Controllers
             return View("Tickets", new TicketsViewModel
             {
                 Tickets = await tickets.ToListAsync(),
-                ReturnUrl = HttpContext.Request.Path
+                ReturnUrl = HttpContext.Request.Path + HttpContext.Request.QueryString
             });
         }
         public async Task<IActionResult> PacientTickets(string id)
@@ -112,8 +114,11 @@ namespace ThesisProject.WebApp.Controllers
                 tickets = tickets.Include(x => x.Schedule.Doctor)
                     .Include(x => x.Schedule.Doctor.Cabinet);
             }
+            var path = HttpContext.Request.Path;
+            var query = HttpContext.Request.QueryString;
+            var currentUrl = path + query;
             return View("Tickets", new TicketsViewModel { Tickets = await tickets.ToListAsync(),
-                ReturnUrl = HttpContext.Request.Path });
+                ReturnUrl = currentUrl});
         }
         public async Task<IActionResult> DeleteTicket(int id, string returnUrl)
         {
