@@ -13,8 +13,10 @@ namespace ThesisProject.Data.Domain
         [Key]
         public int Id { get; set; }
         [Display(Name = "Почта")]
+        [DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
         [Display(Name = "Телефон")]
+        [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
         public string UserID { get; set; }
         [ForeignKey(nameof(UserID))]

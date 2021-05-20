@@ -38,7 +38,7 @@ namespace ThesisProject.WebApp.Controllers
             vm.PageViewModel = new PageViewModel(page.Value, 10, count);
 
             vm.Pacients = _pacientService
-                .GetPacients(skip, vm.PageViewModel.PageSize).Include(x=>x.Card);
+                .GetPacients(skip, vm.PageViewModel.PageSize, includeCard: true, includeAddress: true);
             vm.Search = new PacientSearchViewModel();
             return View(vm);
         }
@@ -56,7 +56,8 @@ namespace ThesisProject.WebApp.Controllers
             
             var skip = (page.Value - 1) * pvm.PageSize;
             query = _pacientService.SearchPacient(Search.Name,
-                Search.CardNumber, Search.Address, skip, pvm.PageSize);
+                Search.CardNumber, Search.Address, skip, pvm.PageSize, includeCard:true,
+                includeAddress: true, includeContacts:true);
             if (skip > count)
             {
                 return NotFound();
@@ -64,11 +65,46 @@ namespace ThesisProject.WebApp.Controllers
 
             return View("Index", new PacientIndexViewModel
             {
-                Pacients = await query.Include(x => x.Card)
-                .Include(x=>x.Address).ToListAsync(),
+                Pacients = await query.ToListAsync(),
                 PageViewModel = pvm,
                 Search = Search
             });
+        }
+        public async Task<IActionResult> Details(string Id, string returnUrl)
+        {
+            var pacient = await _pacientService.GetPacientByIdAsync(Id, true, true);
+            pacient.Address = await _pacientService.GetPacientAddress(Id);
+            var vm = new PacientInfoViewModel
+            {
+                Pacient = pacient,
+                returnUrl = returnUrl
+            };
+            return View(vm);
+        }
+        public async Task<IActionResult> Edit(string id, string returnUrl)
+        {
+            var vm = new PacientEditViewModel
+            {
+                Pacient = await _pacientService.GetPacientByIdAsync(id, true, false),
+                ReturnUrl = returnUrl
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(PacientEditViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+            try
+            {
+                var res = await _pacientService.UpdateAsync(viewModel.Pacient);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(viewModel);
+            }
+            return LocalRedirect(viewModel.ReturnUrl);
         }
     }
 }

@@ -153,7 +153,7 @@ namespace ThesisProject.WebApp.Controllers
                     .Select(x => x.Name).ToListAsync();
                 vm = new EditUserViewModel(doc, role, branches, specs);
                 vm.returnUrl = returnUrl;
-            }
+            }//TODO edit pacient in userstable
             //if(role == "Pacient")
             //{
             //    var vm = new EditUserViewModel();

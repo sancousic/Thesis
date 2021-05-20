@@ -42,7 +42,10 @@ namespace ThesisProject.Data
                     Name3 = "Bolit",
                     UserName = doctorEmail,
                     EmailConfirmed = true,
-                    RegistrationDate = DateTime.UtcNow
+                    RegistrationDate = DateTime.UtcNow,
+                    Contacts = new Contacts(),
+                    Male = Gender.Female,
+                    Address = new Addresses()
                 };
                 await userManager.CreateAsync(docUser, doctorPassword);
                 await userManager.AddToRoleAsync(docUser, "Doctor");
@@ -94,7 +97,8 @@ namespace ThesisProject.Data
                         DateOfIssue = DateTime.Now
                     },
                     SomeData = "data",
-                    Address = new Addresses()
+                    Address = new Addresses(),
+                    Contacts = new Contacts()
                 };
                 await userManager.CreateAsync(user, pacientPassword);
                 await userManager.AddToRoleAsync(user, "Pacient");

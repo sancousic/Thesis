@@ -10,9 +10,12 @@ namespace ThesisProject.Data.Services
 {
     public interface IPacientService
     {
-        Task<Pacient> GetPacientByIdAsync(string Id);
-        IQueryable<Pacient> GetPacients(int skip = -1, int take = -1);
+        Task<Pacient> GetPacientByIdAsync(string Id, bool includeContacts, bool includeAddress);
+        IQueryable<Pacient> GetPacients(int skip = -1, int take = -1,
+            bool includeContacts = false, bool includeAddress = false, bool includeCard = false);
         Task<Addresses> GetPacientAddress(string pacientId);
-        IQueryable<Pacient> SearchPacient(string name, string cardNumber, string address, int skip = -1, int take = -1);
+        IQueryable<Pacient> SearchPacient(string name, string cardNumber, string address, int skip = -1, int take = -1,
+            bool includeContacts = false, bool includeAddress = false, bool includeCard = false);
+        Task<bool> UpdateAsync(Pacient pacient);
     }
 }
