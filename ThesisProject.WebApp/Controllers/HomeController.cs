@@ -77,7 +77,7 @@ namespace ThesisProject.WebApp.Controllers
             else
                 return BadRequest();
         }
-        public async Task<IActionResult> DoctorTickets(string id)
+        public async Task<IActionResult> DoctorTickets(string id, string returnUrl)
         {
             if (id == null)
                 id = _userManager.GetUserId(User);
@@ -96,10 +96,10 @@ namespace ThesisProject.WebApp.Controllers
             return View("Tickets", new TicketsViewModel
             {
                 Tickets = await tickets.ToListAsync(),
-                ReturnUrl = HttpContext.Request.Path + HttpContext.Request.QueryString
+                ReturnUrl = returnUrl
             });
         }
-        public async Task<IActionResult> PacientTickets(string id)
+        public async Task<IActionResult> PacientTickets(string id, string returnUrl)
         {
             if (id == null)
                 id = _userManager.GetUserId(User);
@@ -114,11 +114,8 @@ namespace ThesisProject.WebApp.Controllers
                 tickets = tickets.Include(x => x.Schedule.Doctor)
                     .Include(x => x.Schedule.Doctor.Cabinet);
             }
-            var path = HttpContext.Request.Path;
-            var query = HttpContext.Request.QueryString;
-            var currentUrl = path + query;
             return View("Tickets", new TicketsViewModel { Tickets = await tickets.ToListAsync(),
-                ReturnUrl = currentUrl});
+                ReturnUrl = returnUrl});
         }
         public async Task<IActionResult> DeleteTicket(int id, string returnUrl)
         {

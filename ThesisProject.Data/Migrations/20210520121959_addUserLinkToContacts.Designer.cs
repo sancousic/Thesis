@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThesisProject.Data;
 
 namespace ThesisProject.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210520121959_addUserLinkToContacts")]
+    partial class addUserLinkToContacts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -820,8 +822,7 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Address.Addresses", "Address")
                         .WithOne("User")
-                        .HasForeignKey("ThesisProject.Data.Domain.AppUser", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ThesisProject.Data.Domain.AppUser", "AddressId");
 
                     b.Navigation("Address");
                 });
@@ -830,8 +831,7 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Pacient", "Pacient")
                         .WithOne("Card")
-                        .HasForeignKey("ThesisProject.Data.Domain.Card", "PacientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ThesisProject.Data.Domain.Card", "PacientId");
 
                     b.Navigation("Pacient");
                 });
@@ -840,8 +840,7 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.AppUser", "User")
                         .WithOne("Contacts")
-                        .HasForeignKey("ThesisProject.Data.Domain.Contacts", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ThesisProject.Data.Domain.Contacts", "UserID");
 
                     b.Navigation("User");
                 });
@@ -909,8 +908,7 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "Doctor")
                         .WithMany("Schedule")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DoctorId");
 
                     b.Navigation("Doctor");
                 });
@@ -923,8 +921,7 @@ namespace ThesisProject.Data.Migrations
 
                     b.HasOne("ThesisProject.Data.Domain.Pacient", "Pacient")
                         .WithMany("Tickets")
-                        .HasForeignKey("PacientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PacientId");
 
                     b.HasOne("ThesisProject.Data.Domain.Schedule", "Schedule")
                         .WithMany()

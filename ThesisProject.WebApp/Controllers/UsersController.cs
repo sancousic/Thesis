@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ThesisProject.WebApp.Models.AddressModels;
+using ThesisProject.WebApp.Models.Home;
 
 namespace ThesisProject.WebApp.Controllers
 {
@@ -205,33 +206,36 @@ namespace ThesisProject.WebApp.Controllers
             viewModel.Doctor = await _doctorService.GetDoctorByIdAsync(id);
             return View(viewModel);
         }
-        public async Task<IActionResult> AddSchedule(string docId, Schedule schedule)
+        public async Task<IActionResult> AddSchedule(string docId, Schedule schedule, string returnUrl)
         {
             await _doctorService.AddToSchedules(docId, schedule);
-            return RedirectToAction(nameof(ChangeSchedule), new { id = docId });
+            return RedirectToAction(nameof(ChangeSchedule), new { id = docId, returnUrl = returnUrl });
         }
         public async Task<IActionResult> EditSchedule(int id, string docId, string returnUrl)
         {
-            ViewBag.Id = docId;
-            ViewBag.returnUrl = returnUrl;
-            var schedule = await _doctorService.GetScheduleById(id);
-            return View(schedule);
+            var vm = new EditScheduleViewModel
+            {
+                DocId = docId,
+                returnUrl = returnUrl,
+                Schedule = await _doctorService.GetScheduleById(id)
+            };
+            return View(vm);
         }
         [HttpPost]
-        public async Task<IActionResult> EditSchedule(Schedule schedule, string docId, string returnUrl)
+        public async Task<IActionResult> EditSchedule(EditScheduleViewModel viewModel)
         {
             if (!ModelState.IsValid)
-                return View(schedule);
+                return View(viewModel);
 
-            await _doctorService.UpdateSchedule(schedule);
-            return RedirectToAction(nameof(ChangeSchedule), new { id = docId, returnUrl = returnUrl });
+            await _doctorService.UpdateSchedule(viewModel.Schedule);
+            return LocalRedirect(viewModel.returnUrl);
         }
         public async Task<IActionResult> DeleteSchedule(int id, string docId, string returnUrl)
         {
             await _doctorService.DeleteScheduleAsync(id);
             return RedirectToAction(nameof(ChangeSchedule), new { id = docId, returnUrl = returnUrl });
         }
-        public async Task<IActionResult> Remove(string Id, string returnUrl)
+        public async Task<IActionResult> Remove(string Id)
         {
             var user = await _userStore.FindByIdAsync(Id, CancellationToken.None);
             if(user != null && user.Email != "admin@account.by")
@@ -240,13 +244,23 @@ namespace ThesisProject.WebApp.Controllers
                 _logger.LogDebug($"Count tokens with Id {Id}: {count}");
                 _dbContext.UserTokens.RemoveRange(_dbContext.UserTokens.Where(f => f.UserId == Id));
                 // TODO Удалять все данные связанные с пользюком
-                var result = await _userStore.DeleteAsync(user, CancellationToken.None);
+                IdentityResult result;
+                if(await _userManager.IsInRoleAsync(user, "Pacient"))
+                {
+                    result = await _userService.DeletePacient(user);
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Doctor"))
+                {
+                    result = await _userService.DeleteDoctor(user);
+                }
+                else
+                {
+                    result = await _userService.DeleteAdmin(user);
+                }
                 if (!result.Succeeded)
                     return Json(new { status = "error", errors = result.Errors, message = "Cannot delete user" });
             }
-            if (!string.IsNullOrEmpty(returnUrl))
-                return LocalRedirect(returnUrl);
-            return Ok();
+            return Ok(new { status = "success" });
         }
         [HttpGet]
         public async Task<IActionResult> ChangeAddress(string Id, string returnUrl)

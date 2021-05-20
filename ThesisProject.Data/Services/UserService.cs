@@ -106,5 +106,45 @@ namespace ThesisProject.Data.Services
                 .Include(x => x.Street).Include(x => x.Town).FirstOrDefaultAsync();
             return adress;
         }
+
+        public async Task<IdentityResult> DeletePacient(AppUser user)
+        {
+            try
+            {
+                var pacient = await _userManager.FindByIdAsync(user.Id) as Pacient;
+
+                return await _userManager.DeleteAsync(pacient);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return IdentityResult.Failed(new IdentityError { Description = e.Message });
+            }
+        }
+
+        public async Task<IdentityResult> DeleteDoctor(AppUser user)
+        {
+            try
+            {
+                var doctor = await _userManager.FindByIdAsync(user.Id) as Doctor;
+
+                var tickets = await _dbContext.Tickets.Where(x => x.Schedule.Doctor.Id == user.Id)
+                    .ToArrayAsync();
+                _dbContext.Tickets.RemoveRange(tickets);
+                await _dbContext.SaveChangesAsync();
+
+                return await _userManager.DeleteAsync(doctor);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return IdentityResult.Failed(new IdentityError { Description = ex.Message });
+            }
+        }
+
+        public async Task<IdentityResult> DeleteAdmin(AppUser user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

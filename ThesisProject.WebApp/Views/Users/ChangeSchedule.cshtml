@@ -3,6 +3,9 @@
 @{ 
     ViewData["Title"] = "Расписание";
     var culture = System.Globalization.CultureInfo.GetCultureInfo("ru");
+    var path = Context.Request.Path;
+    var query = Context.Request.QueryString;
+    var currentUrl = path + query;
 }
 
 <div class="row mb-2">
@@ -35,7 +38,7 @@
                     <td>
                         <div class="btn-group">
                             <a class="bth btn-primary btn-sm m-0 me-1" asp-action="EditSchedule" asp-route-id="@sch.Id"
-                                asp-route-docId="@Model.DoctorId" asp-route-returnUrl="@Model.ReturnUrl">Изменить</a>
+                                asp-route-docId="@Model.DoctorId" asp-route-returnUrl="@currentUrl">Изменить</a>
                             <a class="bth btn-danger btn-sm m-0" asp-action="DeleteSchedule" asp-route-id="@sch.Id"
                                asp-route-docId="@Model.DoctorId" asp-route-returnUrl="@Model.ReturnUrl">Удалить</a>
                         </div>
@@ -49,7 +52,8 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddSchedule" asp-route-docId="@Model.DoctorId" method="post">
+        <form asp-action="AddSchedule" asp-route-docId="@Model.DoctorId"
+              asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <input type="hidden" asp-for="@Model.DoctorId" />
@@ -76,8 +80,7 @@
                 <span asp-validation-for="@Model.Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit"
-                       class="btn btn-primary" value="Сохранить" />
+                <input type="submit" class="btn btn-primary" value="Сохранить" />
             </div>
         </form>
     </div>

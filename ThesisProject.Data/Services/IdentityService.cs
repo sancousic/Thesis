@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ThesisProject.Data.Domain;
+using ThesisProject.Data.Domain.Address;
 using ThesisProject.Data.Results;
 
 namespace ThesisProject.Data.Services
@@ -25,12 +27,25 @@ namespace ThesisProject.Data.Services
 
         public async Task<IdentityResult> CreateUser<T>(string mail, string password, string role) where T : AppUser, new()
         {
-            var user = new T() { UserName = mail, Email = mail };
+            var user = new T() { UserName = mail, Email = mail, Address = new Addresses(), Contacts = new Contacts() };
             
             var res = await _userManager.CreateAsync(user, password);
             if(res.Succeeded)
             {
                 var a = await _userManager.AddToRoleAsync(user, role);
+
+                if(role == "Pacient")
+                {
+                    var pacient = await _dbContext.Pacients.FirstOrDefaultAsync(x => x.Id == user.Id);
+                    pacient.Card = new Card();
+                    await _dbContext.SaveChangesAsync();
+                }
+                if(role == "Doctor")
+                {
+                    var doc = await _dbContext.Doctors.FirstOrDefaultAsync(x => x.Id == user.Id);
+                    doc.Cabinet = new Cabinet();
+                    await _dbContext.SaveChangesAsync();
+                }
                 _logger.LogInformation("User created a new account with password.");
             }
             return res;

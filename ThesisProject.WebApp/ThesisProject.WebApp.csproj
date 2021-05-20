@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Schedule\" />
-    <Folder Include="Views\Card\" />
-    <Folder Include="Views\Stats\" />
   </ItemGroup>
 
 </Project>

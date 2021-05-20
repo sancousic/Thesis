@@ -52,6 +52,26 @@ namespace ThesisProject.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<AppUser>()
+                .HasOne(x => x.Address)
+                .WithOne(x => x.User)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<AppUser>()
+                .HasOne(x => x.Contacts)
+                .WithOne(x => x.User)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Pacient>()
+                .HasOne(x => x.Card)
+                .WithOne(x => x.Pacient)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Ticket>()
+                .HasOne(x => x.Pacient)
+                .WithMany(x => x.Tickets)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Schedule>()
+                .HasOne(x => x.Doctor)
+                .WithMany(x => x.Schedule)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

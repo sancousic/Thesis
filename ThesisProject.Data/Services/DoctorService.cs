@@ -2,11 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using ThesisProject.Data.Domain;
 
@@ -91,7 +88,8 @@ namespace ThesisProject.Data.Services
         public async Task<bool> UpdateAsync(string Id, string name1, string name2, string name3,
             string branch, string spec, string mail, string phone, int? cabinetNumber)
         {
-            var doctor = await _dbContext.Doctors.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            var doctor = await _dbContext.Doctors.Where(x => x.Id == Id)
+                .Include(x => x.Cabinet).Include(x => x.Contacts).FirstOrDefaultAsync();
             doctor.Name1 = name1;
             doctor.Name2 = name2;
             doctor.Name3 = name3;

@@ -6,7 +6,8 @@
     var currentUrl = path + query;
 }
 
-<h2>@Model.Doctor.Name1 @Model.Doctor @Model?.Doctor?.Name3 </h2><br/>
+<h2>@Model.Doctor.Name1 @Model.Doctor @Model?.Doctor?.Name3 </h2>
+<br />
 
 <div>
     <dl class="row">
@@ -43,19 +44,44 @@
 
 <div class="btn-group">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Назад</a>
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Schedule" 
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Schedule"
        asp-route-id="@Model.Doctor.Id">Запись на прием</a>
 
-    @if(User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin"))
     {
         <a class="btn btn-primary" asp-controller="Users" asp-action="ChangeSchedule"
-            asp-route-id="@Model.Doctor.Id" asp-route-returnUrl="@currentUrl">График работы</a>
+           asp-route-id="@Model.Doctor.Id" asp-route-returnUrl="@currentUrl">График работы</a>
         <a class="btn btn-danger deleteBtn" asp-controller="Users" asp-action="Remove"
            asp-route-returnUrl="@Model.ReturnUrl" asp-route-id="@Model.Doctor.Id">Удалить</a>
 
         <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Doctor.Id"
            asp-route-returnUrl="@currentUrl">Изменить</a>
-        <a class="btn btn-primary" asp-action="Stats" asp-route-id="@Model.Doctor.Id">Статистика</a> //TODO STATS HERE
+        <a class="btn btn-primary" asp-controller="Stats" asp-action="Index"
+           asp-route-id="@Model.Doctor.Id" asp-route-returnUrl="@currentUrl">Статистика</a>//TODO STATS HERE
+        <a class="btn btn-primary" asp-controller="Home" asp-action="DoctorTickets"
+           asp-route-id="@Model.Doctor.Id" asp-route-returnUrl="@currentUrl">Талоны</a>
     }
 </div>
 
+@section Scripts {
+    <script>
+        $(document).ready(() => {
+            $('a.deleteBtn').click((e) => {
+                e.preventDefault();
+                href = e.target.href;
+                bootbox.confirm("Удалить доктора. Вы уверены?", function (result) {
+                    if (result) {
+                        $.get(href).done(function (data) {
+                            if (data.status == "success") {
+                                location.href = '@Url.Action("Index", "Doctors")';
+                            }
+                            else {
+                                bootbox.alert(data.error);
+                            }
+                        });
+                    }
+                })
+            })
+        })
+    </script>
+}

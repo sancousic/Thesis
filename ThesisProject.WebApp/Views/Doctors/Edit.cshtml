@@ -78,30 +78,8 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Сохранить</button>
                 
-                <button class="btn btn-primary" id="backBtn">Отменить</button>
+                <a class="btn btn-primary" href="@Model.ReturnUrl" id="backBtn">Отменить</a>
             </div>
         </form>
     </div>
 </div>
-
-
-@section Scripts {
-    <script>
-        $(document).ready(() => {
-            $("#backBtn").click((e) => {
-                @if(!string.IsNullOrEmpty(Model.ReturnUrl))
-                {
-                    <text>
-                        location.href = "@Model.ReturnUrl";
-                    </text>
-                }
-                 else
-                {
-                    <text>
-                        location.href = @Url.Action("Index", "Doctors");
-                    </text>
-                }
-            })
-        })
-    </script>
-}

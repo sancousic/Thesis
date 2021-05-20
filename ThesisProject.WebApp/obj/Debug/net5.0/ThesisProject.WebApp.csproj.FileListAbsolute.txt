@@ -491,3 +491,7 @@ C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razo
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Pacients\Index.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Doctors\Stats.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Users\ChangeAddress.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Pacients\Details.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Pacients\Edit.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Index.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Stats\Index.cshtml.g.cs

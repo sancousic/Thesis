@@ -28,7 +28,9 @@ namespace ThesisProject.WebApp.Models.User
             Speciality = doc.Speciality?.Name;
             Branches = branches;
             Specialities = specs;
-            CabinetNumber = doc.Cabinet?.Number;
+            CabinetNumber = doc?.Cabinet?.Number;
+            ContactEmail = doc?.Contacts?.Mail;
+            ContactPhoneNumber = doc?.Contacts?.Phone;
         }
         public string Id { get; set; }
         public string Role { get; set; }
