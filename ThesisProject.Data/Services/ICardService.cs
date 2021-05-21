@@ -27,5 +27,9 @@ namespace ThesisProject.Data.Services
         Task AddVaccine(string pacientId, Vaccination vaccination, DateTime date, string result);
         Task<Vaccination> GetVaccineById(int vaccination);
         Task AddExamination(string pacientId, Doctor doc, Examination examination);
+        Task AddDiagnose(string pacientId, Doctor doc, Diagnose diagnose, DiagnoseHistory history);
+        Task ConfirmDiagnose(int id, Doctor doc, DateTime confirmDate);
+        Task<Diagnose> GetDiagnoseById(int value, bool IncludePacient);
+        Task AddDiagnoseHistory(int diagnoseId, DiagnoseHistory history, Doctor doc);
     }
 }

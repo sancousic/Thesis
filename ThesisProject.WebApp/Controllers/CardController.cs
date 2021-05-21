@@ -51,7 +51,7 @@ namespace ThesisProject.WebApp.Controllers
             IQueryable<Diagnose> diagnoses;
             IQueryable<DiagnoseHistory> dHistorys;
 
-            if(string.IsNullOrEmpty(search))
+            if (string.IsNullOrEmpty(search))
             {
                 allergy = _cardService.GetAllergies(card.Id);
                 exam = _cardService.GetExaminations(card.Id);
@@ -63,7 +63,7 @@ namespace ThesisProject.WebApp.Controllers
             {
                 allergy = _cardService.SearchAllergies(card.Id, search);
                 exam = _cardService.SearchExaminations(card.Id, search);
-                vaccinations = _cardService.SearchPacientVaccinations(card.Id,  search);
+                vaccinations = _cardService.SearchPacientVaccinations(card.Id, search);
                 diagnoses = _cardService.SearchDiagnoses(card.Id, search);
                 dHistorys = _cardService.SearchDiagnoseHistories(card.Id, search);
             }
@@ -159,7 +159,7 @@ namespace ThesisProject.WebApp.Controllers
             else
             {
                 vm.Vaccinations = await _cardService.GetPacientVaccinations(card.Id)
-                    .OrderBy(x => x.Date).Include(x =>x.Vaccination).ToListAsync();
+                    .OrderBy(x => x.Date).Include(x => x.Vaccination).ToListAsync();
             }
             return View(vm);
         }
@@ -244,14 +244,145 @@ namespace ThesisProject.WebApp.Controllers
 
             return LocalRedirect(viewModel.ReturnUrl);
         }
-        public async Task<IActionResult> Diagnoses()
+        public async Task<IActionResult> Diagnoses(string Id, string returnUrl, string search)
         {
-            return View();
+            var vm = new DiagnosesViewModel
+            {
+                PacientId = Id,
+                ReturnUrl = returnUrl,
+                Search = search
+            };
+            var card = await _cardService.GetCardByIdAsync(Id);
+            if (!string.IsNullOrEmpty(search))
+                vm.Diagnoses = await _cardService.SearchDiagnoses(card.Id, search)
+                    .OrderBy(x => x.EstablisheDate).Include(x => x.DoctorEstablishe)
+                    .Include(x => x.DoctorConfirm).ToListAsync();
+            else
+            {
+                vm.Diagnoses = await _cardService.GetDiagnoses(card.Id)
+                    .OrderBy(x => x.EstablisheDate).Include(x => x.DoctorEstablishe)
+                    .Include(x => x.DoctorConfirm).ToListAsync();
+            }
+            return View(vm);
         }
-        public async Task<IActionResult> DiagnoseHistory(string userId, int diagnoseId,
+        [HttpPost]
+        public IActionResult Diagnoses(DiagnosesViewModel vm)
+        {
+            return RedirectToAction(nameof(Diagnoses), new
+            {
+                Id = vm.PacientId,
+                returnUrl = vm.ReturnUrl,
+                search = vm.Search
+            });
+        }
+        public IActionResult AddDiagnose(string Id, string returnUrl)
+        {
+            var vm = new AddDiagnoseViewModel
+            {
+                PacientId = Id,
+                Diagnose = new Diagnose(),
+                ReturnUrl = returnUrl,
+                History = new DiagnoseHistory()
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddDiagnose(AddDiagnoseViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+            Doctor doc = null;
+
+            if (User.IsInRole("Doctor"))
+                doc = await _userManager.GetUserAsync(User) as Doctor;
+            viewModel.Diagnose.EstablisheDate = DateTime.Now;
+            viewModel.History.ConclusionDate = DateTime.Now;
+            await _cardService.AddDiagnose(viewModel.PacientId, doc, viewModel.Diagnose, viewModel.History);
+
+            return LocalRedirect(viewModel.ReturnUrl);
+        }
+        public async Task<IActionResult> ConfirmDiagnose(int id, string returnUrl)
+        {
+            Doctor doc = null;
+            if (User.IsInRole("Doctor"))
+            {
+                doc = await _userManager.GetUserAsync(User) as Doctor;
+            }
+            var confirmDate = DateTime.Now;
+            await _cardService.ConfirmDiagnose(id, doc, confirmDate);
+            return LocalRedirect(returnUrl);
+        }
+        public async Task<IActionResult> DiagnoseHistory(string Id, int? diagnoseId,
             string returnUrl, string search)
         {
-            return View();
+            var card = await _cardService.GetCardByIdAsync(Id);
+            var vm = new DiagnoseHistoryViewModel
+            {
+                DiagnoseId = diagnoseId,
+                PacientId = Id,
+                ReturnUrl = returnUrl,
+                Search = search,
+            };
+            if (diagnoseId.HasValue)
+            {
+                vm.Diagnose = await _cardService.GetDiagnoseById(diagnoseId.Value, true);
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    vm.History = await _cardService.SearchDiagnosesHistories(diagnoseId.Value, search)
+                        .OrderBy(x => x.ConclusionDate).ToArrayAsync();
+                }
+                else
+                {
+                    vm.History = await _cardService.GetDiagnosesHistories(diagnoseId.Value)
+                        .OrderBy(x => x.ConclusionDate).ToArrayAsync();
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    vm.History = await _cardService.SearchDiagnoseHistories(card.Id, search)
+                        .OrderBy(x => x.ConclusionDate).Include(x => x.Diagnose).ToArrayAsync();
+                }
+                vm.History = await _cardService.GetDiagnoseHistories(card.Id)
+                    .OrderBy(x => x.ConclusionDate).Include(x => x.Diagnose).ToArrayAsync();
+            }
+
+            return View(vm);
+        }
+        [HttpPost]
+        public IActionResult DiagnoseHistory(DiagnoseHistoryViewModel viewModel)
+        {
+            return RedirectToAction(nameof(DiagnoseHistory), new
+            {
+                Id = viewModel.PacientId,
+                diagnoseId = viewModel.DiagnoseId,
+                returnUrl = viewModel.ReturnUrl,
+                search = viewModel.Search
+            });
+        }
+        public IActionResult AddDiagnoseHistory(int diagnoseId, string returnUrl)
+        {
+            var vm = new AddDiagnoseHistoryViewModel
+            {
+                DiagnoseId = diagnoseId,
+                History = new DiagnoseHistory(),
+                ReturnUrl = returnUrl
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddDiagnoseHistory(AddDiagnoseHistoryViewModel viewModel)
+        {
+            Doctor doc = null;
+            if (User.IsInRole("Doctor"))
+            {
+                doc = await _userManager.GetUserAsync(User) as Doctor;
+            }
+            viewModel.History.ConclusionDate = DateTime.Now;
+            await _cardService.AddDiagnoseHistory(viewModel.DiagnoseId, viewModel.History, doc);
+            return LocalRedirect(viewModel.ReturnUrl);
         }
     }
 }

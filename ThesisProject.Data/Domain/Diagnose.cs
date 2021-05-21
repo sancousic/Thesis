@@ -21,7 +21,8 @@ namespace ThesisProject.Data.Domain
         [Display(Name = "Подтвердил")]
         public Doctor DoctorConfirm { get; set; }
         [Display(Name = "Дата подтверждения")]
-        public DateTime ConfirmDate { get; set; }
+        public DateTime? ConfirmDate { get; set; }
+        public bool Status { get; set; }
         public Card Card { get; set; }
     }
 }

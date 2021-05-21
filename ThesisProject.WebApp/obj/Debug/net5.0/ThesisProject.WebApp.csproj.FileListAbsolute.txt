@@ -507,3 +507,5 @@ C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razo
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\AddVaccine.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Vaccinations.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\AddExamination.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\AddDiagnose.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\AddDiagnoseHistory.cshtml.g.cs

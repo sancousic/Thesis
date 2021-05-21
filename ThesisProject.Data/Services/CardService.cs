@@ -127,5 +127,51 @@ namespace ThesisProject.Data.Services
             await _dbContext.Examinations.AddAsync(examination);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task AddDiagnose(string pacientId, Doctor doc,
+            Diagnose diagnose, DiagnoseHistory history)
+        {
+            var card = await GetCardByIdAsync(pacientId);
+            diagnose.Card = card;
+            
+            if (doc != null)
+            {
+                diagnose.DoctorEstablishe = doc;
+                history.Doctor = doc;
+            }
+            diagnose.Status = false;
+            await _dbContext.Diagnoses.AddAsync(diagnose);
+
+            history.Diagnose = diagnose;
+            await _dbContext.DiagnoseHistories.AddAsync(history);
+            
+            diagnose.DiagnoseHistorie.Append(history);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task ConfirmDiagnose(int id, Doctor doc, DateTime confirmDate)
+        {
+            var diagnose = await _dbContext.Diagnoses.FirstOrDefaultAsync(x => x.Id == id);
+            diagnose.Status = true;
+            diagnose.DoctorConfirm = doc;
+            diagnose.ConfirmDate = confirmDate;
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Diagnose> GetDiagnoseById(int value, bool includePacient)
+        {
+            var diagnose = _dbContext.Diagnoses.Where(x => x.Id == value);
+            if (includePacient)
+                diagnose = diagnose.Include(x => x.Card).Include(x => x.Card.Pacient);
+            return await diagnose.FirstOrDefaultAsync();
+        }
+        public async Task AddDiagnoseHistory(int diagnoseId, DiagnoseHistory history, Doctor doc)
+        {
+            var diagnose = await GetDiagnoseById(diagnoseId, true);
+            history.Diagnose = diagnose;
+            history.Doctor = doc;
+            await _dbContext.DiagnoseHistories.AddAsync(history);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

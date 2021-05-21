@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThesisProject.Data;
 
 namespace ThesisProject.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210521115943_diagnoses")]
+    partial class diagnoses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -489,7 +491,7 @@ namespace ThesisProject.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Status")
+                    b.Property<bool>("status")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
@@ -518,14 +520,9 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int?>("DiagnoseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("DoctorId")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DiagnoseId");
-
-                    b.HasIndex("DoctorId");
 
                     b.ToTable("DiagnoseHistories");
                 });
@@ -906,13 +903,7 @@ namespace ThesisProject.Data.Migrations
                         .WithMany("DiagnoseHistorie")
                         .HasForeignKey("DiagnoseId");
 
-                    b.HasOne("ThesisProject.Data.Domain.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId");
-
                     b.Navigation("Diagnose");
-
-                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Examination", b =>

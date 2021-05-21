@@ -14,6 +14,7 @@ namespace ThesisProject.Data.Domain
         public string Conclusion { get; set; }
         [Display(Name = "Дата")]
         public DateTime ConclusionDate { get; set; }
+        public Doctor Doctor { get; set; }
         public Diagnose Diagnose { get; set; }
     }
 }
