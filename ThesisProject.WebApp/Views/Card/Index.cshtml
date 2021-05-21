@@ -75,8 +75,9 @@
                asp-route-returnUrl="@currentUrl" class="btn btn-primary mr-1">Аллергии</a>
             <a asp-action="#" class="btn btn-primary mr-1">Диагнозы</a>
             <a asp-action="Vaccinations" asp-route-id="@Model.Pacient.Id"
-               asp-route-returnUrl="@currentUrl" class="btn btn-primary mr-1">Вакцинации</a>
-            <a asp-action="#" class="btn btn-primary mr-1">Посещения</a>
+               asp-route-returnUrl="@currentUrl" class="btn btn-primary mr-1" >Вакцинации</a>
+            <a asp-action="Examinations" class="btn btn-primary mr-1"
+               asp-route-id="@Model.Pacient.Id" asp-route-returnUrl="@currentUrl">Посещения</a>
             <a asp-action="#" class="btn btn-primary mr-1">Обследования</a>
             <a asp-action="#" class="btn btn-primary mr-1">Реккомендации</a>
         </div>

@@ -1,14 +1,14 @@
 ﻿@using ThesisProject.WebApp.Models.Card
 @model AddVaccianationViewModel
 @{
-    ViewData["Title"] = "Добавить алергию";
+    ViewData["Title"] = "Добавить вакцину";
     var path = Context.Request.Path;
     var query = Context.Request.QueryString;
     var currentUrl = path + query;
 }
 
 
-<h4>Добавить аллергию</h4>
+<h4>Добавить вакцину</h4>
 <form asp-action="AddVaccine" method="post">
     <div asp-validation-summary="All"></div>
     <input type="hidden" asp-for="@Model.ReturnUrl" />

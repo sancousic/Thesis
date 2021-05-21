@@ -117,5 +117,15 @@ namespace ThesisProject.Data.Services
         {
             return await _dbContext.Vaccinations.Where(x => x.Id == vaccination).FirstOrDefaultAsync();
         }
+
+        public async Task AddExamination(string pacientId, Doctor doc, Examination examination)
+        {
+            var card = await GetCardByIdAsync(pacientId);
+            examination.Card = card;
+            if (doc != null)
+                examination.Doctor = doc;
+            await _dbContext.Examinations.AddAsync(examination);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

@@ -26,5 +26,6 @@ namespace ThesisProject.Data.Services
         Task AddAllergy(string pacientId, Allergy allergy);
         Task AddVaccine(string pacientId, Vaccination vaccination, DateTime date, string result);
         Task<Vaccination> GetVaccineById(int vaccination);
+        Task AddExamination(string pacientId, Doctor doc, Examination examination);
     }
 }

@@ -847,3 +847,7 @@ System.InvalidOperationException: A second operation was started on this context
 2021-05-21 12:49:49.2477||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
 2021-05-21 12:49:49.2477||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
 2021-05-21 12:49:53.5529|10102|WARN|Microsoft.EntityFrameworkCore.Query|The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. 
+2021-05-21 14:23:16.8310||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-05-21 14:23:16.8705||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-05-21 14:23:16.8705||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-05-21 14:23:23.5363|10102|WARN|Microsoft.EntityFrameworkCore.Query|The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. 

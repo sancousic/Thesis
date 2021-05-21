@@ -105,24 +105,18 @@ namespace ThesisProject.WebApp.Controllers
                 Search = search
             };
             if (!string.IsNullOrEmpty(search))
-                vm.Allergies = await _cardService.SearchAllergies(card.Id, search).ToListAsync();
+                vm.Allergies = await _cardService.SearchAllergies(card.Id, search)
+                    .OrderBy(x => x.DateOfIssue).ToListAsync();
             else
             {
-                vm.Allergies = await _cardService.GetAllergies(card.Id).ToListAsync();
+                vm.Allergies = await _cardService.GetAllergies(card.Id)
+                    .OrderBy(x => x.DateOfIssue).ToListAsync();
             }
             return View(vm);
         }
         [HttpPost]
-        public async Task<IActionResult> Allergies(AllergeisViewModel viewModel)
+        public IActionResult Allergies(AllergeisViewModel viewModel)
         {
-            if (!string.IsNullOrEmpty(viewModel.Search))
-                viewModel.Allergies = await _cardService.SearchAllergies(viewModel.CardId, viewModel.Search)
-                    .ToListAsync();
-            else
-            {
-                viewModel.Allergies = await _cardService.GetAllergies(viewModel.CardId)
-                    .ToListAsync();
-            }
             return RedirectToAction(nameof(Allergies), new
             {
                 Id = viewModel.PacientId,
@@ -161,11 +155,11 @@ namespace ThesisProject.WebApp.Controllers
             var card = await _cardService.GetCardByIdAsync(Id);
             if (!string.IsNullOrEmpty(search))
                 vm.Vaccinations = await _cardService.SearchPacientVaccinations(card.Id, search)
-                    .Include(x => x.Vaccination).ToListAsync();
+                    .OrderBy(x => x.Date).Include(x => x.Vaccination).ToListAsync();
             else
             {
                 vm.Vaccinations = await _cardService.GetPacientVaccinations(card.Id)
-                    .Include(x =>x.Vaccination).ToListAsync();
+                    .OrderBy(x => x.Date).Include(x =>x.Vaccination).ToListAsync();
             }
             return View(vm);
         }
@@ -202,16 +196,60 @@ namespace ThesisProject.WebApp.Controllers
 
             return LocalRedirect(viewModel.ReturnUrl);
         }
+        public async Task<IActionResult> Examinations(string Id, string returnUrl, string search)
+        {
+            var vm = new ExaminationViewModel
+            {
+                PacientId = Id,
+                ReturnUrl = returnUrl,
+                Search = search
+            };
+            var card = await _cardService.GetCardByIdAsync(Id);
+            if (!string.IsNullOrEmpty(search))
+                vm.Examinations = await _cardService.SearchExaminations(card.Id, search)
+                    .OrderBy(x => x.ExaminationDate).ToListAsync();
+            else
+            {
+                vm.Examinations = await _cardService.GetExaminations(card.Id)
+                    .OrderBy(x => x.ExaminationDate).ToListAsync();
+            }
+            return View(vm);
+        }
+        [HttpPost]
+        public IActionResult Examinations(ExaminationViewModel viewModel)
+        {
+            return RedirectToAction(nameof(Examinations), new { Id = viewModel.PacientId,
+                returnUrl = viewModel.ReturnUrl, search = viewModel.Search });
+        }
+        public IActionResult AddExamination(string Id, string returnUrl)
+        {
+            var vm = new AddExaminationViewModel
+            {
+                PacientId = Id,
+                ReturnUrl = returnUrl,
+                Examination = new Examination()
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddExamination(AddExaminationViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+            Doctor doc = null;
+            if (User.IsInRole("Doctor"))
+                doc = await _userManager.GetUserAsync(User) as Doctor;
+
+            await _cardService.AddExamination(viewModel.PacientId, doc, viewModel.Examination);
+
+            return LocalRedirect(viewModel.ReturnUrl);
+        }
         public async Task<IActionResult> Diagnoses()
         {
             return View();
         }
         public async Task<IActionResult> DiagnoseHistory(string userId, int diagnoseId,
             string returnUrl, string search)
-        {
-            return View();
-        }
-        public async Task<IActionResult> Examinations(string Id, string returnUrl, string search)
         {
             return View();
         }
