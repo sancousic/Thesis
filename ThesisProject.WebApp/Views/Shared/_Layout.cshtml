@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/datatables/css/dataTables.bootstrap.min.css" />
     <link rel="stylesheet" href="~/datatables/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="~/lib/fullcalendar/main.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css" />
 </head>
 <body>
     <header>
@@ -29,6 +30,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin") || User.IsInRole("Pacient"))

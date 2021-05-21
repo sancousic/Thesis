@@ -495,3 +495,14 @@ C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razo
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Pacients\Edit.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Index.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Stats\Index.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\DiagnoseHistory.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Diagnoses.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Search.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Examinations.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Allergies.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Services\AddVaccination.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Services\Index.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Services\Vaccinations.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\AddAllergy.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\AddVaccine.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Vaccinations.cshtml.g.cs

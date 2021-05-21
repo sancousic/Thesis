@@ -21,8 +21,4 @@
     <ProjectReference Include="..\ThesisProject.Data\ThesisProject.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Schedule\" />
-  </ItemGroup>
-
 </Project>

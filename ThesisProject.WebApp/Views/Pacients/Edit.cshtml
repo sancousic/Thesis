@@ -52,7 +52,21 @@
                 <input asp-for="@Model.Pacient.Contacts.Phone" class="form-control" />
                 <span asp-validation-for="@Model.Pacient.Contacts.Phone" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="@Model.Pacient.Contacts.Phone"></label>
+                <input asp-for="@Model.Pacient.Contacts.Phone" class="form-control" />
+                <span asp-validation-for="@Model.Pacient.Contacts.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Pacient.BirthDay"></label>
+                <input asp-for="@Model.Pacient.BirthDay" class="form-control" />
+                <span asp-validation-for="@Model.Pacient.BirthDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Pacient.Work"></label>
+                <input asp-for="@Model.Pacient.Work" class="form-control" />
+                <span asp-validation-for="@Model.Pacient.Work" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Сохранить</button>
                 <a class="btn btn-primary" href="@Model.ReturnUrl" id="backBtn">Отменить</a>

@@ -157,6 +157,8 @@ namespace ThesisProject.Data.Services
             user.Name2 = pacient.Name2;
             user.Name3 = pacient.Name3;
             user.Male = pacient.Male;
+            user.BirthDay = pacient.BirthDay;
+            user.Work = pacient.Work;
             user.Contacts.Mail = pacient.Contacts.Mail;
             user.Contacts.Phone= pacient.Contacts.Phone;
             

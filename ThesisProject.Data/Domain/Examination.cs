@@ -19,5 +19,6 @@ namespace ThesisProject.Data.Domain
         public string Type { get; set; }
         [Display(Name = "Результат")]
         public string Result { get; set; }
+        public Card Card { get; set; }
     }
 }

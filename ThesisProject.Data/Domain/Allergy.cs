@@ -13,6 +13,7 @@ namespace ThesisProject.Data.Domain
         public int Id { get; set; }
         [Display(Name = "Дата установления")]
         public DateTime DateOfIssue { get; set; }
+        public string Type { get; set; }
         public Card Card { get; set; }
     }
 }

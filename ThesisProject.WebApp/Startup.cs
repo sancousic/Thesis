@@ -33,7 +33,7 @@ namespace ThesisProject.WebApp
             services.AddLogging(logggingBuilder => logggingBuilder.AddNLog("nlog.config"));
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
 
-            services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<AppDbContext>( options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection"), serverVersion, options =>
                     {
@@ -65,6 +65,8 @@ namespace ThesisProject.WebApp
             services.AddScoped<IPacientService, PacientService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICardService, CardService>();
+            services.AddScoped<IServicesService, ServicesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

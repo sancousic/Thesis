@@ -16,5 +16,10 @@ namespace ThesisProject.Data.Domain
         public Card Card { get; set; }
         [Display(Name = "Талоны")]
         public IEnumerable<Ticket> Tickets { get; set; }
+        [Display(Name = "Дата рождения")]
+        [DataType(DataType.Date)]
+        public DateTime? BirthDay { get; set; }
+        [Display(Name = "Место работы")]
+        public string Work { get; set; }
     }
 }

@@ -15,5 +15,7 @@ namespace ThesisProject.Data.Domain
         public Vaccination Vaccination { get; set; }
         [Display(Name = "Результат")]
         public string Result { get; set; }
+        [Display(Name = "Дата")]
+        public DateTime Date { get; set; }
     }
 }

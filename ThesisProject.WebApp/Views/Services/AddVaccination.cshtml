@@ -1,0 +1,18 @@
+﻿@model Vaccination
+@{ 
+    ViewData["Title"] = "Добавтиь вакцинацию";
+}
+
+<h4>Добавить вакцинацию</h4>
+<form asp-action="AddVaccination" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="@Model.Type"></label>
+        <input asp-for="@Model.Type" class="form-control" />
+        <span asp-validation-for="@Model.Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Сохранить</button>
+        <a class="btn btn-primary" asp-action="Vaccinations">Отменить</a>
+    </div>
+</form>

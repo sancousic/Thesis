@@ -285,6 +285,9 @@ namespace ThesisProject.Data.Migrations
                     b.Property<DateTime>("DateOfIssue")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CardId");
@@ -327,9 +330,11 @@ namespace ThesisProject.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name1")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name2")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name3")
@@ -466,6 +471,9 @@ namespace ThesisProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("CardId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ConfirmDate")
                         .HasColumnType("datetime(6)");
 
@@ -482,6 +490,8 @@ namespace ThesisProject.Data.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CardId");
 
                     b.HasIndex("DoctorConfirmId");
 
@@ -550,6 +560,9 @@ namespace ThesisProject.Data.Migrations
 
                     b.Property<int?>("CardId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Result")
                         .HasColumnType("longtext");
@@ -683,6 +696,12 @@ namespace ThesisProject.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<DateTime>("ExpriationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Type")
                         .HasColumnType("longtext");
 
@@ -717,7 +736,13 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasBaseType("ThesisProject.Data.Domain.AppUser");
 
+                    b.Property<DateTime?>("BirthDay")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("SomeData")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Work")
                         .HasColumnType("longtext");
 
                     b.ToTable("Pacients");
@@ -848,6 +873,10 @@ namespace ThesisProject.Data.Migrations
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Diagnose", b =>
                 {
+                    b.HasOne("ThesisProject.Data.Domain.Card", "Card")
+                        .WithMany("Diagnoses")
+                        .HasForeignKey("CardId");
+
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "DoctorConfirm")
                         .WithMany()
                         .HasForeignKey("DoctorConfirmId");
@@ -856,6 +885,8 @@ namespace ThesisProject.Data.Migrations
                         .WithMany()
                         .HasForeignKey("DoctorEstablisheId");
 
+                    b.Navigation("Card");
+
                     b.Navigation("DoctorConfirm");
 
                     b.Navigation("DoctorEstablishe");
@@ -863,20 +894,24 @@ namespace ThesisProject.Data.Migrations
 
             modelBuilder.Entity("ThesisProject.Data.Domain.DiagnoseHistory", b =>
                 {
-                    b.HasOne("ThesisProject.Data.Domain.Diagnose", null)
+                    b.HasOne("ThesisProject.Data.Domain.Diagnose", "Diagnose")
                         .WithMany("DiagnoseHistorie")
                         .HasForeignKey("DiagnoseId");
+
+                    b.Navigation("Diagnose");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Examination", b =>
                 {
-                    b.HasOne("ThesisProject.Data.Domain.Card", null)
+                    b.HasOne("ThesisProject.Data.Domain.Card", "Card")
                         .WithMany("Examinations")
                         .HasForeignKey("CardId");
 
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId");
+
+                    b.Navigation("Card");
 
                     b.Navigation("Doctor");
                 });
@@ -984,6 +1019,8 @@ namespace ThesisProject.Data.Migrations
             modelBuilder.Entity("ThesisProject.Data.Domain.Card", b =>
                 {
                     b.Navigation("Allergies");
+
+                    b.Navigation("Diagnoses");
 
                     b.Navigation("Examinations");
 

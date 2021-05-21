@@ -88,6 +88,8 @@ namespace ThesisProject.WebApp.Controllers
                 Pacient = await _pacientService.GetPacientByIdAsync(id, true, false),
                 ReturnUrl = returnUrl
             };
+            if (vm.Pacient.BirthDay == null)
+                vm.Pacient.BirthDay = DateTime.Now.Date;
             return View(vm);
         }
         [HttpPost]
