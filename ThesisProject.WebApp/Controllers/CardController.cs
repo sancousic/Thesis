@@ -50,6 +50,7 @@ namespace ThesisProject.WebApp.Controllers
             IQueryable<PacientVaccination> vaccinations;
             IQueryable<Diagnose> diagnoses;
             IQueryable<DiagnoseHistory> dHistorys;
+            IQueryable<Reccomendation> reccomendations;
 
             if (string.IsNullOrEmpty(search))
             {
@@ -58,6 +59,7 @@ namespace ThesisProject.WebApp.Controllers
                 vaccinations = _cardService.GetPacientVaccinations(card.Id);
                 diagnoses = _cardService.GetDiagnoses(card.Id);
                 dHistorys = _cardService.GetDiagnoseHistories(card.Id);
+                reccomendations = _cardService.GetReccomendations(card.Id);
             }
             else
             {
@@ -66,12 +68,14 @@ namespace ThesisProject.WebApp.Controllers
                 vaccinations = _cardService.SearchPacientVaccinations(card.Id, search);
                 diagnoses = _cardService.SearchDiagnoses(card.Id, search);
                 dHistorys = _cardService.SearchDiagnoseHistories(card.Id, search);
+                reccomendations = _cardService.SearchReccomendations(card.Id, search);
             }
             card.Allergies = await allergy.OrderBy(x => x.DateOfIssue).Take(10).ToListAsync();
             card.Examinations = await exam.OrderBy(x => x.ExaminationDate).Take(10).ToListAsync();
             card.Vaccinations = await vaccinations.OrderBy(x => x.Date)
                 .Include(x => x.Vaccination).Take(10).ToListAsync();
             card.Diagnoses = await diagnoses.OrderBy(x => x.EstablisheDate).Take(10).ToListAsync();
+            card.Reccomendations = await reccomendations.OrderBy(x => x.Start).Take(10).ToArrayAsync();
             var vm = new CardSearchViewModel
             {
                 Search = search,
@@ -82,7 +86,8 @@ namespace ThesisProject.WebApp.Controllers
                 DiagnoseHistoryCount = await dHistorys.CountAsync(),
                 DiggnosesCount = await diagnoses.CountAsync(),
                 ExaminationsCount = await exam.CountAsync(),
-                VaccinationsCount = await vaccinations.CountAsync()
+                VaccinationsCount = await vaccinations.CountAsync(),
+                ReccomendationsCount = await vaccinations.CountAsync()
             };
             vm.DiagnoseHistories = dHistorys.OrderBy(x => x.ConclusionDate).Take(10);
 
@@ -382,6 +387,57 @@ namespace ThesisProject.WebApp.Controllers
             }
             viewModel.History.ConclusionDate = DateTime.Now;
             await _cardService.AddDiagnoseHistory(viewModel.DiagnoseId, viewModel.History, doc);
+            return LocalRedirect(viewModel.ReturnUrl);
+        }
+        public async Task<IActionResult> Reccomendations(string Id, string returnUrl, string search)
+        {
+            var vm = new ReccommendationViewModel
+            {
+                PacientId = Id,
+                ReturnUrl = returnUrl,
+                Search = search
+            };
+            var card = await _cardService.GetCardByIdAsync(Id);
+            if (!string.IsNullOrEmpty(search))
+                vm.Reccomendations = await _cardService.SearchReccomendations(card.Id, search)
+                    .OrderBy(x => x.Start).ToListAsync();
+            else
+            {
+                vm.Reccomendations = await _cardService.GetReccomendations(card.Id)
+                    .OrderBy(x => x.Start).ToListAsync();
+            }
+            return View(vm);
+        }
+        [HttpPost]
+        public IActionResult Reccomendations(ReccommendationViewModel viewModel)
+        {
+            return RedirectToAction(nameof(Reccomendations), new
+            {
+                Id = viewModel.PacientId,
+                returnUrl = viewModel.ReturnUrl,
+                search = viewModel.Search
+            });
+        }
+        public IActionResult AddReccomendation(string Id, string returnUrl)
+        {
+            var vm = new AddReccomendationViewModel
+            {
+                PacientId = Id,
+                Reccomendation = new Reccomendation(),
+                ReturnUrl = returnUrl
+            };
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddReccomendation(AddReccomendationViewModel viewModel)
+        {
+            Doctor doc = null;
+            if (User.IsInRole("Doctor"))
+            {
+                doc = await _userManager.GetUserAsync(User) as Doctor;
+            }
+            viewModel.Reccomendation.Start = DateTime.Now;
+            await _cardService.AddReccomendation(viewModel.PacientId, viewModel.Reccomendation, doc);
             return LocalRedirect(viewModel.ReturnUrl);
         }
     }

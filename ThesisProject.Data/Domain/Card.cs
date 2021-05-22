@@ -29,5 +29,6 @@ namespace ThesisProject.Data.Domain
         public ICollection<Ticket> Tickets { get; set; }
         [Display(Name = "Диагнозы")]
         public IEnumerable<Diagnose> Diagnoses { get; set; }
+        public IEnumerable<Reccomendation> Reccomendations { get; set; }
     }
 }

@@ -1,0 +1,74 @@
+﻿@using ThesisProject.WebApp.Models.Card
+@model ReccommendationViewModel
+@{
+    ViewData["Title"] = "Examinations";
+    var path = Context.Request.Path;
+    var query = Context.Request.QueryString;
+    var currentUrl = path + query;
+}
+<form asp-action="Reccomendations" method="post">
+    <input type="hidden" asp-for="@Model.PacientId" />
+    <input type="hidden" asp-for="@Model.ReturnUrl" />
+
+    <div class="d-flex flex-row">
+        <input id="search-input" placeholder="Search" type="search" asp-for="@Model.Search" />
+        <button id="search-button" type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i>
+        </button>
+        <a class="btn btn-primary ml-auto" href="@Model.ReturnUrl">Назад</a>
+    </div>
+</form>
+
+<br />
+<div>
+    <h5>
+        Реккомендации
+        @if (User.IsInRole("Doctor") || User.IsInRole("Admin"))
+        {
+            <a class="btn btn-primary float-right" asp-action="AddReccomendation" asp-route-returnUrl="@currentUrl"
+               asp-route-id="@Model.PacientId">Добавть</a>
+        }
+    </h5>
+</div>
+<br />
+@if (Model.Reccomendations.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>Тип</th>
+            <th>Врач</th>
+            <th>Реккомендация</th>
+            <th>Начало</th>
+            <th>Окончание</th>
+        </tr>
+        @foreach (var reccomendation in Model.Reccomendations)
+        {
+            <tr>
+                <td>
+                    @reccomendation.Type
+                </td>
+                <td>
+                    @reccomendation?.Doctor?.Name1 @reccomendation?.Doctor?.Name2
+                    @reccomendation?.Doctor?.Name3
+                </td>
+                <td>@reccomendation.Descripton</td>
+                <td>@reccomendation.Start</td>
+                @if (reccomendation.End.HasValue)
+                {
+                    <td>@reccomendation.End.Value</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="text-center">
+        Нет реккомендаций
+    </div>
+}

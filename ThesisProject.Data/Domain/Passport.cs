@@ -12,8 +12,6 @@ namespace ThesisProject.Data.Domain
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Страна")]
-        public Country Country { get; set; }
         [Display(Name = "Дата рождения")]
         public DateTime Birthday { get; set; }
         [Display(Name = "Номер")]

@@ -58,6 +58,16 @@ namespace ThesisProject.Data.Services
             return _dbContext.Vaccinations.AsQueryable();
         }
 
+        public IQueryable<Reccomendation> GetReccomendations(int id)
+        {
+            return _dbContext.Reccomendations.AsQueryable();
+        }
+
+        public IQueryable<Reccomendation> SearchReccomendations(int cardId, string search)
+        {
+            return GetReccomendations(cardId).Where(x => x.Type.Contains(search) || x.Descripton.Contains(search));
+        }
+
         public IQueryable<Allergy> SearchAllergies(int cardId, string search)
         {
             return GetAllergies(cardId).Where(x => x.Type.Contains(search));
@@ -171,6 +181,15 @@ namespace ThesisProject.Data.Services
             history.Diagnose = diagnose;
             history.Doctor = doc;
             await _dbContext.DiagnoseHistories.AddAsync(history);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task AddReccomendation(string pacientId, Reccomendation reccomendation, Doctor doc)
+        {
+            var card = await GetCardByIdAsync(pacientId);
+            reccomendation.Card = card;
+            reccomendation.Doctor = doc;
+            await _dbContext.Reccomendations.AddAsync(reccomendation);
             await _dbContext.SaveChangesAsync();
         }
     }

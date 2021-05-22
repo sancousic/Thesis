@@ -17,6 +17,7 @@ namespace ThesisProject.WebApp.Models.Card
         public int VaccinationsCount { get; set; }
         public int DiggnosesCount { get; set; }
         public int DiagnoseHistoryCount { get; set; }
+        public int ReccomendationsCount { get; set; }
         public IEnumerable<DiagnoseHistory> DiagnoseHistories { get; set; }
     }
 }

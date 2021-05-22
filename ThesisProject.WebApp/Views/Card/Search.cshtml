@@ -105,7 +105,7 @@ else
     <h5>
         <a asp-action="Examinations" asp-route-id="@Model.Pacient.Id"
            asp-route-returnUrl="@currentUrl">Посещения врача</a>
-        @if (Model.VaccinationsCount > 10)
+        @if (Model.ExaminationsCount > 10)
         {
             <a class="btn btn-primary float-right" asp-action="Examinations" asp-route-id="@Model.Pacient.Id"
                asp-route-returnUrl="@currentUrl" asp-route-search="@Model.Search">Показать больше</a>
@@ -146,7 +146,7 @@ else
     <h5>
         <a asp-action="Diagnoses" asp-route-id="@Model.Pacient.Id"
            asp-route-returnUrl="@currentUrl">Диагнозы</a>
-        @if (Model.VaccinationsCount > 10)
+        @if (Model.DiggnosesCount > 10)
         {
             <a class="btn btn-primary float-right" asp-action="Diagnoses" asp-route-id="@Model.Pacient.Id"
                asp-route-returnUrl="@currentUrl" asp-route-search="@Model.Search">Показать больше</a>
@@ -218,7 +218,7 @@ else
     <h5>
         <a asp-action="DiagnoseHistory" asp-route-id="@Model.Pacient.Id"
            asp-route-returnUrl="@currentUrl">Заключения</a>
-        @if (Model.VaccinationsCount > 10)
+        @if (Model.DiagnoseHistoryCount > 10)
         {
             <a class="btn btn-primary float-right" asp-action="DiagnoseHistory" asp-route-id="@Model.Pacient.Id"
                asp-route-returnUrl="@currentUrl" asp-route-search="@Model.Search">Показать больше</a>
@@ -260,5 +260,60 @@ else
 {
     <div class="text-center">
         Нет диагнозов
+    </div>
+}
+
+<br />
+<div>
+    <h5>
+        <a asp-action="Reccomendations" asp-route-id="@Model.Pacient.Id"
+           asp-route-returnUrl="@currentUrl">Реккомендации</a>
+        @if (Model.ReccomendationsCount > 10)
+        {
+            <a class="btn btn-primary float-right" asp-action="Reccomendations" asp-route-id="@Model.Pacient.Id"
+               asp-route-returnUrl="@currentUrl" asp-route-search="@Model.Search">Показать больше</a>
+        }
+    </h5>
+</div>
+<br />
+@if (Model.Card.Reccomendations.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>Тип</th>
+            <th>Врач</th>
+            <th>Реккомендация</th>
+            <th>Начало</th>
+            <th>Окончание</th>
+        </tr>
+        @foreach (var reccomendation in Model.Card.Reccomendations)
+        {
+            <tr>
+                <td>
+                    @reccomendation.Type
+                </td>
+                <td>
+                    @reccomendation?.Doctor?.Name1 @reccomendation?.Doctor?.Name2
+                    @reccomendation?.Doctor?.Name3
+                </td>
+                <td>@reccomendation.Descripton</td>
+                <td>@reccomendation.Start</td>
+                @if(reccomendation.End.HasValue)
+                {
+                    <td>@reccomendation.End.Value</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="text-center">
+        Нет реккомендаций
     </div>
 }

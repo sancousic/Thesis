@@ -31,5 +31,8 @@ namespace ThesisProject.Data.Services
         Task ConfirmDiagnose(int id, Doctor doc, DateTime confirmDate);
         Task<Diagnose> GetDiagnoseById(int value, bool IncludePacient);
         Task AddDiagnoseHistory(int diagnoseId, DiagnoseHistory history, Doctor doc);
+        IQueryable<Reccomendation> GetReccomendations(int id);
+        IQueryable<Reccomendation> SearchReccomendations(int id, string search);
+        Task AddReccomendation(string pacientId, Reccomendation reccomendation, Doctor doc);
     }
 }

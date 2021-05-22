@@ -1,0 +1,34 @@
+﻿@using ThesisProject.WebApp.Models.Card
+@model AddReccomendationViewModel
+@{
+    ViewData["Title"] = "Добавить реккомендацию";
+    var path = Context.Request.Path;
+    var query = Context.Request.QueryString;
+    var currentUrl = path + query;
+}
+
+<h4>Добавить осмотр</h4>
+<form asp-action="AddReccomendation" method="post">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" asp-for="@Model.ReturnUrl" />
+    <input type="hidden" asp-for="@Model.PacientId" />
+    <div class="form-group">
+        <label asp-for="@Model.Reccomendation.Type"></label>
+        <input asp-for="@Model.Reccomendation.Type" class="form-control" />
+        <span asp-validation-for="@Model.Reccomendation.Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Reccomendation.Descripton"></label>
+        <textarea asp-for="@Model.Reccomendation.Descripton" class="form-control"></textarea>
+        <span asp-validation-for="@Model.Reccomendation.Descripton" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Reccomendation.End"></label>
+        <input asp-for="@Model.Reccomendation.End" class="form-control" />
+        <span asp-validation-for="@Model.Reccomendation.End" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Добавть</button>
+        <a class="btn btn-primary" href="@Model.ReturnUrl">Отменить</a>
+    </div>
+</form>

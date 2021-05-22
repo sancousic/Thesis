@@ -38,7 +38,6 @@ namespace ThesisProject.Data
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<PacientVaccination> PacientVaccinations { get; set; }
-        public DbSet<Passport> Passports { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
@@ -49,6 +48,7 @@ namespace ThesisProject.Data
         public DbSet<Street> Streets { get; set; }
         public DbSet<Town> Towns { get; set; }
         public DbSet<Addresses> Addresses { get; set; }
+        public DbSet<Reccomendation> Reccomendations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThesisProject.Data;
 
 namespace ThesisProject.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210521182507_RecommendationsChange")]
+    partial class RecommendationsChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -587,6 +589,43 @@ namespace ThesisProject.Data.Migrations
                     b.ToTable("PacientVaccinations");
                 });
 
+            modelBuilder.Entity("ThesisProject.Data.Domain.Passport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Authority")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfExpiry")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateOfIssue")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Identity")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Passports");
+                });
+
             modelBuilder.Entity("ThesisProject.Data.Domain.Reccomendation", b =>
                 {
                     b.Property<int>("Id")
@@ -939,6 +978,15 @@ namespace ThesisProject.Data.Migrations
                     b.Navigation("Card");
 
                     b.Navigation("Vaccination");
+                });
+
+            modelBuilder.Entity("ThesisProject.Data.Domain.Passport", b =>
+                {
+                    b.HasOne("ThesisProject.Data.Domain.Address.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Reccomendation", b =>
