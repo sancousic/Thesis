@@ -1,0 +1,4 @@
+2021-06-15 00:25:21.7741||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-06-15 00:25:21.8121||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-06-15 00:25:21.8291||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-06-15 00:25:26.6862|10102|WARN|Microsoft.EntityFrameworkCore.Query|The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. 
