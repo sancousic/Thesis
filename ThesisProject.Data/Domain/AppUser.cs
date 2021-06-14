@@ -16,10 +16,8 @@ namespace ThesisProject.Data.Domain
         public DateTime RegistrationDate { get; set; }
         [Display(Name = "Последний вход")]
         public DateTime LastLoginDate { get; set; }
-        [Required]
         [Display(Name = "Имя")]
         public string Name1 { get; set; }
-        [Required]
         [Display(Name = "Фмалилия")]
         public string Name2 { get; set; }
         [Display(Name = "Отчество")]

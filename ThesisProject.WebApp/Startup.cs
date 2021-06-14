@@ -1,47 +1,47 @@
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ThesisProject.Data;
 using ThesisProject.Data.Domain;
 using ThesisProject.Data.Services;
+using ThesisProject.WebApp.Options;
 
 namespace ThesisProject.WebApp
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment applicationEnvironment)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
+            this.CurrentEnvironment = applicationEnvironment;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        private IWebHostEnvironment CurrentEnvironment { get; set; }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging(logggingBuilder => logggingBuilder.AddNLog("nlog.config"));
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
-
-            services.AddDbContext<AppDbContext>( options =>
-                options.UseMySql(
-                    Configuration.GetConnectionString("DefaultConnection"), serverVersion, options =>
-                    {
-                        options.MigrationsAssembly("ThesisProject.Data");
-                    }));
+            services.AddLogging((Action<ILoggingBuilder>)(logggingBuilder => logggingBuilder.AddNLog("nlog.config")));
+            MySqlServerVersion serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
+            if (this.CurrentEnvironment.IsDevelopment())
+                services.AddDbContext<AppDbContext>((Action<DbContextOptionsBuilder>)(options => options.UseMySql(this.Configuration.GetConnectionString("DefaultConnection"), (ServerVersion)serverVersion, (Action<MySqlDbContextOptionsBuilder>)(options => options.MigrationsAssembly("ThesisProject.Data")))));
+            else
+                services.AddDbContext<AppDbContext>((Action<DbContextOptionsBuilder>)(options => options.UseSqlServer(this.Configuration.GetConnectionString("SQLServer"))));
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddDefaultIdentity<AppUser>(options =>
+            services.AddDefaultIdentity<AppUser>((Action<IdentityOptions>)(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = false;
@@ -50,17 +50,19 @@ namespace ThesisProject.WebApp
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 1;
                 options.Password.RequiredUniqueChars = 1;
-            })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
-            
-
-            services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation();
-
+            })).AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddAuthentication().AddFacebook((Action<FacebookOptions>)(facebookOptions =>
+            {
+                facebookOptions.AppId = this.Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = this.Configuration["Authentication:Facebook:AppSecret"];
+                facebookOptions.AccessDeniedPath = (PathString)"/Login";
+            }));
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            IConfigurationSection section = this.Configuration.GetSection("EmailSettings");
+            services.Configure<EmailSettings>((IConfiguration)section);
             services.AddRazorPages();
-
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddTransient<IEmailSender, ThesisProject.WebApp.Services.EmailSender>();
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IPacientService, PacientService>();
             services.AddScoped<IScheduleService, ScheduleService>();
@@ -69,7 +71,6 @@ namespace ThesisProject.WebApp
             services.AddScoped<IServicesService, ServicesService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -80,24 +81,18 @@ namespace ThesisProject.WebApp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints((Action<IEndpointRouteBuilder>)(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-            });
+            }));
         }
     }
 }

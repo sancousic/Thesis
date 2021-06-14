@@ -18,5 +18,10 @@ namespace ThesisProject.Data.Domain
         [Display(Name = "Кабинет")]
         public Cabinet Cabinet { get; set; }
         public IEnumerable<Schedule> Schedule { get; set; }
+        public IEnumerable<Reccomendation> Reccomendations { get; set; }
+        public IEnumerable<Examination> Examinations { get; set; }
+        public IEnumerable<DiagnoseHistory> Histories { get; set; }
+        public IEnumerable<Diagnose> EstablisheDiagnoses { get; set; }
+        public IEnumerable<Diagnose> ConfirmedDiagnoses { get; set; }
     }
 }

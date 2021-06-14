@@ -330,11 +330,9 @@ namespace ThesisProject.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name1")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name2")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name3")
@@ -677,6 +675,9 @@ namespace ThesisProject.Data.Migrations
                     b.Property<int?>("ScheduleId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime>("TicketDate")
                         .HasColumnType("datetime(6)");
 
@@ -840,7 +841,8 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Card", "Card")
                         .WithMany("Allergies")
-                        .HasForeignKey("CardId");
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Card");
                 });
@@ -879,15 +881,18 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Card", "Card")
                         .WithMany("Diagnoses")
-                        .HasForeignKey("CardId");
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "DoctorConfirm")
-                        .WithMany()
-                        .HasForeignKey("DoctorConfirmId");
+                        .WithMany("ConfirmedDiagnoses")
+                        .HasForeignKey("DoctorConfirmId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "DoctorEstablishe")
-                        .WithMany()
-                        .HasForeignKey("DoctorEstablisheId");
+                        .WithMany("EstablisheDiagnoses")
+                        .HasForeignKey("DoctorEstablisheId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Card");
 
@@ -900,11 +905,13 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Diagnose", "Diagnose")
                         .WithMany("DiagnoseHistorie")
-                        .HasForeignKey("DiagnoseId");
+                        .HasForeignKey("DiagnoseId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId");
+                        .WithMany("Histories")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Diagnose");
 
@@ -915,11 +922,13 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Card", "Card")
                         .WithMany("Examinations")
-                        .HasForeignKey("CardId");
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId");
+                        .WithMany("Examinations")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Card");
 
@@ -930,7 +939,8 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Card", "Card")
                         .WithMany("Vaccinations")
-                        .HasForeignKey("CardId");
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ThesisProject.Data.Domain.Vaccination", "Vaccination")
                         .WithMany()
@@ -945,11 +955,13 @@ namespace ThesisProject.Data.Migrations
                 {
                     b.HasOne("ThesisProject.Data.Domain.Card", "Card")
                         .WithMany("Reccomendations")
-                        .HasForeignKey("CardId");
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ThesisProject.Data.Domain.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId");
+                        .WithMany("Reccomendations")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Card");
 
@@ -1054,6 +1066,16 @@ namespace ThesisProject.Data.Migrations
 
             modelBuilder.Entity("ThesisProject.Data.Domain.Doctor", b =>
                 {
+                    b.Navigation("ConfirmedDiagnoses");
+
+                    b.Navigation("EstablisheDiagnoses");
+
+                    b.Navigation("Examinations");
+
+                    b.Navigation("Histories");
+
+                    b.Navigation("Reccomendations");
+
                     b.Navigation("Schedule");
                 });
 

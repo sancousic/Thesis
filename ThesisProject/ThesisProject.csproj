@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>aspnet-ThesisProject-A31767EE-33C2-477B-9D4A-2605ACD39246</UserSecretsId>
+    <UserSecretsId>aspnet-ThesisProject.WebApp-B3270194-E32A-45DB-A36B-972B05D775EA</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
 

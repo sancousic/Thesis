@@ -1,0 +1,85 @@
+2021-06-13 18:04:50.1174||ERROR|ThesisProject.WebApp.Program|An error occurred while seeding the database. System.ArgumentNullException: Value cannot be null. (Parameter 'connectionString')
+   at Microsoft.EntityFrameworkCore.Utilities.Check.NotEmpty(String value, String parameterName)
+   at Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(DbContextOptionsBuilder optionsBuilder, String connectionString, Action`1 sqlServerOptionsAction)
+   at ThesisProject.Data.AppDbContext.OnConfiguring(DbContextOptionsBuilder options) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\AppDbContext.cs:line 36
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetRelationalService[TService](IInfrastructure`1 databaseFacade)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.MigrateAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at ThesisProject.WebApp.Program.Main(String[] args) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Program.cs:line 31|url: |action: 
+2021-06-13 18:04:50.2414||ERROR|ThesisProject.WebApp.Program|Stopped program because of exception System.ArgumentNullException: Value cannot be null. (Parameter 'connectionString')
+   at Microsoft.EntityFrameworkCore.Utilities.Check.NotEmpty(String value, String parameterName)
+   at Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(DbContextOptionsBuilder optionsBuilder, String connectionString, Action`1 sqlServerOptionsAction)
+   at ThesisProject.Data.AppDbContext.OnConfiguring(DbContextOptionsBuilder options) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\AppDbContext.cs:line 36
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetRelationalService[TService](IInfrastructure`1 databaseFacade)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.MigrateAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at ThesisProject.WebApp.Program.Main(String[] args) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Program.cs:line 31|url: |action: 
+2021-06-13 18:07:46.5958||ERROR|ThesisProject.WebApp.Program|An error occurred while seeding the database. System.ArgumentNullException: Value cannot be null. (Parameter 'connectionString')
+   at Microsoft.EntityFrameworkCore.Utilities.Check.NotEmpty(String value, String parameterName)
+   at Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(DbContextOptionsBuilder optionsBuilder, String connectionString, Action`1 sqlServerOptionsAction)
+   at ThesisProject.Data.AppDbContext.OnConfiguring(DbContextOptionsBuilder options) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\AppDbContext.cs:line 36
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetRelationalService[TService](IInfrastructure`1 databaseFacade)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.MigrateAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at ThesisProject.WebApp.Program.Main(String[] args) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Program.cs:line 31|url: |action: 
+2021-06-13 18:07:46.7137||ERROR|ThesisProject.WebApp.Program|Stopped program because of exception System.ArgumentNullException: Value cannot be null. (Parameter 'connectionString')
+   at Microsoft.EntityFrameworkCore.Utilities.Check.NotEmpty(String value, String parameterName)
+   at Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(DbContextOptionsBuilder optionsBuilder, String connectionString, Action`1 sqlServerOptionsAction)
+   at ThesisProject.Data.AppDbContext.OnConfiguring(DbContextOptionsBuilder options) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\AppDbContext.cs:line 36
+   at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+   at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.Infrastructure.DatabaseFacade.Microsoft.EntityFrameworkCore.Infrastructure.IInfrastructure<System.IServiceProvider>.get_Instance()
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.GetRelationalService[TService](IInfrastructure`1 databaseFacade)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.MigrateAsync(DatabaseFacade databaseFacade, CancellationToken cancellationToken)
+   at ThesisProject.WebApp.Program.Main(String[] args) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Program.cs:line 31|url: |action: 
+2021-06-13 18:09:33.0065|20102|ERROR|Microsoft.EntityFrameworkCore.Database.Command|Failed executing DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetRoles` (
+    `Id` varchar(255) NOT NULL,
+    `Name` varchar(256) NULL,
+    `NormalizedName` varchar(256) NULL,
+    `ConcurrencyStamp` longtext NULL,
+    CONSTRAINT `PK_AspNetRoles` PRIMARY KEY (`Id`)
+); |url: |action: 
+2021-06-13 18:09:33.1136||ERROR|ThesisProject.WebApp.Program|An error occurred while seeding the database. MySqlConnector.MySqlException (0x80004005): Table 'aspnetroles' already exists
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsyncAwaited(ValueTask`1 task) in /_/src/MySqlConnector/Core/ServerSession.cs:line 875
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 50
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 135
+   at MySqlConnector.MySqlDataReader.CreateAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 444
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 60
+   at MySqlConnector.MySqlCommand.ExecuteNonQueryAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 266
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at ThesisProject.WebApp.Program.Main(String[] args) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Program.cs:line 31|url: |action: 
+2021-06-13 18:09:33.2125||ERROR|ThesisProject.WebApp.Program|Stopped program because of exception MySqlConnector.MySqlException (0x80004005): Table 'aspnetroles' already exists
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsyncAwaited(ValueTask`1 task) in /_/src/MySqlConnector/Core/ServerSession.cs:line 875
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 50
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 135
+   at MySqlConnector.MySqlDataReader.CreateAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 444
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 60
+   at MySqlConnector.MySqlCommand.ExecuteNonQueryAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 266
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at ThesisProject.WebApp.Program.Main(String[] args) in C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\Program.cs:line 31|url: |action: 
+2021-06-13 18:10:31.1151|10103|WARN|Microsoft.EntityFrameworkCore.Query|The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. |url: |action: 
+2021-06-13 18:10:31.1677|10103|WARN|Microsoft.EntityFrameworkCore.Query|The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results. |url: |action: 
+2021-06-13 18:14:13.5596||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. |url: |action: 
+2021-06-13 18:15:17.9399||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. |url: |action: 
+2021-06-13 18:33:39.3224||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. |url: |action: 

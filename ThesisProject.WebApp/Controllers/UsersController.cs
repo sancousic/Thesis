@@ -153,13 +153,10 @@ namespace ThesisProject.WebApp.Controllers
                     .Select(x => x.Name).ToListAsync();
                 vm = new EditUserViewModel(doc, role, branches, specs);
                 vm.returnUrl = returnUrl;
-            }//TODO edit pacient in userstable
-            //if(role == "Pacient")
-            //{
-            //    var vm = new EditUserViewModel();
-            //    return View("EditPacient", vm);
-            //}
-            return View(vm);
+            }
+            if (!(role == "Pacient"))
+                return View(vm);
+            return View("EditPacient", vm);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel viewModel)

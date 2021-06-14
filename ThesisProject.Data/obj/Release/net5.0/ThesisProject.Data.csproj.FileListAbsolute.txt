@@ -1,0 +1,15 @@
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\bin\Release\net5.0\ThesisProject.Data.deps.json
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\bin\Release\net5.0\ThesisProject.Data.runtimeconfig.json
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\bin\Release\net5.0\ThesisProject.Data.runtimeconfig.dev.json
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\bin\Release\net5.0\ThesisProject.Data.dll
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\bin\Release\net5.0\ref\ThesisProject.Data.dll
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\bin\Release\net5.0\ThesisProject.Data.pdb
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.csprojAssemblyReference.cache
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.AssemblyInfoInputs.cache
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.AssemblyInfo.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.csproj.CoreCompileInputs.cache
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.dll
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ref\ThesisProject.Data.dll
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.pdb
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.Data\obj\Release\net5.0\ThesisProject.Data.genruntimeconfig.cache

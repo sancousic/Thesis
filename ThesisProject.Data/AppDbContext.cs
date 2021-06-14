@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Pomelo.EntityFrameworkCore.MySql.Extensions;
 using System;
 using ThesisProject.Data.Domain.Address;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace ThesisProject.Data
 {
@@ -23,9 +25,17 @@ namespace ThesisProject.Data
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
+            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToUpper() == "DEVILOPMENT")
+            //{
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
 
             options.UseMySql(config.GetConnectionString("DefaultConnection"), serverVersion);
+            //}
+            //else
+            //{
+            //options.UseSqlServer(config.GetConnectionString("SQLServer"));
+            //}
+           
         }
         public DbSet<Allergy> Allergies { get; set; }
         public DbSet<Branch> Branches { get; set; }
@@ -64,6 +74,10 @@ namespace ThesisProject.Data
                 .HasOne(x => x.Card)
                 .WithOne(x => x.Pacient)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Card>()
+                .HasOne(x => x.Pacient)
+                .WithOne(x => x.Card)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Ticket>()
                 .HasOne(x => x.Pacient)
                 .WithMany(x => x.Tickets)
@@ -72,6 +86,62 @@ namespace ThesisProject.Data
                 .HasOne(x => x.Doctor)
                 .WithMany(x => x.Schedule)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<PacientVaccination>()
+                .HasOne(x => x.Card)
+                .WithMany(x => x.Vaccinations)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Examination>()
+                .HasOne(x => x.Card)
+                .WithMany(x => x.Examinations)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Allergy>()
+                .HasOne(x => x.Card)
+                .WithMany(x => x.Allergies)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Reccomendation>()
+                .HasOne(x => x.Doctor)
+                .WithMany(x => x.Reccomendations)
+                .OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<Examination>()
+                .HasOne(x => x.Doctor)
+                .WithMany(x => x.Examinations)
+                .OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<DiagnoseHistory>()
+                .HasOne(x => x.Doctor)
+                .WithMany(x => x.Histories)
+                .OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<Diagnose>()
+                .HasOne(x => x.DoctorEstablishe)
+                .WithMany(x => x.EstablisheDiagnoses)
+                .OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<Diagnose>()
+                .HasOne(x => x.DoctorConfirm)
+                .WithMany(x => x.ConfirmedDiagnoses)
+                .OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<Diagnose>()
+                .HasOne(x => x.Card)
+                .WithMany(x => x.Diagnoses)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<DiagnoseHistory>()
+                .HasOne(x => x.Diagnose)
+                .WithMany(x => x.DiagnoseHistorie)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Allergy>()
+                .HasOne(x => x.Card)
+                .WithMany(x => x.Allergies)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Examination>()
+                .HasOne(x => x.Card)
+                .WithMany(x => x.Examinations)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<PacientVaccination>()
+               .HasOne(x => x.Card)
+               .WithMany(x => x.Vaccinations)
+               .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Reccomendation>()
+               .HasOne(x => x.Card)
+               .WithMany(x => x.Reccomendations)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

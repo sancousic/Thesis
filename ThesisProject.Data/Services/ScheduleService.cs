@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using ThesisProject.Data.Domain;
 using ThesisProject.Data.Results;
@@ -78,6 +78,11 @@ namespace ThesisProject.Data.Services
             return res;
         }
 
+        public IQueryable<Schedule> GetScheduleById(int id)
+        {
+            return _dbContext.Schedules.Where(x => x.Id == id);
+        }
+
         public IQueryable<Ticket> GetUserTickets(bool isFuture, string userId = null, string docId = null)
         {
             var query = _dbContext.Tickets.AsQueryable();
@@ -94,6 +99,13 @@ namespace ThesisProject.Data.Services
                 query = query.Where(x => x.TicketDate.Date >= DateTime.Now);
             }
             return query;
+        }
+
+        public async Task<bool> IsSignedTicket(int scheduleId, DateTime date)
+        {
+            var ticket = await _dbContext.Tickets.Where(x => x.Schedule.Id == scheduleId &&
+                x.TicketDate == date).FirstOrDefaultAsync();
+            return ticket == null ? false : true;
         }
 
         public async Task<bool> SignTicket(Pacient pacient, int schedule, DateTime date)
