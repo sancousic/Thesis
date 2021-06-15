@@ -14,6 +14,7 @@ namespace ThesisProject.Data.Domain
         public Pacient Pacient { get; set; }
         public Schedule Schedule { get; set; }
         public DateTime TicketDate { get; set; }
+        // means Closed
         public bool Status { get; set; }
     }
 }

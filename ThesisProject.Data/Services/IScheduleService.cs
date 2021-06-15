@@ -17,5 +17,6 @@ namespace ThesisProject.Data.Services
         IQueryable<Ticket> GetUserTickets(bool isFuture, string userId = null, string docId = null);
         Task<bool> DeleteTicket(int id);
         Task<bool> IsSignedTicket(int scheduleId, DateTime date);
+        Task CloseTicket(int id);
     }
 }

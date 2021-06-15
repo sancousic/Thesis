@@ -67,6 +67,17 @@ namespace ThesisProject.WebApp.Controllers
         }
         public async Task<IActionResult> SignTicket(string userName, string docId, int scheduleId, DateTime date)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                var path = Request.Path;
+                var query = Request.QueryString;
+                var currentUrl = path + query;
+                return RedirectToPage("/Account/Login", new { area = "Identity", ReturnUrl = currentUrl});
+            }
+            if (string.IsNullOrEmpty(userName))
+            {
+                userName = _userManager.GetUserName(User);
+            }
             var pacient = await _userManager.FindByNameAsync(userName) as Pacient;
             if (await _scheduleService.IsSignedTicket(scheduleId, date))
                 return RedirectToAction("PacientTickets", new
@@ -84,11 +95,12 @@ namespace ThesisProject.WebApp.Controllers
                 status = ("Произведена запись к доктору " + schedule?.Doctor?.Name1 + " " + schedule?.Doctor?.Name2 + string.Format(" {0} {1} {2}", schedule?.Doctor?.Name3, date, schedule.Time))
             });
         }
-        public async Task<IActionResult> DoctorTickets(string id, string returnUrl)
+        public async Task<IActionResult> DoctorTickets(string id, string returnUrl, string status, bool isError = false)
         {
             if (id == null)
                 id = _userManager.GetUserId(User);
-            var tickets = _scheduleService.GetUserTickets(false, docId: id);
+            var tickets = _scheduleService.GetUserTickets(false, docId: id)
+                .Where(x => x.TicketDate.Date >= DateTime.Now && !x.Status);
             tickets = tickets.Include(x => x.Schedule);
             if (User.IsInRole("Admin"))
             {
@@ -102,8 +114,11 @@ namespace ThesisProject.WebApp.Controllers
             }
             return View("Tickets", new TicketsViewModel
             {
+                userId = id,
                 Tickets = await tickets.ToListAsync(),
-                ReturnUrl = returnUrl
+                ReturnUrl = returnUrl,
+                StatusMessage = status,
+                IsError = isError
             });
         }
         public async Task<IActionResult> PacientTickets(string id, string returnUrl, string status, bool isError = false)
@@ -118,6 +133,7 @@ namespace ThesisProject.WebApp.Controllers
                 source = source.Include(x => x.Schedule.Doctor)
                     .Include(x => x.Schedule.Doctor.Cabinet);
             TicketsViewModel ticketsViewModel = new TicketsViewModel();
+            ticketsViewModel.userId = id;
             ticketsViewModel.Tickets = await source.ToListAsync();
             ticketsViewModel.ReturnUrl = returnUrl;
             ticketsViewModel.StatusMessage = status;
@@ -129,6 +145,23 @@ namespace ThesisProject.WebApp.Controllers
             returnUrl ??= Url.Content("~/");
             bool res = await _scheduleService.DeleteTicket(id);
             return LocalRedirect(returnUrl);
+        }
+
+        public async Task<IActionResult> CloseTicket(int id, string userId, string returnUrl)
+        {
+            await _scheduleService.CloseTicket(id);
+            if (string.IsNullOrEmpty(userId))
+            {
+                userId = _userManager.GetUserId(User);
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (await _userManager.IsInRoleAsync(user, "Pacient"))
+            {
+                return RedirectToAction(nameof(PacientTickets), new {id = userId, returnUrl = returnUrl, status = ""});
+            }
+            
+            return RedirectToAction(nameof(DoctorTickets), new {id = userId, returnUrl = returnUrl, status = "Талон закрыт"});
         }
         public async Task<IActionResult> PacientTicketsHistory(string id)
         {

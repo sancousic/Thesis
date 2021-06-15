@@ -36,6 +36,7 @@
                 <span asp-validation-for="@Model.Pacient.Name3" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Pacient.Male"></label>
                 <select asp-for="@Model.Pacient.Male">
                     <option selected disabled>Выберите пол</option>
                     <option value="@Gender.Male">Мужской</option>
@@ -46,11 +47,6 @@
                 <label asp-for="@Model.Pacient.Contacts.Mail"></label>
                 <input asp-for="@Model.Pacient.Contacts.Mail" class="form-control" />
                 <span asp-validation-for="@Model.Pacient.Contacts.Mail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Pacient.Contacts.Phone"></label>
-                <input asp-for="@Model.Pacient.Contacts.Phone" class="form-control" />
-                <span asp-validation-for="@Model.Pacient.Contacts.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Pacient.Contacts.Phone"></label>

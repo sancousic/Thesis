@@ -161,7 +161,7 @@ namespace ThesisProject.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(viewModel);
             
             if (viewModel.Role == "Admin")
@@ -192,8 +192,11 @@ namespace ThesisProject.WebApp.Controllers
                 return LocalRedirect(viewModel.returnUrl);
             return RedirectToAction(nameof(Index));
         }
+        [AllowAnonymous]
         public async Task<IActionResult> ChangeSchedule(string id, string returnUrl)
         {
+            if (string.IsNullOrEmpty(id))
+                id = _userManager.GetUserId(User);
             var viewModel = new ChangeScheduleViewModel
             {
                 ReturnUrl = returnUrl,

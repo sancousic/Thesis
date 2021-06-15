@@ -517,3 +517,4 @@ C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\Mail
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Facebook.dll
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\MimeKit.dll
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Shared\_StatusMessage.cshtml.g.cs

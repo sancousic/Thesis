@@ -6,6 +6,7 @@ namespace ThesisProject.WebApp.Models.Home
 {
     public class TicketsViewModel
     {
+        public string userId { get; set; }
         public string ReturnUrl { get; set; }
 
         public string Header { get; set; }

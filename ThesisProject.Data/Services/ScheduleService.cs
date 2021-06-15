@@ -47,6 +47,7 @@ namespace ThesisProject.Data.Services
         public async Task<IEnumerable<FreeTicketsCountResult>> GetFreeTicketsCount(string doctorId, DateTime start, DateTime end)
         {
             var schCount = _dbContext.Schedules
+                .Where(x => x.Doctor.Id == doctorId)
                 .AsEnumerable()
                 .GroupBy(x => x.DayOfWeek)
                 .ToDictionary(x => x.Key, y => y.Count());
@@ -54,9 +55,10 @@ namespace ThesisProject.Data.Services
             //               group sch by sch.DayOfWeek into gr)
             //               .ToDictionaryAsync(x => x.Name, x => x.Count());
             var query = from ticket in _dbContext.Tickets
-                        where ticket.TicketDate >= start && ticket.TicketDate <= end
-                        group ticket by ticket.TicketDate into gr
-                        select new FreeTicketsCountResult { Start = gr.Key, Title = gr.Count() };
+                    where ticket.Schedule.Doctor.Id == doctorId
+                    where ticket.TicketDate >= start && ticket.TicketDate <= end
+                    group ticket by ticket.TicketDate into gr
+                    select new FreeTicketsCountResult { Start = gr.Key, Title = gr.Count() };
             var list = query.ToList();
             var res = new List<FreeTicketsCountResult>();
             for (DateTime i = start; i < end; i += TimeSpan.FromDays(1))
@@ -96,7 +98,7 @@ namespace ThesisProject.Data.Services
             }
             if(isFuture)
             {
-                query = query.Where(x => x.TicketDate.Date >= DateTime.Now);
+                query = query.Where(x => x.TicketDate.Date >= DateTime.Now && !x.Status);
             }
             return query;
         }
@@ -106,6 +108,17 @@ namespace ThesisProject.Data.Services
             var ticket = await _dbContext.Tickets.Where(x => x.Schedule.Id == scheduleId &&
                 x.TicketDate == date).FirstOrDefaultAsync();
             return ticket == null ? false : true;
+        }
+
+        public async Task CloseTicket(int id)
+        {
+            var ticket = await _dbContext.Tickets.FirstOrDefaultAsync(x => x.Id == id);
+            if (ticket != null)
+            {
+                ticket.Status = true;
+                _dbContext.Tickets.Update(ticket);
+                var a = await _dbContext.SaveChangesAsync();
+            }
         }
 
         public async Task<bool> SignTicket(Pacient pacient, int schedule, DateTime date)

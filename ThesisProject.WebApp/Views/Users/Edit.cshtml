@@ -37,7 +37,7 @@
                     <label asp-for="@Model.Branch"></label>
                     <input list="branchlist" asp-for="@Model.Branch" class="form-control" />
                     <datalist id="branchlist">
-                        @foreach (var branch in Model.Branches)
+                        @foreach (var branch in Model?.Branches)
                         {
                             <option value="@branch"></option>
                         }
