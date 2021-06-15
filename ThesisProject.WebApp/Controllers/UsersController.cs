@@ -156,7 +156,7 @@ namespace ThesisProject.WebApp.Controllers
             }
             if (!(role == "Pacient"))
                 return View(vm);
-            return View("EditPacient", vm);
+            return RedirectToAction("Edit", "Pacients", new {id = Id, returnUrl = returnUrl});
         }
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel viewModel)
@@ -292,6 +292,21 @@ namespace ThesisProject.WebApp.Controllers
             return LocalRedirect(viewModel.returnUrl);
         }
         private async Task<List<SelectListItem>> GetRoles() => await _roleManager.Roles.Select(x => new SelectListItem { Text = x.Name, Value = x.Name }).ToListAsync();
-        
+
+        public async Task<IActionResult> Details(string Id, string returnUrl)
+        {
+            if (string.IsNullOrEmpty(Id))
+                Id = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(Id);
+            if (await _userManager.IsInRoleAsync(user, "Pacient"))
+                return RedirectToAction("Details", "Pacients", new {id = Id, returnUrl = returnUrl});
+            if (await _userManager.IsInRoleAsync(user, "Doctor"))
+                return RedirectToAction("Details", "Doctors", new { id = Id, returnUrl = returnUrl } );
+            return View(new AdminViewModel
+            {
+                User = user,
+                ReturnUrl = returnUrl
+            });
+        }
     }
 }

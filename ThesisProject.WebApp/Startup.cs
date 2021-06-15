@@ -69,6 +69,7 @@ namespace ThesisProject.WebApp
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICardService, CardService>();
             services.AddScoped<IServicesService, ServicesService>();
+            services.AddScoped<IStatsService, StatsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

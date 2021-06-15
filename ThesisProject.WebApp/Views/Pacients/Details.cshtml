@@ -72,7 +72,7 @@
             $('a.deleteBtn').click((e) => {
                 e.preventDefault();
                 href = e.target.href;
-                bootbox.confirm("Удалить доктора. Вы уверены?", function (result) {
+                bootbox.confirm("Удалить пациента. Вы уверены?", function (result) {
                     if (result) {
                         $.get(href).done(function (data) {
                             if (data.status == "success") {

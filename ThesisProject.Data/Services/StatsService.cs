@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ThesisProject.Data.Results;
+using Microsoft.EntityFrameworkCore;
 
 namespace ThesisProject.Data.Services
 {
@@ -16,14 +17,65 @@ namespace ThesisProject.Data.Services
             _dbContext = dbContext;
         }
 
-        public Task<DoctorStatsResult> GetDoctorStats(string Id, DateTime start, DateTime end)
+        public async Task<DoctorStatsResult> GetDoctorStats(string Id, DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var result = new DoctorStatsResult
+            {
+                StartDate = start,
+                EndTime = end,
+                DayStats = await GetDayStats(Id, start, end),
+                TotalSchedules = await GetTotalSchedules(Id, start, end),
+                TotalTickets = await GetTotalTickets(Id, start, end)
+            };
+
+            return result;
         }
 
-        public Task<IssueStatsResult> GetIssueStats(DateTime start, DateTime end)
+        private async Task<int> GetTotalTickets(string Id, DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var query = _dbContext.Tickets
+                .Where(x => x.Schedule.Doctor.Id == Id
+                            && (x.TicketDate >= start && x.TicketDate <= end));
+            return await query.CountAsync();
+        }
+
+        private async Task<int> GetTotalSchedules(string Id, DateTime start, DateTime end)
+        {
+            int count = 0;
+            for (DateTime i = start; i <= end; i += TimeSpan.FromDays(1))
+            {
+                var query = _dbContext.Schedules.Where(x => x.Doctor.Id == Id
+                                                            && x.DayOfWeek == i.DayOfWeek);
+                count += await query.CountAsync();
+            }
+
+            return count;
+        }
+        private async Task<IEnumerable<DoctorStatsResultItem>> GetDayStats(string Id, DateTime start, DateTime end)
+        {
+            var res = new List<DoctorStatsResultItem>();
+            for (DateTime i = start; i <= end; i += TimeSpan.FromDays(1))
+            {
+                var item = new DoctorStatsResultItem()
+                {
+                    Date = i,
+                    ScheduleCount = await _dbContext.Schedules
+                        .Where(x => x.Doctor.Id == Id && x.DayOfWeek == i.DayOfWeek)
+                        .CountAsync(),
+                    TicketsCount = await _dbContext.Tickets.Where(x => x.Schedule.Doctor.Id == Id 
+                                                                       && x.TicketDate.Date == i.Date)
+                        .CountAsync()
+                };
+                res.Add(item);
+            }
+
+            return res;
+        }
+        public async Task<IssueStatsResult> GetIssueStats(DateTime start, DateTime end)
+        {
+            var result = new IssueStatsResult();
+
+            return result;
         }
     }
 }

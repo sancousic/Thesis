@@ -512,9 +512,10 @@ C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razo
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\Reccomendations.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Card\AddReccomendation.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Stats\DiagnoseStats.cshtml.g.cs
-C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Stats\DoctorStats.cshtml.g.cs
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\MailKit.dll
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Facebook.dll
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\MimeKit.dll
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\bin\Debug\net5.0\BouncyCastle.Crypto.dll
 C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Shared\_StatusMessage.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Doctors\DoctorStats.cshtml.g.cs
+C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp\obj\Debug\net5.0\Razor\Views\Users\Details.cshtml.g.cs

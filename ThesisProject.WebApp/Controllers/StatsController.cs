@@ -12,5 +12,10 @@ namespace ThesisProject.WebApp.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> IssueStats()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

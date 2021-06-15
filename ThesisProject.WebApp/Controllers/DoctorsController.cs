@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using ThesisProject.Data.Domain;
 using ThesisProject.Data.Services;
 using ThesisProject.WebApp.Models.Doctors;
+using ThesisProject.WebApp.Models.Stats;
 
 namespace ThesisProject.WebApp.Controllers
 {
@@ -13,11 +17,15 @@ namespace ThesisProject.WebApp.Controllers
     {
         private readonly ILogger<UsersController> _logger;
         private readonly IDoctorService _doctorService;
+        private readonly IStatsService _statsService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public DoctorsController(ILogger<UsersController> logger, IDoctorService doctorService)
+        public DoctorsController(ILogger<UsersController> logger, IDoctorService doctorService, IStatsService statsService, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _doctorService = doctorService;
+            _statsService = statsService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -73,9 +81,26 @@ namespace ThesisProject.WebApp.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Stats(string Id)
+        public async Task<IActionResult> Stats(string Id, string returnUrl)
         {
-            return View();
+            if (string.IsNullOrEmpty(Id))
+                Id = _userManager.GetUserId(User);
+            var now = DateTime.Now;
+            var vm = new DoctorStatsViewModel()
+            {
+                Start = new DateTime(now.Year, now.Month, 1),
+                End = now.Date,
+                ReturnUrl = returnUrl
+            };
+            vm.Stats = await _statsService.GetDoctorStats(Id, vm.Start, vm.End);
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Stats(DoctorStatsViewModel viewModel)
+        {
+            viewModel.Stats = await _statsService.GetDoctorStats(viewModel.Id,
+                viewModel.Start, viewModel.End);
+            return View(viewModel);
         }
     }
 }
