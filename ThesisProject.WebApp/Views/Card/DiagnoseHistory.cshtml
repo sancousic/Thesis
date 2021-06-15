@@ -41,11 +41,11 @@
             @Model?.Diagnose?.Card?.Pacient?.Name2
             @Model?.Diagnose?.Card?.Pacient?.Name3
         </h6>
-        <h6>Карта №@Model.Diagnose.Card.Number</h6>
+        <h6>Карта №@Model.Diagnose?.Card?.Number</h6>
     </div>
     <br />
 }
-@if (Model.History.Count() > 0)
+@if (Model.History?.Count() > 0)
 {
     <table class="table">
         <tr>

@@ -1,1 +1,12 @@
 2021-06-15 00:25:26.6862|10102|WARN|Microsoft.EntityFrameworkCore.Query|The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. |url: |action: 
+2021-06-15 00:28:29.1231||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. |url: |action: 
+2021-06-15 00:36:04.9434||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. |url: |action: 
+2021-06-15 09:59:00.5382||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. |url: |action: 
+2021-06-15 09:59:06.1511||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. |url: |action: 
+2021-06-15 10:06:48.4526||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. |url: |action: 
+2021-06-15 10:07:16.1564||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. |url: |action: 
+2021-06-15 10:07:20.3810|10102|WARN|Microsoft.EntityFrameworkCore.Query|The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. |url: |action: 
+2021-06-15 10:07:40.8100||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. |url: |action: 
+2021-06-15 10:07:48.4496||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. |url: |action: 
+2021-06-15 10:09:03.6761||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. |url: |action: 
+2021-06-15 10:09:07.2354||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. |url: |action: 

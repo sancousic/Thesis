@@ -6,7 +6,7 @@
     var currentUrl = path + query;
 }
 
-<h2>Доктор @Model.Doctor.Name1 @Model.Doctor @Model?.Doctor?.Name3 </h2>
+<h2>Доктор @Model.Doctor?.Name1 @Model?.Doctor?.Name2 @Model?.Doctor?.Name3 </h2>
 <br />
 
 <div>
@@ -44,9 +44,11 @@
 
 <div class="btn-group">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Назад</a>
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Schedule"
-       asp-route-id="@Model.Doctor.Id">Запись на прием</a>
-
+    @if (User.IsInRole("Pacient"))
+    {
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Schedule"
+           asp-route-id="@Model.Doctor.Id" asp-route-returnUrl="@currentUrl">Запись на прием</a>
+    }
     @if (User.IsInRole("Admin"))
     {
         <a class="btn btn-primary" asp-controller="Users" asp-action="ChangeSchedule"

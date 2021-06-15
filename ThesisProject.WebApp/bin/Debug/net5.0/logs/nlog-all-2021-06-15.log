@@ -2,3 +2,32 @@
 2021-06-15 00:25:21.8121||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
 2021-06-15 00:25:21.8291||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
 2021-06-15 00:25:26.6862|10102|WARN|Microsoft.EntityFrameworkCore.Query|The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. 
+2021-06-15 00:27:49.4955||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-06-15 00:27:49.5349||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-06-15 00:27:49.5349||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-06-15 00:28:29.1231||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. 
+2021-06-15 00:36:04.9434||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. 
+2021-06-15 09:52:41.8751||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-06-15 09:52:41.9118||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-06-15 09:52:41.9118||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-06-15 09:55:45.4425||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-06-15 09:55:45.4783||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-06-15 09:55:45.4783||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-06-15 09:58:06.5439||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-06-15 09:58:06.5736||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-06-15 09:58:06.5825||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-06-15 09:58:55.5551||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-06-15 09:58:55.5847||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-06-15 09:58:55.5847||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-06-15 09:59:00.5382||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. 
+2021-06-15 09:59:06.1511||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. 
+2021-06-15 10:06:46.0854||INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down. 
+2021-06-15 10:06:46.1200||INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development 
+2021-06-15 10:06:46.1289||INFO|Microsoft.Hosting.Lifetime|Content root path: C:\Users\vaniuhan\source\repos\Thesis\ThesisProject.WebApp 
+2021-06-15 10:06:48.4526||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. 
+2021-06-15 10:07:16.1564||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. 
+2021-06-15 10:07:20.3810|10102|WARN|Microsoft.EntityFrameworkCore.Query|The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. 
+2021-06-15 10:07:40.8100||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. 
+2021-06-15 10:07:48.4496||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. 
+2021-06-15 10:09:03.6761||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LogoutModel|User logged out. 
+2021-06-15 10:09:07.2354||INFO|ThesisProject.WebApp.Areas.Identity.Pages.Account.LoginModel|User logged in. 

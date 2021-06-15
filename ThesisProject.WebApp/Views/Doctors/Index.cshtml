@@ -38,14 +38,6 @@
     </div>
 </form>
 
-@*<div class="row mt-3 mb-3">
-    <div class="btn-group">
-        <button type="button" class="btn btn-secondary">Left</button>
-        <button type="button" class="btn btn-secondary">Middle</button>
-        <button type="button" class="btn btn-secondary">Right</button>
-    </div>
-</div>*@
-
 @if (Model.Doctors.Count() > 0)
 {
     <table class="table table-hover">
@@ -95,8 +87,8 @@
                             }
                             @if (User.IsInRole("Pacient"))
                             {
-                                <a class="btn btn-primary" asp-action="Stats" asp-route-id="@doctor.Id">Запись на прием</a> @*TODO make real*@
-                                <a class="btn btn-primary" asp-action="Stats" asp-route-id="@doctor.Id">Запись на прием</a>
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="Schedule"
+                                   asp-route-id="@doctor.Id" asp-route-returnUrl="@currentUrl">Запись на прием</a>
                             }
                         </div>
                     </td>

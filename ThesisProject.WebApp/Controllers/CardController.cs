@@ -32,6 +32,10 @@ namespace ThesisProject.WebApp.Controllers
 
         public async Task<IActionResult> Index(string Id, string returnUrl)
         {
+            if (string.IsNullOrEmpty(Id))
+            {
+                Id = _userManager.GetUserId(User);
+            }
             var pacient = await _pacientService.GetPacientByIdAsync(Id, true, true);
             var vm = new CardViewModel
             {
@@ -391,6 +395,10 @@ namespace ThesisProject.WebApp.Controllers
         }
         public async Task<IActionResult> Reccomendations(string Id, string returnUrl, string search)
         {
+            if (string.IsNullOrEmpty(Id))
+            {
+                Id = _userManager.GetUserId(User);
+            }
             var vm = new ReccommendationViewModel
             {
                 PacientId = Id,
