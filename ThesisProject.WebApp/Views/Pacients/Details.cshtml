@@ -55,13 +55,13 @@
                asp-route-returnUrl="@currentUrl">Изменить</a>
             <a class="btn btn-danger deleteBtn" asp-controller="Users"
                asp-action="Remove" asp-route-id="@Model.Pacient.Id">Удалить</a>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="PacientTickets" asp-route-id="@Model.Pacient.Id"
+               asp-route-returnUrl="@currentUrl">Талоны</a>
         }
         @if (User.IsInRole("Doctor") || User.IsInRole("Admin"))
         {
             <a class="btn btn-primary" asp-controller="Card" asp-action="Index"
                asp-route-id="@Model.Pacient.Id" asp-route-returnUrl="@currentUrl">Карточка</a>
-            <a class="btn btn-primary" asp-controller="Home" asp-action="PacientTickets" asp-route-id="@Model.Pacient.Id"
-               asp-route-returnUrl="@currentUrl">Талоны</a>
         }
     </div>
 </div>
