@@ -74,7 +74,8 @@
                     
                 }
                     <td>
-                        <a class="btn btn-primary">История</a> 
+                        <a class="btn btn-primary" asp-route-returnUrl="@currentUrl"
+                           asp-action="DiagnoseHistory" asp-route-id="@diagnose.Card.Id" asp-route-diagnoseId="@diagnose.Id">История</a> 
                     </td>
             </tr>
         }

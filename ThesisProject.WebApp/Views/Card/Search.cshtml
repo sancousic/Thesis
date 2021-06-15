@@ -193,11 +193,12 @@ else
                         @diagnose?.DoctorConfirm?.Name3
                     </td>
                     <td>@diagnose?.ConfirmDate.Value</td>
-                    <td>
-                        <a class="btn btn-primary" asp-action="DiagnoseHistory" asp-route-id="@Model.Pacient.Id"
-                           asp-route-diagnoseId="@diagnose.Id" asp-route-returnUrl="@currentUrl">К истории</a>
-                    </td>
+                    
                 }
+                <td>
+                    <a class="btn btn-primary" asp-action="DiagnoseHistory" asp-route-id="@Model.Pacient.Id"
+                       asp-route-diagnoseId="@diagnose.Id" asp-route-returnUrl="@currentUrl">К истории</a>
+                </td>
             </tr>
         }
     </table>
@@ -250,7 +251,7 @@ else
                 <td>@diagnose.ConclusionDate</td>
                 <td>
                     <a class="btn btn-primary" asp-action="DiagnoseHistory" asp-route-id="@Model.Pacient.Id"
-                       asp-route-diagnoseId="@diagnose.Id" asp-route-returnUrl="@currentUrl">К истории</a>
+                       asp-route-diagnoseId="@diagnose.Diagnose.Id" asp-route-returnUrl="@currentUrl">К истории</a>
                 </td>
             </tr>
         }

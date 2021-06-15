@@ -72,7 +72,7 @@ namespace ThesisProject.WebApp.Controllers
         }
         public async Task<IActionResult> Details(string Id, string returnUrl)
         {
-            var pacient = await _pacientService.GetPacientByIdAsync(Id, true, true);
+            var pacient = await _pacientService.GetPacientByIdAsync(Id, true, true, false);
             pacient.Address = await _pacientService.GetPacientAddress(Id);
             var vm = new PacientInfoViewModel
             {
@@ -85,7 +85,7 @@ namespace ThesisProject.WebApp.Controllers
         {
             var vm = new PacientEditViewModel
             {
-                Pacient = await _pacientService.GetPacientByIdAsync(id, true, false),
+                Pacient = await _pacientService.GetPacientByIdAsync(id, true, false, true),
                 ReturnUrl = returnUrl
             };
             if (vm.Pacient.BirthDay == null)

@@ -95,7 +95,8 @@ namespace ThesisProject.WebApp.Areas.Identity.Pages.Account
                     Name1 = Input.Name1,
                     Name2 = Input.Name2,
                     Name3 = Input.Name3,
-                    Card = new Card()
+                    Card = new Card(),
+                    Contacts = new Contacts()
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

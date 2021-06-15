@@ -36,7 +36,7 @@ namespace ThesisProject.WebApp.Controllers
             {
                 Id = _userManager.GetUserId(User);
             }
-            var pacient = await _pacientService.GetPacientByIdAsync(Id, true, true);
+            var pacient = await _pacientService.GetPacientByIdAsync(Id, true, true, false);
             var vm = new CardViewModel
             {
                 Pacient = pacient,
@@ -47,7 +47,7 @@ namespace ThesisProject.WebApp.Controllers
         }
         public async Task<IActionResult> Search(string Id, string returnUrl, string search)
         {
-            var pacient = await _pacientService.GetPacientByIdAsync(Id, false, false);
+            var pacient = await _pacientService.GetPacientByIdAsync(Id, false, false, false);
             var card = await _cardService.GetCardByIdAsync(Id);
             IQueryable<Allergy> allergy;
             IQueryable<Examination> exam;
@@ -78,7 +78,10 @@ namespace ThesisProject.WebApp.Controllers
             card.Examinations = await exam.OrderBy(x => x.ExaminationDate).Take(10).ToListAsync();
             card.Vaccinations = await vaccinations.OrderBy(x => x.Date)
                 .Include(x => x.Vaccination).Take(10).ToListAsync();
-            card.Diagnoses = await diagnoses.OrderBy(x => x.EstablisheDate).Take(10).ToListAsync();
+            card.Diagnoses = await diagnoses
+                .OrderBy(x => x.EstablisheDate).Take(10)
+                .Include(x => x.DoctorEstablishe)
+                .Include(x => x.DoctorConfirm).ToListAsync();
             card.Reccomendations = await reccomendations.OrderBy(x => x.Start).Take(10).ToArrayAsync();
             var vm = new CardSearchViewModel
             {
@@ -248,7 +251,7 @@ namespace ThesisProject.WebApp.Controllers
             Doctor doc = null;
             if (User.IsInRole("Doctor"))
                 doc = await _userManager.GetUserAsync(User) as Doctor;
-
+            viewModel.Examination.ExaminationDate = DateTime.Now;
             await _cardService.AddExamination(viewModel.PacientId, doc, viewModel.Examination);
 
             return LocalRedirect(viewModel.ReturnUrl);
@@ -339,12 +342,12 @@ namespace ThesisProject.WebApp.Controllers
                 if (!string.IsNullOrEmpty(search))
                 {
                     vm.History = await _cardService.SearchDiagnosesHistories(diagnoseId.Value, search)
-                        .OrderBy(x => x.ConclusionDate).ToArrayAsync();
+                        .OrderBy(x => x.ConclusionDate).Include(x=>x.Doctor).ToArrayAsync();
                 }
                 else
                 {
                     vm.History = await _cardService.GetDiagnosesHistories(diagnoseId.Value)
-                        .OrderBy(x => x.ConclusionDate).ToArrayAsync();
+                        .OrderBy(x => x.ConclusionDate).Include(x => x.Doctor).ToArrayAsync();
                 }
             }
             else

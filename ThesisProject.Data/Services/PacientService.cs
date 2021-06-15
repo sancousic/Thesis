@@ -20,7 +20,7 @@ namespace ThesisProject.Data.Services
             _dbContext = dbContext;
             _userManager = userManager;
         }
-        public async Task<Pacient> GetPacientByIdAsync(string Id, bool includeContacts, bool includeAddress)
+        public async Task<Pacient> GetPacientByIdAsync(string Id, bool includeContacts, bool includeAddress, bool includeCard)
         {
             var query = _dbContext.Pacients.Where(x => x.Id == Id);
             if (includeContacts)
@@ -32,6 +32,8 @@ namespace ThesisProject.Data.Services
                     .Include(x => x.Address.District)
                     .Include(x => x.Address.Street)
                     .Include(x => x.Address.Town);
+            if (includeCard)
+                query = query.Include(x => x.Card);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -152,6 +154,7 @@ namespace ThesisProject.Data.Services
         public async Task<bool> UpdateAsync(Pacient pacient)
         {
             var user = await _dbContext.Pacients.Where(x => x.Id == pacient.Id).Include(x=>x.Contacts)
+                .Include(x => x.Card)
                 .FirstOrDefaultAsync();
             user.Name1 = pacient.Name1;
             user.Name2 = pacient.Name2;
@@ -161,7 +164,7 @@ namespace ThesisProject.Data.Services
             user.Work = pacient.Work;
             user.Contacts.Mail = pacient.Contacts.Mail;
             user.Contacts.Phone= pacient.Contacts.Phone;
-            
+            user.Card.Number = pacient.Card.Number;
             _dbContext.Pacients.Update(user);
             return await _dbContext.SaveChangesAsync() > 0;
         }

@@ -12,7 +12,7 @@ namespace ThesisProject.Data.Domain
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Номер")]
+        [Display(Name = "Номер карты")]
         public int? Number { get; set; }
         [Display(Name = "Дата выдачи")]
         public DateTime DateOfIssue { get; set; }

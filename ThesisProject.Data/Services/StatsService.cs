@@ -74,7 +74,16 @@ namespace ThesisProject.Data.Services
         public async Task<IssueStatsResult> GetIssueStats(DateTime start, DateTime end)
         {
             var result = new IssueStatsResult();
-
+            result.Start = start;
+            result.End = end;
+            result.DayStats = await (from p in _dbContext.Diagnoses
+                group p by p.Name
+                into g
+                select new IssueStatsResultItem()
+                {
+                    Count = g.Count(),
+                    IssueName = g.Key
+                }).ToArrayAsync();
             return result;
         }
     }
